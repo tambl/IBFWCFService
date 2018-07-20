@@ -1,8 +1,10 @@
-﻿using System;
+﻿using IBFWCFService.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
+using System.ServiceModel.Web;
 using System.Text;
 
 namespace IBFWCFService
@@ -12,12 +14,16 @@ namespace IBFWCFService
     public interface IIBFService
     {
         [OperationContract]
+        [WebInvoke(Method = "GET", UriTemplate = "policies/{id}", ResponseFormat = WebMessageFormat.Json)]
         string GetData(int value);
 
         [OperationContract]
         CompositeType GetDataUsingDataContract(CompositeType composite);
 
         // TODO: Add your service operations here
+        [OperationContract]
+        [WebInvoke(Method = "GET", UriTemplate = "policies/{id}", ResponseFormat = WebMessageFormat.Json)]
+        List<Policy> GetPolicies(List<int> policyIds, bool isConfirmed, DateTime StartDate, DateTime EndDate, int? count);
     }
 
     // Use a data contract as illustrated in the sample below to add composite types to service operations.

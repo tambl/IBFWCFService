@@ -1,15 +1,19 @@
-﻿using System;
+﻿using IBFWCFService.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
+using System.ServiceModel.Web;
 using System.Text;
+
 
 namespace IBFWCFService
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in both code and config file together.
     public class IBFService : IIBFService
     {
+       
         public string GetData(int value)
         {
             return string.Format("You entered: {0}", value);
@@ -26,6 +30,12 @@ namespace IBFWCFService
                 composite.StringValue += "Suffix";
             }
             return composite;
+        }
+
+        public List<Policy> GetPolicies(List<int> policyIds, bool isConfirmed, DateTime StartDate, DateTime EndDate, int? count) {
+            var policies = new List<Policy>();
+
+            return policies;
         }
     }
 }
