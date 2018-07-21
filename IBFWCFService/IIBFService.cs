@@ -13,39 +13,16 @@ namespace IBFWCFService
     [ServiceContract]
     public interface IIBFService
     {
-        [OperationContract]
-        [WebInvoke(Method = "GET", UriTemplate = "policies/{id}", ResponseFormat = WebMessageFormat.Json)]
-        string GetData(int value);
+        //[OperationContract]
+        //[WebInvoke(Method = "GET", UriTemplate = "policies/{id}", ResponseFormat = WebMessageFormat.Json)]
+        //[WebInvoke(Method = "GET", UriTemplate = "policies/{ids}/{isConfirmed}/{startDate}/{endDate}/{count}", ResponseFormat = WebMessageFormat.Json)]
+        //List<Person> GetData(string ids, string isConfirmed, string startDate, string endDate, string count);
+
 
         [OperationContract]
-        CompositeType GetDataUsingDataContract(CompositeType composite);
+        [WebInvoke(Method = "GET", UriTemplate = "policies/{ids}/{isConfirmed}/{startDate}/{endDate}/{count}", ResponseFormat = WebMessageFormat.Json)]
+        List<Person> GetPolicies(string ids, string isConfirmed, string startDate, string endDate, string count);
 
-        // TODO: Add your service operations here
-        [OperationContract]
-        [WebInvoke(Method = "GET", UriTemplate = "policies/{id}", ResponseFormat = WebMessageFormat.Json)]
-        List<Policy> GetPolicies(List<int> policyIds, bool isConfirmed, DateTime StartDate, DateTime EndDate, int? count);
-    }
 
-    // Use a data contract as illustrated in the sample below to add composite types to service operations.
-    // You can add XSD files into the project. After building the project, you can directly use the data types defined there, with the namespace "IBFWCFService.ContractType".
-    [DataContract]
-    public class CompositeType
-    {
-        bool boolValue = true;
-        string stringValue = "Hello ";
-
-        [DataMember]
-        public bool BoolValue
-        {
-            get { return boolValue; }
-            set { boolValue = value; }
-        }
-
-        [DataMember]
-        public string StringValue
-        {
-            get { return stringValue; }
-            set { stringValue = value; }
-        }
     }
 }

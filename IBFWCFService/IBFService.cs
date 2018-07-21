@@ -10,32 +10,29 @@ using System.Text;
 
 namespace IBFWCFService
 {
-    // NOTE: You can use the "Rename" command on the "Refactor" menu to change the class name "Service1" in both code and config file together.
     public class IBFService : IIBFService
     {
-       
-        public string GetData(int value)
+
+        public List<Person> GetPolicies(string ids, string isConfirmed, string startDate, string endDate, string count)
         {
-            return string.Format("You entered: {0}", value);
-        }
+            var spletIDs = ids.Split(',');
+            var persons = new List<Person>();
 
-        public CompositeType GetDataUsingDataContract(CompositeType composite)
-        {
-            if (composite == null)
+            var isConfirmedConverted = (bool?)Convert.ToBoolean(isConfirmed) ?? null;
+            var startDateConverted = Convert.ToDateTime(startDate);
+            var endDateConverted = Convert.ToDateTime(endDate);
+            int? countConverted = Convert.ToInt32(count);
+
+            for (int i = 0; i < spletIDs.Count(); i++)
             {
-                throw new ArgumentNullException("composite");
+                persons.Add(new Person()
+                {
+                    PersonId = Convert.ToInt32(spletIDs[i]),
+                    FullName = "Policy " + isConfirmedConverted
+                });
             }
-            if (composite.BoolValue)
-            {
-                composite.StringValue += "Suffix";
-            }
-            return composite;
-        }
 
-        public List<Policy> GetPolicies(List<int> policyIds, bool isConfirmed, DateTime StartDate, DateTime EndDate, int? count) {
-            var policies = new List<Policy>();
-
-            return policies;
+            return persons;
         }
     }
 }
