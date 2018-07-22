@@ -20,7 +20,8 @@ namespace IBFWCFService
 
 
         [OperationContract]
-        [WebInvoke(Method = "GET", UriTemplate = "policies/{ids}/{isConfirmed}/{startDate}/{endDate}/{count}", ResponseFormat = WebMessageFormat.Json)]
+        [WebInvoke(Method = "GET", UriTemplate = "policies/?id={ids}&isConfirmed={isConfirmed}&startDate={startDate}&endDate={endDate}&count={count}", ResponseFormat = WebMessageFormat.Json)]
+        //http://localhost:8732/IBFService/policies/?id=1&id=2&isConfirmed=true&startDate=01-01-2013&endDate=01-02-2013&count=5
         List<Person> GetPolicies(string ids, string isConfirmed, string startDate, string endDate, string count);
 
 
