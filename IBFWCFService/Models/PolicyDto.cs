@@ -8,15 +8,16 @@ using System.Threading.Tasks;
 namespace IBFWCFService.Models
 {
     [DataContract]
-    public class Policy
+    public class PolicyDto
     {
         [DataMember]
         public int PolicyId { get; set; }
+        [DataMember]
         public int PolicyVersionId { get; set; }
         [DataMember]
         public bool PolicyVersionIsActive { get; set; }
         [DataMember]
-        public Product Product { get; set; }
+        public ProductDto Product { get; set; }
         [DataMember]
         public string PolicyNumber { get; set; }
         [DataMember]
@@ -32,13 +33,13 @@ namespace IBFWCFService.Models
         [DataMember]
         public string PolicyVersionStatus { get; set; }
         [DataMember]
-        public Person Insured { get; set; }
+        public PersonDto Insured { get; set; }
         [DataMember]
-        public Person Beneficiary { get; set; }
+        public PersonDto Beneficiary { get; set; }
         [DataMember]
-        public Person Client { get; set; }
+        public PersonDto Client { get; set; }
         [DataMember]
-        public Person MemorandumOperator { get; set; }
+        public PersonDto MemorandumOperator { get; set; }
         [DataMember] //მემორანდუმის დროს ხელშეკრულების დამდები და რეალური კლიენტი განსხვავდება ხოლმე{ get; set; } [DataMember]
         public decimal AmountInCurrency { get; set; }
         [DataMember] //თანხა ვალუტაში
@@ -48,9 +49,9 @@ namespace IBFWCFService.Models
         [DataMember]
         public string Currency { get; set; }
         [DataMember]
-        public List<Reinsuarer> Reinsuarer { get; set; }
+        public List<ReinsuarerDto> Reinsuarer { get; set; }
         [DataMember]
-        public List<AgentBroker> AgentBroker { get; set; }
+        public List<AgentBrokerDto> AgentBroker { get; set; }
      
     }
 

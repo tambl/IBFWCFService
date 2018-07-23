@@ -1,0 +1,1099 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="IBFModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Contract">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IsMemorandum" Type="bit" Nullable="false" />
+          <Property Name="TypeId" Type="int" Nullable="false" />
+          <Property Name="SpecipicationTypeId" Type="int" Nullable="false" />
+          <Property Name="PaymentSchemaId" Type="int" />
+          <Property Name="CoverageZoneId" Type="int" />
+          <Property Name="ContractNo" Type="nvarchar" MaxLength="300" />
+          <Property Name="AdditionalContractNo" Type="nvarchar" MaxLength="300" />
+          <Property Name="ClientId" Type="int" />
+          <Property Name="ParentOrganizationId" Type="int" />
+          <Property Name="StartDate" Type="datetime2" Precision="0" />
+          <Property Name="EndDate" Type="datetime2" Precision="0" />
+          <Property Name="IsDraft" Type="bit" Nullable="false" />
+          <Property Name="ContractStatusId" Type="int" Nullable="false" />
+          <Property Name="ChannelId" Type="int" Nullable="false" />
+          <Property Name="ApproveDate" Type="datetime2" Precision="0" />
+          <Property Name="HasFreeChoiseOfProviders" Type="bit" />
+          <Property Name="IsDelete" Type="bit" Nullable="false" />
+          <Property Name="IsHidden" Type="bit" Nullable="false" />
+          <Property Name="CreateUserId" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime2" Precision="0" Nullable="false" />
+          <Property Name="LastModifiedUserId" Type="int" />
+          <Property Name="LastModifiedDate" Type="datetime2" Precision="0" />
+          <Property Name="CurrencyId" Type="int" />
+          <Property Name="ServiceManagerId" Type="int" />
+          <Property Name="ClaimManagerId" Type="int" />
+          <Property Name="IsNotifyRead" Type="bit" />
+          <Property Name="ParentContractLogId" Type="int" />
+          <Property Name="FirstPaymentDate" Type="datetime2" Precision="7" />
+          <Property Name="PayCount" Type="int" />
+          <Property Name="IsSuspend" Type="bit" Nullable="false" />
+          <Property Name="SuspendReasonTypeId" Type="int" />
+          <Property Name="SuspendReasonComment" Type="nvarchar" MaxLength="500" />
+          <Property Name="SuspendReasonDate" Type="datetime2" Precision="7" />
+          <Property Name="IsAnnulate" Type="bit" Nullable="false" />
+          <Property Name="AnnulateUserId" Type="int" />
+          <Property Name="AnnulateComment" Type="nvarchar" MaxLength="500" />
+          <Property Name="AnnulateDate" Type="datetime2" Precision="7" />
+          <Property Name="IsUnApproved" Type="bit" />
+          <Property Name="OriginalDocumentDeadlineDay" Type="int" />
+          <Property Name="LedManagerId" Type="int" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="300" />
+          <Property Name="Lastname" Type="nvarchar" MaxLength="300" />
+          <Property Name="FirstNameEng" Type="nvarchar" MaxLength="300" />
+          <Property Name="LastnameEng" Type="nvarchar" MaxLength="300" />
+          <Property Name="BirthDate" Type="datetime2" Precision="7" />
+          <Property Name="GenderId" Type="int" />
+          <Property Name="PersonNo" Type="nvarchar" MaxLength="300" />
+          <Property Name="PassportNo" Type="nvarchar" MaxLength="300" />
+          <Property Name="PassportValidDate" Type="datetime2" Precision="7" />
+          <Property Name="IdentityCardValidDate" Type="datetime2" Precision="7" />
+          <Property Name="IsPoliticallyActivePerson" Type="bit" Nullable="false" />
+          <Property Name="CitizenshipCountryId" Type="int" />
+          <Property Name="ResidenceCountryId" Type="int" />
+          <Property Name="PersonTypeId" Type="int" />
+          <Property Name="LegalStatusId" Type="int" />
+          <Property Name="RegistrationCountryId" Type="int" />
+          <Property Name="IncomeRangeId" Type="int" />
+          <Property Name="OrganizationStatusId" Type="int" />
+          <Property Name="OrganizationStructureId" Type="int" />
+          <Property Name="CustomerStatusId" Type="int" />
+          <Property Name="SocialStatusId" Type="int" />
+          <Property Name="OrganizationRiskId" Type="int" />
+          <Property Name="PersonBlackListId" Type="int" />
+          <Property Name="RegistratorOrganization" Type="nvarchar" MaxLength="300" />
+          <Property Name="RegistrationNo" Type="nvarchar" MaxLength="300" />
+          <Property Name="RegistrationDate" Type="datetime2" Precision="7" />
+          <Property Name="IdentityNumber" Type="nvarchar" MaxLength="300" />
+          <Property Name="IsDeath" Type="bit" />
+          <Property Name="DeathDate" Type="datetime2" Precision="7" />
+          <Property Name="IsBlack" Type="bit" />
+          <Property Name="IsOwnerCompany" Type="bit" />
+          <Property Name="IsGovernment" Type="bit" />
+          <Property Name="Mail" Type="varchar" MaxLength="50" />
+          <Property Name="SupervisionPersonId" Type="uniqueidentifier" />
+          <Property Name="MaritalStatysId" Type="int" />
+          <Property Name="IsDelete" Type="bit" Nullable="false" />
+          <Property Name="IsHidden" Type="bit" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="LastModifiedDate" Type="datetime2" Precision="7" />
+          <Property Name="LastModifiedUserId" Type="int" />
+          <Property Name="CreateUserId" Type="int" />
+          <Property Name="PersonChangeLogId" Type="int" />
+          <Property Name="AuthorizationUserId" Type="int" />
+          <Property Name="UserAuthorizationDate" Type="datetime2" Precision="7" />
+          <Property Name="IsAuthorized" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Policy">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PolicyNumber" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="ContractPackageId" Type="int" />
+          <Property Name="MedicalCoverageId" Type="int" />
+          <Property Name="VehicleAssessmentId" Type="int" />
+          <Property Name="CurrencyId" Type="int" />
+          <Property Name="ProductId" Type="int" />
+          <Property Name="ServiceManageraId" Type="int" />
+          <Property Name="ClaimManageraId" Type="int" />
+          <Property Name="IsMain" Type="bit" Nullable="false" />
+          <Property Name="IsVerifySupervision" Type="bit" Nullable="false" />
+          <Property Name="VerifySupervisionDate" Type="datetime2" Precision="7" />
+          <Property Name="AnnulatedReasonId" Type="int" />
+          <Property Name="PauseUserId" Type="int" />
+          <Property Name="PauseDate" Type="datetime2" Precision="7" />
+          <Property Name="PauseComment" Type="nvarchar" MaxLength="100" />
+          <Property Name="AnnulatedComment" Type="nvarchar" MaxLength="100" />
+          <Property Name="AnnulatedUserId" Type="int" />
+          <Property Name="IsAnnulated" Type="bit" />
+          <Property Name="ParentPolicyId" Type="int" />
+          <Property Name="MainPolicyHolderId" Type="int" />
+          <Property Name="ContractId" Type="int" />
+          <Property Name="StartDate" Type="datetime2" Precision="7" />
+          <Property Name="EndDate" Type="datetime2" Precision="7" />
+          <Property Name="InsurancedStartDate" Type="datetime2" Precision="7" />
+          <Property Name="IsPaused" Type="bit" Nullable="false" />
+          <Property Name="IsDelete" Type="bit" Nullable="false" />
+          <Property Name="IsHidden" Type="bit" Nullable="false" />
+          <Property Name="ApproveDate" Type="datetime2" Precision="0" />
+          <Property Name="IsNotifyRead" Type="bit" />
+          <Property Name="CreateDate" Type="datetime2" Precision="0" Nullable="false" />
+          <Property Name="LastModifiedDate" Type="datetime2" Precision="0" />
+          <Property Name="LastModifiedUserId" Type="int" />
+          <Property Name="CreateUserId" Type="int" />
+          <Property Name="ParentPolicyLogId" Type="int" />
+          <Property Name="ContractPackageServiceId" Type="int" />
+          <Property Name="ApprovePersonCount" Type="int" />
+        </EntityType>
+        <EntityType Name="PolicyReinsurance">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PolicyVersionId" Type="int" />
+          <Property Name="ReinsuranceContractId" Type="int" Nullable="false" />
+          <Property Name="SelfRisk" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="SelfPremium" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="TreatRisk" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="TreatPremium" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="FacultativeRisk" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="FacultativePremium" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreateUserid" Type="int" />
+          <Property Name="CreateDate" Type="datetime2" Precision="0" Nullable="false" />
+          <Property Name="LastModifiedUserId" Type="int" />
+          <Property Name="LastModifiedDate" Type="datetime2" Precision="0" />
+        </EntityType>
+        <EntityType Name="PolicyVersion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PolicyId" Type="int" />
+          <Property Name="PolicyVersionStatusId" Type="int" />
+          <Property Name="CoverageZoneId" Type="int" />
+          <Property Name="ClientId" Type="int" />
+          <Property Name="OrganisationId" Type="int" />
+          <Property Name="BeneficiaryId" Type="int" />
+          <Property Name="PolicyStatusId" Type="int" />
+          <Property Name="PolicyHolderId" Type="int" />
+          <Property Name="Risk" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PremiumInGel" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="LimitInGel" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="NetPremium" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="OriginalPremium" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="FinalyPremium" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="DiscountPercent" Type="int" />
+          <Property Name="EntryDate" Type="date" Nullable="false" />
+          <Property Name="ExpiryDate" Type="date" Nullable="false" />
+          <Property Name="StartDate" Type="datetime2" Precision="7" />
+          <Property Name="EndDate" Type="datetime2" Precision="7" />
+          <Property Name="VersionStartDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="VersionEndDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="ReinsuranceStatusId" Type="int" />
+          <Property Name="IsPrint" Type="bit" />
+          <Property Name="PaymentIterationId" Type="int" />
+          <Property Name="PrintDate" Type="datetime2" Precision="7" />
+          <Property Name="IsDelete" Type="bit" Nullable="false" />
+          <Property Name="IsHidden" Type="bit" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime2" Precision="0" Nullable="false" />
+          <Property Name="LastModifiedDate" Type="datetime2" Precision="0" />
+          <Property Name="LastModifiedUserId" Type="int" />
+          <Property Name="CreateUserId" Type="int" />
+          <Property Name="InitialPremium" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="ServiceManagerId" Type="int" />
+          <Property Name="SaleManagerId" Type="int" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Contract_Contract_ParentContractLogId">
+          <End Role="Contract" Type="Self.Contract" Multiplicity="0..1" />
+          <End Role="Contract1" Type="Self.Contract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contract">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Contract1">
+              <PropertyRef Name="ParentContractLogId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contract_Person_ClientId">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="Contract" Type="Self.Contract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Contract">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contract_Person_ParentOrganizationId">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="Contract" Type="Self.Contract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Contract">
+              <PropertyRef Name="ParentOrganizationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Person_Person_Person_Person_PersonChangeLogId">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="Person1" Type="Self.Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Person1">
+              <PropertyRef Name="PersonChangeLogId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Policy_Contract_ContractId">
+          <End Role="Contract" Type="Self.Contract" Multiplicity="0..1" />
+          <End Role="Policy" Type="Self.Policy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contract">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Policy">
+              <PropertyRef Name="ContractId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Policy_Policy">
+          <End Role="Policy" Type="Self.Policy" Multiplicity="0..1" />
+          <End Role="Policy1" Type="Self.Policy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Policy">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Policy1">
+              <PropertyRef Name="MainPolicyHolderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PolicyReinsurance_PolicyVersion_PolicyVersionId">
+          <End Role="PolicyVersion" Type="Self.PolicyVersion" Multiplicity="0..1" />
+          <End Role="PolicyReinsurance" Type="Self.PolicyReinsurance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PolicyVersion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PolicyReinsurance">
+              <PropertyRef Name="PolicyVersionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PolicyVersion_Person_ClientId">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="PolicyVersion" Type="Self.PolicyVersion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PolicyVersion">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PolicyVersion_Person_OrganisationId">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="PolicyVersion" Type="Self.PolicyVersion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PolicyVersion">
+              <PropertyRef Name="OrganisationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PolicyVersion_Person_SaleManagerId">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="PolicyVersion" Type="Self.PolicyVersion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PolicyVersion">
+              <PropertyRef Name="SaleManagerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PolicyVersion_Policy_policyId">
+          <End Role="Policy" Type="Self.Policy" Multiplicity="0..1" />
+          <End Role="PolicyVersion" Type="Self.PolicyVersion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Policy">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PolicyVersion">
+              <PropertyRef Name="PolicyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PolicyVersion_User_BeneficiaryId">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="PolicyVersion" Type="Self.PolicyVersion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PolicyVersion">
+              <PropertyRef Name="BeneficiaryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PolicyVersion_User_PolicyHolderId">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="PolicyVersion" Type="Self.PolicyVersion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PolicyVersion">
+              <PropertyRef Name="PolicyHolderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="IBFModelStoreContainer">
+          <EntitySet Name="Contract" EntityType="Self.Contract" Schema="Contract" store:Type="Tables" />
+          <EntitySet Name="Person" EntityType="Self.Person" Schema="Person" store:Type="Tables" />
+          <EntitySet Name="Policy" EntityType="Self.Policy" Schema="Policy" store:Type="Tables" />
+          <EntitySet Name="PolicyReinsurance" EntityType="Self.PolicyReinsurance" Schema="Policy" store:Type="Tables" />
+          <EntitySet Name="PolicyVersion" EntityType="Self.PolicyVersion" Schema="Policy" store:Type="Tables" />
+          <AssociationSet Name="FK_Contract_Contract_ParentContractLogId" Association="Self.FK_Contract_Contract_ParentContractLogId">
+            <End Role="Contract" EntitySet="Contract" />
+            <End Role="Contract1" EntitySet="Contract" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contract_Person_ClientId" Association="Self.FK_Contract_Person_ClientId">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Contract" EntitySet="Contract" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contract_Person_ParentOrganizationId" Association="Self.FK_Contract_Person_ParentOrganizationId">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Contract" EntitySet="Contract" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Person_Person_Person_Person_PersonChangeLogId" Association="Self.FK_Person_Person_Person_Person_PersonChangeLogId">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Person1" EntitySet="Person" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Policy_Contract_ContractId" Association="Self.FK_Policy_Contract_ContractId">
+            <End Role="Contract" EntitySet="Contract" />
+            <End Role="Policy" EntitySet="Policy" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Policy_Policy" Association="Self.FK_Policy_Policy">
+            <End Role="Policy" EntitySet="Policy" />
+            <End Role="Policy1" EntitySet="Policy" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PolicyReinsurance_PolicyVersion_PolicyVersionId" Association="Self.FK_PolicyReinsurance_PolicyVersion_PolicyVersionId">
+            <End Role="PolicyVersion" EntitySet="PolicyVersion" />
+            <End Role="PolicyReinsurance" EntitySet="PolicyReinsurance" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PolicyVersion_Person_ClientId" Association="Self.FK_PolicyVersion_Person_ClientId">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="PolicyVersion" EntitySet="PolicyVersion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PolicyVersion_Person_OrganisationId" Association="Self.FK_PolicyVersion_Person_OrganisationId">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="PolicyVersion" EntitySet="PolicyVersion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PolicyVersion_Person_SaleManagerId" Association="Self.FK_PolicyVersion_Person_SaleManagerId">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="PolicyVersion" EntitySet="PolicyVersion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PolicyVersion_Policy_policyId" Association="Self.FK_PolicyVersion_Policy_policyId">
+            <End Role="Policy" EntitySet="Policy" />
+            <End Role="PolicyVersion" EntitySet="PolicyVersion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PolicyVersion_User_BeneficiaryId" Association="Self.FK_PolicyVersion_User_BeneficiaryId">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="PolicyVersion" EntitySet="PolicyVersion" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PolicyVersion_User_PolicyHolderId" Association="Self.FK_PolicyVersion_User_PolicyHolderId">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="PolicyVersion" EntitySet="PolicyVersion" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="IBFModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Contract">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IsMemorandum" Type="Boolean" Nullable="false" />
+          <Property Name="TypeId" Type="Int32" Nullable="false" />
+          <Property Name="SpecipicationTypeId" Type="Int32" Nullable="false" />
+          <Property Name="PaymentSchemaId" Type="Int32" />
+          <Property Name="CoverageZoneId" Type="Int32" />
+          <Property Name="ContractNo" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="AdditionalContractNo" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="ClientId" Type="Int32" />
+          <Property Name="ParentOrganizationId" Type="Int32" />
+          <Property Name="StartDate" Type="DateTime" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Precision="0" />
+          <Property Name="IsDraft" Type="Boolean" Nullable="false" />
+          <Property Name="ContractStatusId" Type="Int32" Nullable="false" />
+          <Property Name="ChannelId" Type="Int32" Nullable="false" />
+          <Property Name="ApproveDate" Type="DateTime" Precision="0" />
+          <Property Name="HasFreeChoiseOfProviders" Type="Boolean" />
+          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+          <Property Name="IsHidden" Type="Boolean" Nullable="false" />
+          <Property Name="CreateUserId" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="LastModifiedUserId" Type="Int32" />
+          <Property Name="LastModifiedDate" Type="DateTime" Precision="0" />
+          <Property Name="CurrencyId" Type="Int32" />
+          <Property Name="ServiceManagerId" Type="Int32" />
+          <Property Name="ClaimManagerId" Type="Int32" />
+          <Property Name="IsNotifyRead" Type="Boolean" />
+          <Property Name="ParentContractLogId" Type="Int32" />
+          <Property Name="FirstPaymentDate" Type="DateTime" Precision="7" />
+          <Property Name="PayCount" Type="Int32" />
+          <Property Name="IsSuspend" Type="Boolean" Nullable="false" />
+          <Property Name="SuspendReasonTypeId" Type="Int32" />
+          <Property Name="SuspendReasonComment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="SuspendReasonDate" Type="DateTime" Precision="7" />
+          <Property Name="IsAnnulate" Type="Boolean" Nullable="false" />
+          <Property Name="AnnulateUserId" Type="Int32" />
+          <Property Name="AnnulateComment" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="AnnulateDate" Type="DateTime" Precision="7" />
+          <Property Name="IsUnApproved" Type="Boolean" />
+          <Property Name="OriginalDocumentDeadlineDay" Type="Int32" />
+          <Property Name="LedManagerId" Type="Int32" />
+          <NavigationProperty Name="Contract1" Relationship="Self.FK_Contract_Contract_ParentContractLogId" FromRole="Contract" ToRole="Contract1" />
+          <NavigationProperty Name="Contract2" Relationship="Self.FK_Contract_Contract_ParentContractLogId" FromRole="Contract1" ToRole="Contract" />
+          <NavigationProperty Name="Policies" Relationship="Self.FK_Policy_Contract_ContractId" FromRole="Contract" ToRole="Policy" />
+          <NavigationProperty Name="Person" Relationship="IBFModel.FK_Contract_Person_ClientId" FromRole="Contract" ToRole="Person" />
+          <NavigationProperty Name="Person1" Relationship="IBFModel.FK_Contract_Person_ParentOrganizationId" FromRole="Contract" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="Policy">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PolicyNumber" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContractPackageId" Type="Int32" />
+          <Property Name="MedicalCoverageId" Type="Int32" />
+          <Property Name="VehicleAssessmentId" Type="Int32" />
+          <Property Name="CurrencyId" Type="Int32" />
+          <Property Name="ProductId" Type="Int32" />
+          <Property Name="ServiceManageraId" Type="Int32" />
+          <Property Name="ClaimManageraId" Type="Int32" />
+          <Property Name="IsMain" Type="Boolean" Nullable="false" />
+          <Property Name="IsVerifySupervision" Type="Boolean" Nullable="false" />
+          <Property Name="VerifySupervisionDate" Type="DateTime" Precision="7" />
+          <Property Name="AnnulatedReasonId" Type="Int32" />
+          <Property Name="PauseUserId" Type="Int32" />
+          <Property Name="PauseDate" Type="DateTime" Precision="7" />
+          <Property Name="PauseComment" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="AnnulatedComment" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="AnnulatedUserId" Type="Int32" />
+          <Property Name="IsAnnulated" Type="Boolean" />
+          <Property Name="ParentPolicyId" Type="Int32" />
+          <Property Name="MainPolicyHolderId" Type="Int32" />
+          <Property Name="ContractId" Type="Int32" />
+          <Property Name="StartDate" Type="DateTime" Precision="7" />
+          <Property Name="EndDate" Type="DateTime" Precision="7" />
+          <Property Name="InsurancedStartDate" Type="DateTime" Precision="7" />
+          <Property Name="IsPaused" Type="Boolean" Nullable="false" />
+          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+          <Property Name="IsHidden" Type="Boolean" Nullable="false" />
+          <Property Name="ApproveDate" Type="DateTime" Precision="0" />
+          <Property Name="IsNotifyRead" Type="Boolean" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="LastModifiedDate" Type="DateTime" Precision="0" />
+          <Property Name="LastModifiedUserId" Type="Int32" />
+          <Property Name="CreateUserId" Type="Int32" />
+          <Property Name="ParentPolicyLogId" Type="Int32" />
+          <Property Name="ContractPackageServiceId" Type="Int32" />
+          <Property Name="ApprovePersonCount" Type="Int32" />
+          <NavigationProperty Name="Contract" Relationship="Self.FK_Policy_Contract_ContractId" FromRole="Policy" ToRole="Contract" />
+          <NavigationProperty Name="Policy1" Relationship="Self.FK_Policy_Policy" FromRole="Policy" ToRole="Policy1" />
+          <NavigationProperty Name="Policy2" Relationship="Self.FK_Policy_Policy" FromRole="Policy1" ToRole="Policy" />
+          <NavigationProperty Name="PolicyVersions" Relationship="Self.FK_PolicyVersion_Policy_policyId" FromRole="Policy" ToRole="PolicyVersion" />
+        </EntityType>
+        <EntityType Name="PolicyReinsurance">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PolicyVersionId" Type="Int32" />
+          <Property Name="ReinsuranceContractId" Type="Int32" Nullable="false" />
+          <Property Name="SelfRisk" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="SelfPremium" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="TreatRisk" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="TreatPremium" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="FacultativeRisk" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="FacultativePremium" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreateUserid" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="LastModifiedUserId" Type="Int32" />
+          <Property Name="LastModifiedDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="PolicyVersion" Relationship="Self.FK_PolicyReinsurance_PolicyVersion_PolicyVersionId" FromRole="PolicyReinsurance" ToRole="PolicyVersion" />
+        </EntityType>
+        <EntityType Name="PolicyVersion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PolicyId" Type="Int32" />
+          <Property Name="PolicyVersionStatusId" Type="Int32" />
+          <Property Name="CoverageZoneId" Type="Int32" />
+          <Property Name="ClientId" Type="Int32" />
+          <Property Name="OrganisationId" Type="Int32" />
+          <Property Name="BeneficiaryId" Type="Int32" />
+          <Property Name="PolicyStatusId" Type="Int32" />
+          <Property Name="PolicyHolderId" Type="Int32" />
+          <Property Name="Risk" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PremiumInGel" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="LimitInGel" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="NetPremium" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="OriginalPremium" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="FinalyPremium" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="DiscountPercent" Type="Int32" />
+          <Property Name="EntryDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ExpiryDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="StartDate" Type="DateTime" Precision="7" />
+          <Property Name="EndDate" Type="DateTime" Precision="7" />
+          <Property Name="VersionStartDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="VersionEndDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="ReinsuranceStatusId" Type="Int32" />
+          <Property Name="IsPrint" Type="Boolean" />
+          <Property Name="PaymentIterationId" Type="Int32" />
+          <Property Name="PrintDate" Type="DateTime" Precision="7" />
+          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+          <Property Name="IsHidden" Type="Boolean" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="LastModifiedDate" Type="DateTime" Precision="0" />
+          <Property Name="LastModifiedUserId" Type="Int32" />
+          <Property Name="CreateUserId" Type="Int32" />
+          <Property Name="InitialPremium" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ServiceManagerId" Type="Int32" />
+          <Property Name="SaleManagerId" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Policy" Relationship="Self.FK_PolicyVersion_Policy_policyId" FromRole="PolicyVersion" ToRole="Policy" />
+          <NavigationProperty Name="PolicyReinsurances" Relationship="Self.FK_PolicyReinsurance_PolicyVersion_PolicyVersionId" FromRole="PolicyVersion" ToRole="PolicyReinsurance" />
+          <NavigationProperty Name="Person" Relationship="IBFModel.FK_PolicyVersion_Person_ClientId" FromRole="PolicyVersion" ToRole="Person" />
+          <NavigationProperty Name="Person1" Relationship="IBFModel.FK_PolicyVersion_Person_OrganisationId" FromRole="PolicyVersion" ToRole="Person" />
+          <NavigationProperty Name="Person2" Relationship="IBFModel.FK_PolicyVersion_Person_SaleManagerId" FromRole="PolicyVersion" ToRole="Person" />
+          <NavigationProperty Name="Person3" Relationship="IBFModel.FK_PolicyVersion_User_BeneficiaryId" FromRole="PolicyVersion" ToRole="Person" />
+          <NavigationProperty Name="Person4" Relationship="IBFModel.FK_PolicyVersion_User_PolicyHolderId" FromRole="PolicyVersion" ToRole="Person" />
+        </EntityType>
+        <Association Name="FK_Contract_Contract_ParentContractLogId">
+          <End Role="Contract" Type="Self.Contract" Multiplicity="0..1" />
+          <End Role="Contract1" Type="Self.Contract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contract">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Contract1">
+              <PropertyRef Name="ParentContractLogId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Policy_Contract_ContractId">
+          <End Role="Contract" Type="Self.Contract" Multiplicity="0..1" />
+          <End Role="Policy" Type="Self.Policy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contract">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Policy">
+              <PropertyRef Name="ContractId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Policy_Policy">
+          <End Role="Policy" Type="Self.Policy" Multiplicity="0..1" />
+          <End Role="Policy1" Type="Self.Policy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Policy">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Policy1">
+              <PropertyRef Name="MainPolicyHolderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PolicyVersion_Policy_policyId">
+          <End Role="Policy" Type="Self.Policy" Multiplicity="0..1" />
+          <End Role="PolicyVersion" Type="Self.PolicyVersion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Policy">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PolicyVersion">
+              <PropertyRef Name="PolicyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PolicyReinsurance_PolicyVersion_PolicyVersionId">
+          <End Role="PolicyVersion" Type="Self.PolicyVersion" Multiplicity="0..1" />
+          <End Role="PolicyReinsurance" Type="Self.PolicyReinsurance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PolicyVersion">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PolicyReinsurance">
+              <PropertyRef Name="PolicyVersionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="IBFEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Contracts" EntityType="Self.Contract" />
+          <EntitySet Name="Policies" EntityType="Self.Policy" />
+          <EntitySet Name="PolicyReinsurances" EntityType="Self.PolicyReinsurance" />
+          <EntitySet Name="PolicyVersions" EntityType="Self.PolicyVersion" />
+          <AssociationSet Name="FK_Contract_Contract_ParentContractLogId" Association="Self.FK_Contract_Contract_ParentContractLogId">
+            <End Role="Contract" EntitySet="Contracts" />
+            <End Role="Contract1" EntitySet="Contracts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Policy_Contract_ContractId" Association="Self.FK_Policy_Contract_ContractId">
+            <End Role="Contract" EntitySet="Contracts" />
+            <End Role="Policy" EntitySet="Policies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Policy_Policy" Association="Self.FK_Policy_Policy">
+            <End Role="Policy" EntitySet="Policies" />
+            <End Role="Policy1" EntitySet="Policies" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PolicyVersion_Policy_policyId" Association="Self.FK_PolicyVersion_Policy_policyId">
+            <End Role="Policy" EntitySet="Policies" />
+            <End Role="PolicyVersion" EntitySet="PolicyVersions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PolicyReinsurance_PolicyVersion_PolicyVersionId" Association="Self.FK_PolicyReinsurance_PolicyVersion_PolicyVersionId">
+            <End Role="PolicyVersion" EntitySet="PolicyVersions" />
+            <End Role="PolicyReinsurance" EntitySet="PolicyReinsurances" />
+          </AssociationSet>
+          <EntitySet Name="People" EntityType="IBFModel.Person" />
+          <AssociationSet Name="FK_Contract_Person_ClientId" Association="IBFModel.FK_Contract_Person_ClientId">
+            <End Role="Person" EntitySet="People" />
+            <End Role="Contract" EntitySet="Contracts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contract_Person_ParentOrganizationId" Association="IBFModel.FK_Contract_Person_ParentOrganizationId">
+            <End Role="Person" EntitySet="People" />
+            <End Role="Contract" EntitySet="Contracts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Person_Person_Person_Person_PersonChangeLogId" Association="IBFModel.FK_Person_Person_Person_Person_PersonChangeLogId">
+            <End Role="Person" EntitySet="People" />
+            <End Role="Person1" EntitySet="People" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PolicyVersion_Person_ClientId" Association="IBFModel.FK_PolicyVersion_Person_ClientId">
+            <End Role="Person" EntitySet="People" />
+            <End Role="PolicyVersion" EntitySet="PolicyVersions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PolicyVersion_Person_OrganisationId" Association="IBFModel.FK_PolicyVersion_Person_OrganisationId">
+            <End Role="Person" EntitySet="People" />
+            <End Role="PolicyVersion" EntitySet="PolicyVersions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PolicyVersion_Person_SaleManagerId" Association="IBFModel.FK_PolicyVersion_Person_SaleManagerId">
+            <End Role="Person" EntitySet="People" />
+            <End Role="PolicyVersion" EntitySet="PolicyVersions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PolicyVersion_User_BeneficiaryId" Association="IBFModel.FK_PolicyVersion_User_BeneficiaryId">
+            <End Role="Person" EntitySet="People" />
+            <End Role="PolicyVersion" EntitySet="PolicyVersions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PolicyVersion_User_PolicyHolderId" Association="IBFModel.FK_PolicyVersion_User_PolicyHolderId">
+            <End Role="Person" EntitySet="People" />
+            <End Role="PolicyVersion" EntitySet="PolicyVersions" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Lastname" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="FirstNameEng" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="LastnameEng" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="BirthDate" Type="DateTime" Precision="7" />
+          <Property Name="GenderId" Type="Int32" />
+          <Property Name="PersonNo" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="PassportNo" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="PassportValidDate" Type="DateTime" Precision="7" />
+          <Property Name="IdentityCardValidDate" Type="DateTime" Precision="7" />
+          <Property Name="IsPoliticallyActivePerson" Type="Boolean" Nullable="false" />
+          <Property Name="CitizenshipCountryId" Type="Int32" />
+          <Property Name="ResidenceCountryId" Type="Int32" />
+          <Property Name="PersonTypeId" Type="Int32" />
+          <Property Name="LegalStatusId" Type="Int32" />
+          <Property Name="RegistrationCountryId" Type="Int32" />
+          <Property Name="IncomeRangeId" Type="Int32" />
+          <Property Name="OrganizationStatusId" Type="Int32" />
+          <Property Name="OrganizationStructureId" Type="Int32" />
+          <Property Name="CustomerStatusId" Type="Int32" />
+          <Property Name="SocialStatusId" Type="Int32" />
+          <Property Name="OrganizationRiskId" Type="Int32" />
+          <Property Name="PersonBlackListId" Type="Int32" />
+          <Property Name="RegistratorOrganization" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="RegistrationNo" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="RegistrationDate" Type="DateTime" Precision="7" />
+          <Property Name="IdentityNumber" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeath" Type="Boolean" />
+          <Property Name="DeathDate" Type="DateTime" Precision="7" />
+          <Property Name="IsBlack" Type="Boolean" />
+          <Property Name="IsOwnerCompany" Type="Boolean" />
+          <Property Name="IsGovernment" Type="Boolean" />
+          <Property Name="Mail" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SupervisionPersonId" Type="Guid" />
+          <Property Name="MaritalStatysId" Type="Int32" />
+          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+          <Property Name="IsHidden" Type="Boolean" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="LastModifiedDate" Type="DateTime" Precision="7" />
+          <Property Name="LastModifiedUserId" Type="Int32" />
+          <Property Name="CreateUserId" Type="Int32" />
+          <Property Name="PersonChangeLogId" Type="Int32" />
+          <Property Name="AuthorizationUserId" Type="Int32" />
+          <Property Name="UserAuthorizationDate" Type="DateTime" Precision="7" />
+          <Property Name="IsAuthorized" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Contracts" Relationship="IBFModel.FK_Contract_Person_ClientId" FromRole="Person" ToRole="Contract" />
+          <NavigationProperty Name="Contracts1" Relationship="IBFModel.FK_Contract_Person_ParentOrganizationId" FromRole="Person" ToRole="Contract" />
+          <NavigationProperty Name="Person1" Relationship="IBFModel.FK_Person_Person_Person_Person_PersonChangeLogId" FromRole="Person" ToRole="Person1" />
+          <NavigationProperty Name="Person2" Relationship="IBFModel.FK_Person_Person_Person_Person_PersonChangeLogId" FromRole="Person1" ToRole="Person" />
+          <NavigationProperty Name="PolicyVersions" Relationship="IBFModel.FK_PolicyVersion_Person_ClientId" FromRole="Person" ToRole="PolicyVersion" />
+          <NavigationProperty Name="PolicyVersions1" Relationship="IBFModel.FK_PolicyVersion_Person_OrganisationId" FromRole="Person" ToRole="PolicyVersion" />
+          <NavigationProperty Name="PolicyVersions2" Relationship="IBFModel.FK_PolicyVersion_Person_SaleManagerId" FromRole="Person" ToRole="PolicyVersion" />
+          <NavigationProperty Name="PolicyVersions3" Relationship="IBFModel.FK_PolicyVersion_User_BeneficiaryId" FromRole="Person" ToRole="PolicyVersion" />
+          <NavigationProperty Name="PolicyVersions4" Relationship="IBFModel.FK_PolicyVersion_User_PolicyHolderId" FromRole="Person" ToRole="PolicyVersion" />
+        </EntityType>
+        <Association Name="FK_Contract_Person_ClientId">
+          <End Type="IBFModel.Person" Role="Person" Multiplicity="0..1" />
+          <End Type="IBFModel.Contract" Role="Contract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Contract">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contract_Person_ParentOrganizationId">
+          <End Type="IBFModel.Person" Role="Person" Multiplicity="0..1" />
+          <End Type="IBFModel.Contract" Role="Contract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Contract">
+              <PropertyRef Name="ParentOrganizationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Person_Person_Person_Person_PersonChangeLogId">
+          <End Type="IBFModel.Person" Role="Person" Multiplicity="0..1" />
+          <End Type="IBFModel.Person" Role="Person1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Person1">
+              <PropertyRef Name="PersonChangeLogId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PolicyVersion_Person_ClientId">
+          <End Type="IBFModel.Person" Role="Person" Multiplicity="0..1" />
+          <End Type="IBFModel.PolicyVersion" Role="PolicyVersion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PolicyVersion">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PolicyVersion_Person_OrganisationId">
+          <End Type="IBFModel.Person" Role="Person" Multiplicity="0..1" />
+          <End Type="IBFModel.PolicyVersion" Role="PolicyVersion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PolicyVersion">
+              <PropertyRef Name="OrganisationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PolicyVersion_Person_SaleManagerId">
+          <End Type="IBFModel.Person" Role="Person" Multiplicity="0..1" />
+          <End Type="IBFModel.PolicyVersion" Role="PolicyVersion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PolicyVersion">
+              <PropertyRef Name="SaleManagerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PolicyVersion_User_BeneficiaryId">
+          <End Type="IBFModel.Person" Role="Person" Multiplicity="0..1" />
+          <End Type="IBFModel.PolicyVersion" Role="PolicyVersion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PolicyVersion">
+              <PropertyRef Name="BeneficiaryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PolicyVersion_User_PolicyHolderId">
+          <End Type="IBFModel.Person" Role="Person" Multiplicity="0..1" />
+          <End Type="IBFModel.PolicyVersion" Role="PolicyVersion" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PolicyVersion">
+              <PropertyRef Name="PolicyHolderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="IBFModelStoreContainer" CdmEntityContainer="IBFEntities">
+          <EntitySetMapping Name="Contracts">
+            <EntityTypeMapping TypeName="IBFModel.Contract">
+              <MappingFragment StoreEntitySet="Contract">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="IsMemorandum" ColumnName="IsMemorandum" />
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="SpecipicationTypeId" ColumnName="SpecipicationTypeId" />
+                <ScalarProperty Name="PaymentSchemaId" ColumnName="PaymentSchemaId" />
+                <ScalarProperty Name="CoverageZoneId" ColumnName="CoverageZoneId" />
+                <ScalarProperty Name="ContractNo" ColumnName="ContractNo" />
+                <ScalarProperty Name="AdditionalContractNo" ColumnName="AdditionalContractNo" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="ParentOrganizationId" ColumnName="ParentOrganizationId" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="IsDraft" ColumnName="IsDraft" />
+                <ScalarProperty Name="ContractStatusId" ColumnName="ContractStatusId" />
+                <ScalarProperty Name="ChannelId" ColumnName="ChannelId" />
+                <ScalarProperty Name="ApproveDate" ColumnName="ApproveDate" />
+                <ScalarProperty Name="HasFreeChoiseOfProviders" ColumnName="HasFreeChoiseOfProviders" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="IsHidden" ColumnName="IsHidden" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="LastModifiedUserId" ColumnName="LastModifiedUserId" />
+                <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+                <ScalarProperty Name="CurrencyId" ColumnName="CurrencyId" />
+                <ScalarProperty Name="ServiceManagerId" ColumnName="ServiceManagerId" />
+                <ScalarProperty Name="ClaimManagerId" ColumnName="ClaimManagerId" />
+                <ScalarProperty Name="IsNotifyRead" ColumnName="IsNotifyRead" />
+                <ScalarProperty Name="ParentContractLogId" ColumnName="ParentContractLogId" />
+                <ScalarProperty Name="FirstPaymentDate" ColumnName="FirstPaymentDate" />
+                <ScalarProperty Name="PayCount" ColumnName="PayCount" />
+                <ScalarProperty Name="IsSuspend" ColumnName="IsSuspend" />
+                <ScalarProperty Name="SuspendReasonTypeId" ColumnName="SuspendReasonTypeId" />
+                <ScalarProperty Name="SuspendReasonComment" ColumnName="SuspendReasonComment" />
+                <ScalarProperty Name="SuspendReasonDate" ColumnName="SuspendReasonDate" />
+                <ScalarProperty Name="IsAnnulate" ColumnName="IsAnnulate" />
+                <ScalarProperty Name="AnnulateUserId" ColumnName="AnnulateUserId" />
+                <ScalarProperty Name="AnnulateComment" ColumnName="AnnulateComment" />
+                <ScalarProperty Name="AnnulateDate" ColumnName="AnnulateDate" />
+                <ScalarProperty Name="IsUnApproved" ColumnName="IsUnApproved" />
+                <ScalarProperty Name="OriginalDocumentDeadlineDay" ColumnName="OriginalDocumentDeadlineDay" />
+                <ScalarProperty Name="LedManagerId" ColumnName="LedManagerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Policies">
+            <EntityTypeMapping TypeName="IBFModel.Policy">
+              <MappingFragment StoreEntitySet="Policy">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PolicyNumber" ColumnName="PolicyNumber" />
+                <ScalarProperty Name="ContractPackageId" ColumnName="ContractPackageId" />
+                <ScalarProperty Name="MedicalCoverageId" ColumnName="MedicalCoverageId" />
+                <ScalarProperty Name="VehicleAssessmentId" ColumnName="VehicleAssessmentId" />
+                <ScalarProperty Name="CurrencyId" ColumnName="CurrencyId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="ServiceManageraId" ColumnName="ServiceManageraId" />
+                <ScalarProperty Name="ClaimManageraId" ColumnName="ClaimManageraId" />
+                <ScalarProperty Name="IsMain" ColumnName="IsMain" />
+                <ScalarProperty Name="IsVerifySupervision" ColumnName="IsVerifySupervision" />
+                <ScalarProperty Name="VerifySupervisionDate" ColumnName="VerifySupervisionDate" />
+                <ScalarProperty Name="AnnulatedReasonId" ColumnName="AnnulatedReasonId" />
+                <ScalarProperty Name="PauseUserId" ColumnName="PauseUserId" />
+                <ScalarProperty Name="PauseDate" ColumnName="PauseDate" />
+                <ScalarProperty Name="PauseComment" ColumnName="PauseComment" />
+                <ScalarProperty Name="AnnulatedComment" ColumnName="AnnulatedComment" />
+                <ScalarProperty Name="AnnulatedUserId" ColumnName="AnnulatedUserId" />
+                <ScalarProperty Name="IsAnnulated" ColumnName="IsAnnulated" />
+                <ScalarProperty Name="ParentPolicyId" ColumnName="ParentPolicyId" />
+                <ScalarProperty Name="MainPolicyHolderId" ColumnName="MainPolicyHolderId" />
+                <ScalarProperty Name="ContractId" ColumnName="ContractId" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="InsurancedStartDate" ColumnName="InsurancedStartDate" />
+                <ScalarProperty Name="IsPaused" ColumnName="IsPaused" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="IsHidden" ColumnName="IsHidden" />
+                <ScalarProperty Name="ApproveDate" ColumnName="ApproveDate" />
+                <ScalarProperty Name="IsNotifyRead" ColumnName="IsNotifyRead" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+                <ScalarProperty Name="LastModifiedUserId" ColumnName="LastModifiedUserId" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="ParentPolicyLogId" ColumnName="ParentPolicyLogId" />
+                <ScalarProperty Name="ContractPackageServiceId" ColumnName="ContractPackageServiceId" />
+                <ScalarProperty Name="ApprovePersonCount" ColumnName="ApprovePersonCount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PolicyReinsurances">
+            <EntityTypeMapping TypeName="IBFModel.PolicyReinsurance">
+              <MappingFragment StoreEntitySet="PolicyReinsurance">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PolicyVersionId" ColumnName="PolicyVersionId" />
+                <ScalarProperty Name="ReinsuranceContractId" ColumnName="ReinsuranceContractId" />
+                <ScalarProperty Name="SelfRisk" ColumnName="SelfRisk" />
+                <ScalarProperty Name="SelfPremium" ColumnName="SelfPremium" />
+                <ScalarProperty Name="TreatRisk" ColumnName="TreatRisk" />
+                <ScalarProperty Name="TreatPremium" ColumnName="TreatPremium" />
+                <ScalarProperty Name="FacultativeRisk" ColumnName="FacultativeRisk" />
+                <ScalarProperty Name="FacultativePremium" ColumnName="FacultativePremium" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="CreateUserid" ColumnName="CreateUserid" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="LastModifiedUserId" ColumnName="LastModifiedUserId" />
+                <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PolicyVersions">
+            <EntityTypeMapping TypeName="IBFModel.PolicyVersion">
+              <MappingFragment StoreEntitySet="PolicyVersion">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PolicyId" ColumnName="PolicyId" />
+                <ScalarProperty Name="PolicyVersionStatusId" ColumnName="PolicyVersionStatusId" />
+                <ScalarProperty Name="CoverageZoneId" ColumnName="CoverageZoneId" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="OrganisationId" ColumnName="OrganisationId" />
+                <ScalarProperty Name="BeneficiaryId" ColumnName="BeneficiaryId" />
+                <ScalarProperty Name="PolicyStatusId" ColumnName="PolicyStatusId" />
+                <ScalarProperty Name="PolicyHolderId" ColumnName="PolicyHolderId" />
+                <ScalarProperty Name="Risk" ColumnName="Risk" />
+                <ScalarProperty Name="PremiumInGel" ColumnName="PremiumInGel" />
+                <ScalarProperty Name="LimitInGel" ColumnName="LimitInGel" />
+                <ScalarProperty Name="NetPremium" ColumnName="NetPremium" />
+                <ScalarProperty Name="OriginalPremium" ColumnName="OriginalPremium" />
+                <ScalarProperty Name="FinalyPremium" ColumnName="FinalyPremium" />
+                <ScalarProperty Name="DiscountPercent" ColumnName="DiscountPercent" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="VersionStartDate" ColumnName="VersionStartDate" />
+                <ScalarProperty Name="VersionEndDate" ColumnName="VersionEndDate" />
+                <ScalarProperty Name="ReinsuranceStatusId" ColumnName="ReinsuranceStatusId" />
+                <ScalarProperty Name="IsPrint" ColumnName="IsPrint" />
+                <ScalarProperty Name="PaymentIterationId" ColumnName="PaymentIterationId" />
+                <ScalarProperty Name="PrintDate" ColumnName="PrintDate" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="IsHidden" ColumnName="IsHidden" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+                <ScalarProperty Name="LastModifiedUserId" ColumnName="LastModifiedUserId" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="InitialPremium" ColumnName="InitialPremium" />
+                <ScalarProperty Name="ServiceManagerId" ColumnName="ServiceManagerId" />
+                <ScalarProperty Name="SaleManagerId" ColumnName="SaleManagerId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="People">
+            <EntityTypeMapping TypeName="IBFModel.Person">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="IsAuthorized" ColumnName="IsAuthorized" />
+                <ScalarProperty Name="UserAuthorizationDate" ColumnName="UserAuthorizationDate" />
+                <ScalarProperty Name="AuthorizationUserId" ColumnName="AuthorizationUserId" />
+                <ScalarProperty Name="PersonChangeLogId" ColumnName="PersonChangeLogId" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="LastModifiedUserId" ColumnName="LastModifiedUserId" />
+                <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="IsHidden" ColumnName="IsHidden" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="MaritalStatysId" ColumnName="MaritalStatysId" />
+                <ScalarProperty Name="SupervisionPersonId" ColumnName="SupervisionPersonId" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+                <ScalarProperty Name="IsGovernment" ColumnName="IsGovernment" />
+                <ScalarProperty Name="IsOwnerCompany" ColumnName="IsOwnerCompany" />
+                <ScalarProperty Name="IsBlack" ColumnName="IsBlack" />
+                <ScalarProperty Name="DeathDate" ColumnName="DeathDate" />
+                <ScalarProperty Name="IsDeath" ColumnName="IsDeath" />
+                <ScalarProperty Name="IdentityNumber" ColumnName="IdentityNumber" />
+                <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+                <ScalarProperty Name="RegistrationNo" ColumnName="RegistrationNo" />
+                <ScalarProperty Name="RegistratorOrganization" ColumnName="RegistratorOrganization" />
+                <ScalarProperty Name="PersonBlackListId" ColumnName="PersonBlackListId" />
+                <ScalarProperty Name="OrganizationRiskId" ColumnName="OrganizationRiskId" />
+                <ScalarProperty Name="SocialStatusId" ColumnName="SocialStatusId" />
+                <ScalarProperty Name="CustomerStatusId" ColumnName="CustomerStatusId" />
+                <ScalarProperty Name="OrganizationStructureId" ColumnName="OrganizationStructureId" />
+                <ScalarProperty Name="OrganizationStatusId" ColumnName="OrganizationStatusId" />
+                <ScalarProperty Name="IncomeRangeId" ColumnName="IncomeRangeId" />
+                <ScalarProperty Name="RegistrationCountryId" ColumnName="RegistrationCountryId" />
+                <ScalarProperty Name="LegalStatusId" ColumnName="LegalStatusId" />
+                <ScalarProperty Name="PersonTypeId" ColumnName="PersonTypeId" />
+                <ScalarProperty Name="ResidenceCountryId" ColumnName="ResidenceCountryId" />
+                <ScalarProperty Name="CitizenshipCountryId" ColumnName="CitizenshipCountryId" />
+                <ScalarProperty Name="IsPoliticallyActivePerson" ColumnName="IsPoliticallyActivePerson" />
+                <ScalarProperty Name="IdentityCardValidDate" ColumnName="IdentityCardValidDate" />
+                <ScalarProperty Name="PassportValidDate" ColumnName="PassportValidDate" />
+                <ScalarProperty Name="PassportNo" ColumnName="PassportNo" />
+                <ScalarProperty Name="PersonNo" ColumnName="PersonNo" />
+                <ScalarProperty Name="GenderId" ColumnName="GenderId" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="LastnameEng" ColumnName="LastnameEng" />
+                <ScalarProperty Name="FirstNameEng" ColumnName="FirstNameEng" />
+                <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

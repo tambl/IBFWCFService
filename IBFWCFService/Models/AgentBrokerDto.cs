@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 namespace IBFWCFService.Models
 {
     [DataContract]
-    public class AgentBroker
+    public class AgentBrokerDto
     {
         [DataMember]
         public int AgentBrokerContractId { get; set; }
         [DataMember]
         public string AgentBrokerContractNumber { get; set; }
         [DataMember]
-        public Person AgentBrokerPerson { get; set; }
+        public PersonDto AgentBrokerPerson { get; set; }
         [DataMember]
         public DateTime AgentBrokerContractStartDate { get; set; }
         [DataMember]

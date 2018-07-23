@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace IBFWCFService.Models
 {
     [DataContract]
-    public class Person
+    public class PersonDto
     {
         [DataMember]
         public int PersonId { get; set; }

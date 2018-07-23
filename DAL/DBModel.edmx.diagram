@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ce510c02f93b42748f2fb6b711cd2400" Name="Diagram1">
+        <EntityTypeShape EntityType="IBFModel.Contract" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="IBFModel.Policy" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="IBFModel.PolicyReinsurance" Width="1.5" PointX="7.5" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="IBFModel.PolicyVersion" Width="1.5" PointX="5.25" PointY="1.875" IsExpanded="true" />
+        <AssociationConnector Association="IBFModel.FK_Contract_Contract_ParentContractLogId" ManuallyRouted="false" />
+        <AssociationConnector Association="IBFModel.FK_Policy_Contract_ContractId" ManuallyRouted="false" />
+        <AssociationConnector Association="IBFModel.FK_Policy_Policy" ManuallyRouted="false" />
+        <AssociationConnector Association="IBFModel.FK_PolicyVersion_Policy_policyId" ManuallyRouted="false" />
+        <AssociationConnector Association="IBFModel.FK_PolicyReinsurance_PolicyVersion_PolicyVersionId" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="IBFModel.Person" Width="1.5" PointX="9.375" PointY="1.375" />
+        <AssociationConnector Association="IBFModel.FK_Contract_Person_ClientId" />
+        <AssociationConnector Association="IBFModel.FK_Contract_Person_ParentOrganizationId" />
+        <AssociationConnector Association="IBFModel.FK_Person_Person_Person_Person_PersonChangeLogId" />
+        <AssociationConnector Association="IBFModel.FK_PolicyVersion_Person_ClientId" />
+        <AssociationConnector Association="IBFModel.FK_PolicyVersion_Person_OrganisationId" />
+        <AssociationConnector Association="IBFModel.FK_PolicyVersion_Person_SaleManagerId" />
+        <AssociationConnector Association="IBFModel.FK_PolicyVersion_User_BeneficiaryId" />
+        <AssociationConnector Association="IBFModel.FK_PolicyVersion_User_PolicyHolderId" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

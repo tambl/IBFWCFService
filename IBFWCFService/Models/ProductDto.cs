@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 namespace IBFWCFService.Models
 {
     [DataContract]
-    public class Product
+    public class ProductDto
     {
         [DataMember]
         public int ProductId { get; set; }
         [DataMember] //ე.წ. IBF კოდი
         public string ProductName { get; set; }
         [DataMember]
-        public ProductCategory ProductCategory { get; set; }  // პროდუქტის კატეგორიის ობიექტი
+        public ProductCategoryDto ProductCategory { get; set; }  // პროდუქტის კატეგორიის ობიექტი
     }
 
 

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace IBFWCFService.Models
 {
     [DataContract]
-    public class Contract
+    public class ContractDto
     {
         [DataMember]
         public int ContractId { get; set; }
@@ -17,7 +17,7 @@ namespace IBFWCFService.Models
         [DataMember]
         public string ContractFullName { get; set; }
         [DataMember] 
-        public Person Client { get; set; }
+        public PersonDto Client { get; set; }
         [DataMember]
         public DateTime PeriodStartDate { get; set; }
         [DataMember]
