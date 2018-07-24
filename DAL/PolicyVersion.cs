@@ -56,6 +56,7 @@ namespace DAL
         public Nullable<int> ServiceManagerId { get; set; }
         public Nullable<int> SaleManagerId { get; set; }
         public bool IsActive { get; set; }
+        public Nullable<System.DateTime> To1CSynchronizeDate { get; set; }
     
         public virtual Policy Policy { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -65,5 +66,7 @@ namespace DAL
         public virtual Person Person2 { get; set; }
         public virtual Person Person3 { get; set; }
         public virtual Person Person4 { get; set; }
+        public virtual PolicyStatu PolicyStatu { get; set; }
+        public virtual PolicyVersionStatu PolicyVersionStatu { get; set; }
     }
 }

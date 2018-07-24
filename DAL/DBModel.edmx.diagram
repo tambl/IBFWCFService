@@ -14,7 +14,7 @@
         <AssociationConnector Association="IBFModel.FK_Policy_Policy" ManuallyRouted="false" />
         <AssociationConnector Association="IBFModel.FK_PolicyVersion_Policy_policyId" ManuallyRouted="false" />
         <AssociationConnector Association="IBFModel.FK_PolicyReinsurance_PolicyVersion_PolicyVersionId" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="IBFModel.Person" Width="1.5" PointX="9.375" PointY="1.375" />
+        <EntityTypeShape EntityType="IBFModel.Person" Width="1.5" PointX="9.375" PointY="1.375" IsExpanded="true" />
         <AssociationConnector Association="IBFModel.FK_Contract_Person_ClientId" />
         <AssociationConnector Association="IBFModel.FK_Contract_Person_ParentOrganizationId" />
         <AssociationConnector Association="IBFModel.FK_Person_Person_Person_Person_PersonChangeLogId" />
@@ -23,6 +23,30 @@
         <AssociationConnector Association="IBFModel.FK_PolicyVersion_Person_SaleManagerId" />
         <AssociationConnector Association="IBFModel.FK_PolicyVersion_User_BeneficiaryId" />
         <AssociationConnector Association="IBFModel.FK_PolicyVersion_User_PolicyHolderId" />
+        <EntityTypeShape EntityType="IBFModel.LegalStatu" Width="1.5" PointX="12.125" PointY="11.125" />
+        <AssociationConnector Association="IBFModel.FK_Person_Person_Person_LegalStatus_LegalStatusId" />
+        <EntityTypeShape EntityType="IBFModel.Currency" Width="1.5" PointX="0.75" PointY="4.125" />
+        <AssociationConnector Association="IBFModel.FK_Contract_Currency_CurrencyId" />
+        <AssociationConnector Association="IBFModel.FK_Policy_Currency_CurrencyId" />
+        <EntityTypeShape EntityType="IBFModel.AgentBroker" Width="1.5" PointX="11.625" PointY="19.875" />
+        <EntityTypeShape EntityType="IBFModel.Product" Width="1.5" PointX="9.75" PointY="14.375" />
+        <EntityTypeShape EntityType="IBFModel.SubProduct" Width="1.5" PointX="0.75" PointY="12.25" />
+        <EntityTypeShape EntityType="IBFModel.ReinsuranceContract" Width="1.5" PointX="12" PointY="1" />
+        <AssociationConnector Association="IBFModel.FK_ReinsuranceContract_Currency_CurrencyId" />
+        <AssociationConnector Association="IBFModel.FK_AgentBroker_AgentBroker_ParentAgentBrokerLogId" />
+        <AssociationConnector Association="IBFModel.FK_AgentBroker_Person_PersonId" />
+        <AssociationConnector Association="IBFModel.FK_Policy_SubProduct_SubProductId" />
+        <AssociationConnector Association="IBFModel.FK_PolicyReinsurance_ReinsuranceContract_ReinsuranceContractId" />
+        <AssociationConnector Association="IBFModel.FK_Product_Product_ParentProductLogId" />
+        <AssociationConnector Association="IBFModel.FK_ReinsuranceContract_Product_ProductLineId" />
+        <AssociationConnector Association="IBFModel.FK_SubProduct_Product_ProductId" />
+        <AssociationConnector Association="IBFModel.FK_ReinsuranceContract_ReinsuranceContract" />
+        <EntityTypeShape EntityType="IBFModel.ProductType" Width="1.5" PointX="7.5" PointY="15" />
+        <AssociationConnector Association="IBFModel.FK_Product_ProductType_ProductTypeId" />
+        <EntityTypeShape EntityType="IBFModel.PolicyStatu" Width="1.5" PointX="3" PointY="17.375" />
+        <EntityTypeShape EntityType="IBFModel.PolicyVersionStatu" Width="1.5" PointX="3.375" PointY="13" />
+        <AssociationConnector Association="IBFModel.FK_PolicyVersion_PolicyStatus_ApproveStatusId" />
+        <AssociationConnector Association="IBFModel.FK_PolicyVersion_PolicyVersionStatus_PolicyVesionStatusId" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

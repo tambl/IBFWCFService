@@ -70,5 +70,6 @@ namespace DAL
         public virtual ICollection<Policy> Policies { get; set; }
         public virtual Person Person { get; set; }
         public virtual Person Person1 { get; set; }
+        public virtual Currency Currency { get; set; }
     }
 }

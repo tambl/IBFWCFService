@@ -65,5 +65,7 @@ namespace DAL
         public virtual Policy Policy2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PolicyVersion> PolicyVersions { get; set; }
+        public virtual Currency Currency { get; set; }
+        public virtual SubProduct SubProduct { get; set; }
     }
 }

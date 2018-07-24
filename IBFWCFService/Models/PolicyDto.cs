@@ -25,7 +25,7 @@ namespace IBFWCFService.Models
         [DataMember]
         public DateTime EndDate { get; set; }
         [DataMember]
-        public int PolicyStatusId { get; set; }
+        public int? PolicyStatusId { get; set; }
         [DataMember]
         public string PolicyStatus { get; set; }
         [DataMember]

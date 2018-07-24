@@ -12,24 +12,25 @@ namespace DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class PolicyReinsurance
+    public partial class PolicyStatu
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public PolicyStatu()
+        {
+            this.PolicyVersions = new HashSet<PolicyVersion>();
+        }
+    
         public int Id { get; set; }
-        public Nullable<int> PolicyVersionId { get; set; }
-        public int ReinsuranceContractId { get; set; }
-        public decimal SelfRisk { get; set; }
-        public decimal SelfPremium { get; set; }
-        public decimal TreatRisk { get; set; }
-        public decimal TreatPremium { get; set; }
-        public decimal FacultativeRisk { get; set; }
-        public decimal FacultativePremium { get; set; }
-        public bool IsActive { get; set; }
-        public Nullable<int> CreateUserid { get; set; }
+        public string Name { get; set; }
+        public bool IsDelete { get; set; }
+        public bool IsHidden { get; set; }
+        public Nullable<int> CreateUserId { get; set; }
         public System.DateTime CreateDate { get; set; }
         public Nullable<int> LastModifiedUserId { get; set; }
         public Nullable<System.DateTime> LastModifiedDate { get; set; }
+        public Nullable<int> TranslateDictionaryId { get; set; }
     
-        public virtual PolicyVersion PolicyVersion { get; set; }
-        public virtual ReinsuranceContract ReinsuranceContract { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PolicyVersion> PolicyVersions { get; set; }
     }
 }
