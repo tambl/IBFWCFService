@@ -26,8 +26,12 @@ namespace IBFWCFService.Helpers
     public class ModelProfiles : Profile {
         public ModelProfiles()
         {
-            CreateMap<Policy, PolicyDto>().ReverseMap();
-            CreateMap<Person, PersonDto>().ReverseMap();
+            CreateMap<Policy, PolicyDto>().ForMember(
+                dest => dest.PolicyId,
+                opt => opt.MapFrom(src => src.Id));
+            CreateMap<Person, PersonDto>().ForMember(
+                dest => dest.PersonId,
+                opt => opt.MapFrom(src => src.Id));
         }
     }
 }
