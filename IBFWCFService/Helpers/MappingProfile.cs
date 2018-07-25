@@ -37,10 +37,10 @@ namespace IBFWCFService.Helpers
                 opt => opt.MapFrom(src => src.PersonNo))
                 .ForMember(
                 dest => dest.LegalFormId,
-                opt => opt.MapFrom(src => src.LegalStatusId)) //??
+                opt => opt.MapFrom(src => src.LegalStatusId)) //saidan?
                 .ForMember(
                 dest => dest.LegalFormName,
-                opt => opt.MapFrom(src => src.LegalStatu.Name))//
+                opt => opt.MapFrom(src => src.LegalStatu.Name))//saidan
                 .ForMember(
                 dest => dest.Name,
                 opt => opt.MapFrom(src => src.FirstName))
@@ -67,6 +67,18 @@ namespace IBFWCFService.Helpers
                 opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.ProductName, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.ProductCategory, opt => opt.MapFrom(src => src.Product));
+
+            CreateMap<ReinsuranceContract, ReinsuarerDto>().ForMember(
+                dest => dest.ReinsuarerContractId,
+                opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.ReinsuarerContractNumber, opt => opt.MapFrom(src => src.ContractNumber))               
+                ;
+
+            CreateMap<AgentBroker, AgentBrokerDto>().ForMember(
+                dest => dest.AgentBrokerPerson,
+                opt => opt.MapFrom(src => src.Person))
+                
+                ;
         }
     }
 }
