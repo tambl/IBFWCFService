@@ -12,37 +12,41 @@ namespace DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class SubProduct
+    public partial class Command
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public SubProduct()
+        public Command()
         {
-            this.Policies = new HashSet<Policy>();
-            this.ContractAgentContracts = new HashSet<ContractAgentContract>();
             this.ContractCommands = new HashSet<ContractCommand>();
+            this.Command1 = new HashSet<Command>();
+            this.CommandEmployes = new HashSet<CommandEmploye>();
+            this.PolicyPaymentCoverContractCommands = new HashSet<PolicyPaymentCoverContractCommand>();
         }
     
         public int Id { get; set; }
-        public Nullable<int> ExistingProductTypeId { get; set; }
-        public int ProductId { get; set; }
-        public string Name { get; set; }
-        public string PrintName { get; set; }
+        public string CommandNo { get; set; }
+        public System.DateTime StartDate { get; set; }
+        public System.DateTime EndDate { get; set; }
+        public bool IsAnnulated { get; set; }
+        public Nullable<System.DateTime> AnnulatedDate { get; set; }
+        public string AnnulatedComment { get; set; }
         public bool IsDelete { get; set; }
         public bool IsHidden { get; set; }
-        public Nullable<int> CreateUserid { get; set; }
+        public Nullable<int> CreateUserId { get; set; }
         public System.DateTime CreateDate { get; set; }
-        public Nullable<bool> CheckingSupervision { get; set; }
         public Nullable<int> LastModifiedUserId { get; set; }
         public Nullable<System.DateTime> LastModifiedDate { get; set; }
-        public Nullable<int> TranslateDictionaryId { get; set; }
-        public Nullable<int> PrintTranslateDictionaryId { get; set; }
+        public Nullable<int> CommandChangeLogId { get; set; }
+        public Nullable<int> ParentCommandLogId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Policy> Policies { get; set; }
-        public virtual Product Product { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ContractAgentContract> ContractAgentContracts { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ContractCommand> ContractCommands { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Command> Command1 { get; set; }
+        public virtual Command Command2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CommandEmploye> CommandEmployes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PolicyPaymentCoverContractCommand> PolicyPaymentCoverContractCommands { get; set; }
     }
 }

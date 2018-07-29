@@ -20,30 +20,34 @@ namespace IBFWCFService
             {
                 MappingProfile.ConfigureMapper();
 
-                var spletIDs = ids.Split(',');
                 var policies = new List<PolicyDto>();
+
                 var spletIDsConverted = new List<int>();
-                foreach (var item in spletIDs)
+
+                if (ids != "null" && !string.IsNullOrEmpty(ids))
                 {
-                    spletIDsConverted.Add(Convert.ToInt32(item));
+                    foreach (var item in ids.Split(','))
+                    {
+                        spletIDsConverted.Add(Convert.ToInt32(item));
+                    }
                 }
 
-                var isConfirmedConverted = (bool?)Convert.ToBoolean(isConfirmed) ?? null; //ristvisaa parametrebis dazusteba
-                var startDateConverted = Convert.ToDateTime(startDate);
-                var endDateConverted = Convert.ToDateTime(endDate);
-                int? countConverted = Convert.ToInt32(count);
+                bool tryParseConfirmed;
+
+                bool? isConfirmedConverted = ((isConfirmed != "null" && !string.IsNullOrEmpty(isConfirmed))) && bool.TryParse(isConfirmed, out tryParseConfirmed) == true ? (bool?)Convert.ToBoolean(isConfirmed) : null; //ristvisaa parametrebis dazusteba
+                DateTime? startDateConverted = ((startDate != "null" && !string.IsNullOrEmpty(startDate))) ? (DateTime?)Convert.ToDateTime(startDate) : null;
+                DateTime? endDateConverted = ((endDate != "null" && !string.IsNullOrEmpty(endDate))) ? (DateTime?)Convert.ToDateTime(endDate) : null;
+                int? countConverted = ((count != "null" && !string.IsNullOrEmpty(count))) ? (int?)Convert.ToInt32(count) : null;
 
                 using (var dbContext = new IBFEntities())
                 {
-                    var policies2 = dbContext.Policies.Include("Contract").Include("Contract.Person").ToList();
-
                     var policiesTemp = (from p in dbContext.Policies
                                         join pv in dbContext.PolicyVersions on p.Id equals pv.PolicyId
                                         join curr in dbContext.Currencies on p.CurrencyId equals curr.Id
-                                        join pvType in dbContext.PolicyVersionStatus on pv.PolicyStatusId equals pvType.Id
+                                        join pvType in dbContext.PolicyVersionStatus on pv.PolicyVersionStatusId equals pvType.Id
                                         join product in dbContext.SubProducts on p.ProductId equals product.Id into producta
                                         from productl in producta.DefaultIfEmpty()
-                                        //join c in dbContext.Contracts on p.ContractId equals c.Id
+
                                         join contract in dbContext.Contracts on p.ContractId equals contract.Id into contracta
                                         from contractl in contracta.DefaultIfEmpty()
                                         join org in dbContext.People on pv.OrganisationId equals org.Id into orga
@@ -54,36 +58,83 @@ namespace IBFWCFService
                                         from holderl in holdera.DefaultIfEmpty()
                                         join beneficiary in dbContext.People on pv.BeneficiaryId equals beneficiary.Id into beneficiarya
                                         from beneficiaryl in beneficiarya.DefaultIfEmpty()
+
                                         where pv.IsActive == true && pv.IsHidden == false && pv.IsDelete == false
-                                        //&& !spletIDsConverted.Contains(p.Id)
-                                        // && pv.CreateDate > startDateConverted && pv.CreateDate <= endDateConverted
-                                        select new { p, pv, productl, contractl, pvType, orgnl, curr, clientl, holderl, beneficiaryl }).Take(10).AsEnumerable();
+                                        && pv.Id == 4597//3586
+                                        
+                                        //&& pv.CreateDate > startDateConverted && pv.CreateDate <= endDateConverted
+                                        && (isConfirmedConverted == true ? pv.To1CSynchronizeDate != null : pv.To1CSynchronizeDate == null)
+                                         && (spletIDsConverted.Count() > 0 ? spletIDsConverted.Contains(pv.Id) : 1 == 1)
+                                        select new
+                                        {
+                                            PolicyId = p.Id,
+                                            PolicyNumber = p.PolicyNumber,
+                                            PolicyVersionId = pv.Id,
+                                            PolicyVersionIsActive = pv.IsActive,
+                                            StartDate = pv.StartDate,
+                                            EndDate = pv.EndDate,
+                                            PolicyStatusId = pv.PolicyStatusId,
+                                            PolicyStatus = pv.PolicyStatu.Name,
+                                            PolicyVersionStatusId = pv.PolicyVersionStatusId,
+                                            PolicyVersionStatus = pvType.Name,
+                                            FinalyPremium = pv.FinalyPremium,
+                                            PremiumInGel = pv.PremiumInGel,
+                                            CurrencyId = p.CurrencyId,
+                                            Currency = curr.Name,
+                                            IsMemorandum = contractl.IsMemorandum,
+                                            productl,
+                                            orgnl,
+                                            clientl,
+                                            holderl,
+                                            beneficiaryl,
+                                            reinshuranseShares = pv.PolicyReinsurances.Select(w => new { shares = w.PolicyReinsuranceShares.Where(s => s.IsActive == true), w.ReinsuranceContract }),
+                                            agentBrokers = pv.PolicyPaymentCoverAgentContracts.Where(w => w.IsActive == false && w.IsDeleted == true).Select(b => b.ContractAgentContract)
+                                            ,
+                                            commands = pv.PolicyPaymentCoverContractCommands.Where(r => r.IsActive == true && r.IsDeleted == false)
+                                        }).Take((int)countConverted).AsEnumerable();
+
 
                     policies = policiesTemp.Select(s =>
 
                     new PolicyDto()
                     {
-                        PolicyId = s.p.Id,
-                        PolicyVersionId = s.pv.Id,
-                        PolicyVersionIsActive = s.pv.IsActive,
+                        PolicyId = s.PolicyId,
+                        PolicyVersionId = s.PolicyVersionId,
+                        PolicyVersionIsActive = s.PolicyVersionIsActive,
                         Product = Mapper.Map<SubProduct, ProductDto>(s.productl),
-                        PolicyNumber = s.p.PolicyNumber,
-                        StartDate = (DateTime)s.pv.StartDate,
-                        EndDate = (DateTime)s.pv.EndDate,
-                        PolicyStatusId = null,//??? sidan?
-                        PolicyStatus = null,//??? sidan?
-                        PolicyVersionStatusId = s.pv.PolicyStatusId.Value,
-                        PolicyVersionStatus = s.pvType.Name,
+                        PolicyNumber = s.PolicyNumber,
+                        StartDate = s.StartDate,
+                        EndDate = s.EndDate,
+                        PolicyStatusId = s.PolicyStatusId,//??? sidan?
+                        PolicyStatus = s.PolicyStatus,//??? sidan?
+                        PolicyVersionStatusId = s.PolicyVersionStatusId,
+                        PolicyVersionStatus = s.PolicyVersionStatus,
                         Insured = Mapper.Map<Person, PersonDto>(s.holderl),
                         Beneficiary = Mapper.Map<Person, PersonDto>(s.beneficiaryl),
                         Client = Mapper.Map<Person, PersonDto>(s.clientl),
-                        MemorandumOperator = s.contractl.IsMemorandum == true ? Mapper.Map<Person, PersonDto>(s.orgnl) : null,
-                        AmountInCurrency = (decimal)s.pv.FinalyPremium,
-                        Amount = (decimal)s.pv.PremiumInGel,
-                        CurrencyId = s.p.CurrencyId.Value,
-                        Currency = s.curr.Name
-                        //,Reinsuarer = null,//dasamatebeli
-                        //AgentBroker = null//dasamatebeli
+                        MemorandumOperator = s.IsMemorandum == true ? Mapper.Map<Person, PersonDto>(s.orgnl) : null,
+                        AmountInCurrency = s.FinalyPremium,
+                        Amount = s.PremiumInGel,
+                        CurrencyId = s.CurrencyId,
+                        Currency = s.Currency,
+                        Reinsuarer = s.reinshuranseShares.Select(k => new ReinsuarerDto
+                        {
+                            ReinsuarerPerson = Mapper.Map<Person, PersonDto>(k.shares.Select(ss => ss.Person).FirstOrDefault()),
+                            Amount = k.shares.Select(ss => ss.Premium).FirstOrDefault(),
+                            ReinsuarerContractId = k.ReinsuranceContract.Id,
+                            ReinsuarerContractNumber = k.ReinsuranceContract.ContractNumber,
+                            ReinsuranceContractEndDate = k.ReinsuranceContract.EndDate,
+                            ReinsuranceContractStartDate = k.ReinsuranceContract.StartDate,
+                            Currency = k.ReinsuranceContract.CurrencyId
+                        }).ToList(),
+                        AgentBroker = s.agentBrokers.Select(p => new AgentBrokerDto
+                        {
+                            AgentBrokerPerson = Mapper.Map<Person, PersonDto>(p.Person),
+                            AgentBrokerContractId = p.AgentBrokerContractId,
+                            AgentBrokerContractNumber = p.AgentBroker.ContractNo,
+                            AgentBrokerContractStartDate = p.AgentBroker.StartDate,
+                            AgentBrokerContractEndDate = p.AgentBroker.EndDate
+                        }).Distinct().ToList()
                     }
                     ).ToList();
 
@@ -94,7 +145,7 @@ namespace IBFWCFService
             catch (Exception ex)
             {
                 throw;
-            }         
+            }
         }
 
         public List<PersonDto> GetPersons(string ids, string isConfirmed, string startDate, string endDate, string count)

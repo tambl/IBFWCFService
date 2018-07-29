@@ -39,5 +39,12 @@ namespace DAL
         public virtual DbSet<ProductType> ProductTypes { get; set; }
         public virtual DbSet<PolicyStatu> PolicyStatus { get; set; }
         public virtual DbSet<PolicyVersionStatu> PolicyVersionStatus { get; set; }
+        public virtual DbSet<PolicyReinsuranceShare> PolicyReinsuranceShares { get; set; }
+        public virtual DbSet<ContractAgentContract> ContractAgentContracts { get; set; }
+        public virtual DbSet<PolicyPaymentCoverAgentContract> PolicyPaymentCoverAgentContracts { get; set; }
+        public virtual DbSet<PolicyPaymentCoverContractCommand> PolicyPaymentCoverContractCommands { get; set; }
+        public virtual DbSet<ContractCommand> ContractCommands { get; set; }
+        public virtual DbSet<Command> Commands { get; set; }
+        public virtual DbSet<CommandEmploye> CommandEmployes { get; set; }
     }
 }

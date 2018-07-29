@@ -18,6 +18,7 @@ namespace DAL
         public AgentBroker()
         {
             this.AgentBroker1 = new HashSet<AgentBroker>();
+            this.ContractAgentContracts = new HashSet<ContractAgentContract>();
         }
     
         public int Id { get; set; }
@@ -42,5 +43,7 @@ namespace DAL
         public virtual ICollection<AgentBroker> AgentBroker1 { get; set; }
         public virtual AgentBroker AgentBroker2 { get; set; }
         public virtual Person Person { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ContractAgentContract> ContractAgentContracts { get; set; }
     }
 }

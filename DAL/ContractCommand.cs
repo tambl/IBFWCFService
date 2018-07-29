@@ -12,32 +12,33 @@ namespace DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class PolicyReinsurance
+    public partial class ContractCommand
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PolicyReinsurance()
+        public ContractCommand()
         {
-            this.PolicyReinsuranceShares = new HashSet<PolicyReinsuranceShare>();
+            this.PolicyPaymentCoverContractCommands = new HashSet<PolicyPaymentCoverContractCommand>();
         }
     
         public int Id { get; set; }
-        public Nullable<int> PolicyVersionId { get; set; }
-        public int ReinsuranceContractId { get; set; }
-        public decimal SelfRisk { get; set; }
-        public decimal SelfPremium { get; set; }
-        public decimal TreatRisk { get; set; }
-        public decimal TreatPremium { get; set; }
-        public decimal FacultativeRisk { get; set; }
-        public decimal FacultativePremium { get; set; }
-        public bool IsActive { get; set; }
-        public Nullable<int> CreateUserid { get; set; }
+        public int ContractId { get; set; }
+        public Nullable<int> CommandId { get; set; }
+        public bool IsDelete { get; set; }
+        public bool IsHidden { get; set; }
+        public int CreateUserId { get; set; }
         public System.DateTime CreateDate { get; set; }
         public Nullable<int> LastModifiedUserId { get; set; }
         public Nullable<System.DateTime> LastModifiedDate { get; set; }
+        public int EmployeId { get; set; }
+        public Nullable<int> CommissionTypeId { get; set; }
+        public Nullable<int> TaxTypeId { get; set; }
+        public int ProductId { get; set; }
+        public decimal CommissionPercent { get; set; }
     
-        public virtual PolicyVersion PolicyVersion { get; set; }
-        public virtual ReinsuranceContract ReinsuranceContract { get; set; }
+        public virtual Contract Contract { get; set; }
+        public virtual Command Command { get; set; }
+        public virtual SubProduct SubProduct { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PolicyReinsuranceShare> PolicyReinsuranceShares { get; set; }
+        public virtual ICollection<PolicyPaymentCoverContractCommand> PolicyPaymentCoverContractCommands { get; set; }
     }
 }

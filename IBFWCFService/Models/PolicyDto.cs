@@ -21,15 +21,15 @@ namespace IBFWCFService.Models
         [DataMember]
         public string PolicyNumber { get; set; }
         [DataMember]
-        public DateTime StartDate { get; set; }
+        public DateTime? StartDate { get; set; }
         [DataMember]
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
         [DataMember]
         public int? PolicyStatusId { get; set; }
         [DataMember]
         public string PolicyStatus { get; set; }
         [DataMember]
-        public int PolicyVersionStatusId { get; set; }
+        public int? PolicyVersionStatusId { get; set; }
         [DataMember]
         public string PolicyVersionStatus { get; set; }
         [DataMember]
@@ -41,11 +41,11 @@ namespace IBFWCFService.Models
         [DataMember]
         public PersonDto MemorandumOperator { get; set; }
         [DataMember] //მემორანდუმის დროს ხელშეკრულების დამდები და რეალური კლიენტი განსხვავდება ხოლმე{ get; set; } [DataMember]
-        public decimal AmountInCurrency { get; set; }
+        public decimal? AmountInCurrency { get; set; }
         [DataMember] //თანხა ვალუტაში
-        public decimal Amount { get; set; }
+        public decimal? Amount { get; set; }
         [DataMember] // თანხა ეროვნულ ვალუტაში
-        public int CurrencyId { get; set; }
+        public int? CurrencyId { get; set; }
         [DataMember]
         public string Currency { get; set; }
         [DataMember]

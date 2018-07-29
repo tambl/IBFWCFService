@@ -26,6 +26,8 @@ namespace DAL
             this.PolicyVersions3 = new HashSet<PolicyVersion>();
             this.PolicyVersions4 = new HashSet<PolicyVersion>();
             this.AgentBrokers = new HashSet<AgentBroker>();
+            this.PolicyReinsuranceShares = new HashSet<PolicyReinsuranceShare>();
+            this.ContractAgentContracts = new HashSet<ContractAgentContract>();
         }
     
         public int Id { get; set; }
@@ -95,5 +97,9 @@ namespace DAL
         public virtual LegalStatu LegalStatu { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AgentBroker> AgentBrokers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PolicyReinsuranceShare> PolicyReinsuranceShares { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ContractAgentContract> ContractAgentContracts { get; set; }
     }
 }

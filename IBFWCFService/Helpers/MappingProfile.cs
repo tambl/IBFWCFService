@@ -11,30 +11,33 @@ namespace IBFWCFService.Helpers
 {
     public static class MappingProfile
     {
-        public static void ConfigureMapper() {           
+        public static void ConfigureMapper()
+        {
+            Mapper.Reset();
             Mapper.Initialize(cfg =>
             {
                 cfg.AddProfile(new ModelProfiles());
-               
+
             });
         }
     }
 
-    public class ModelProfiles : Profile {
+    public class ModelProfiles : Profile
+    {
         public ModelProfiles()
         {
             CreateMap<Policy, PolicyDto>().ForMember(
                 dest => dest.PolicyId,
-                opt => opt.MapFrom(src => src.Id)).ForMember(dest => dest.Amount,opt => opt.MapFrom(src => src.PolicyVersions.Sum(s=>s.FinalyPremium)));
+                opt => opt.MapFrom(src => src.Id)).ForMember(dest => dest.Amount, opt => opt.MapFrom(src => src.PolicyVersions.Sum(s => s.FinalyPremium)));
             CreateMap<Person, PersonDto>().ForMember(
                 dest => dest.PersonId,
                 opt => opt.MapFrom(src => src.Id))
                 .ForMember(
                 dest => dest.FullName,
-                opt => opt.MapFrom(src => src.FirstName + " "+src.Lastname))
+                opt => opt.MapFrom(src => src.FirstName + " " + src.Lastname))
                 .ForMember(
                 dest => dest.IdentificationCode,
-                opt => opt.MapFrom(src => src.PersonNo))
+                opt => opt.MapFrom(src => src.PersonNo ?? src.IdentityNumber))
                 .ForMember(
                 dest => dest.LegalFormId,
                 opt => opt.MapFrom(src => src.LegalStatusId)) //saidan?
@@ -71,13 +74,21 @@ namespace IBFWCFService.Helpers
             CreateMap<ReinsuranceContract, ReinsuarerDto>().ForMember(
                 dest => dest.ReinsuarerContractId,
                 opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.ReinsuarerContractNumber, opt => opt.MapFrom(src => src.ContractNumber))               
+                .ForMember(dest => dest.ReinsuarerContractNumber, opt => opt.MapFrom(src => src.ContractNumber))
+                .ForMember(dest => dest.ReinsuranceContractStartDate, opt => opt.MapFrom(src => src.StartDate))
+                .ForMember(dest => dest.ReinsuranceContractEndDate, opt => opt.MapFrom(src => src.EndDate))
                 ;
+            CreateMap<PolicyReinsuranceShare, ReinsuarerDto>().ForMember(
+               dest => dest.ReinsuarerPerson,
+               opt => opt.MapFrom(src => src.Person))
+               .ForMember(
+               dest => dest.Amount,
+               opt => opt.MapFrom(src => src.Premium))
+               ;
 
             CreateMap<AgentBroker, AgentBrokerDto>().ForMember(
                 dest => dest.AgentBrokerPerson,
                 opt => opt.MapFrom(src => src.Person))
-                
                 ;
         }
     }

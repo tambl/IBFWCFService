@@ -19,6 +19,8 @@ namespace DAL
         {
             this.Contract1 = new HashSet<Contract>();
             this.Policies = new HashSet<Policy>();
+            this.ContractAgentContracts = new HashSet<ContractAgentContract>();
+            this.ContractCommands = new HashSet<ContractCommand>();
         }
     
         public int Id { get; set; }
@@ -71,5 +73,9 @@ namespace DAL
         public virtual Person Person { get; set; }
         public virtual Person Person1 { get; set; }
         public virtual Currency Currency { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ContractAgentContract> ContractAgentContracts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ContractCommand> ContractCommands { get; set; }
     }
 }
