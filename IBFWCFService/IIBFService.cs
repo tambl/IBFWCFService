@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
@@ -24,6 +25,10 @@ namespace IBFWCFService
         //http://localhost:8732/IBFService/policies/?id=1&id=2&isConfirmed=true&startDate=01-01-2013&endDate=01-02-2013&count=5
         List<PolicyDto> GetPolicies(string ids, string isConfirmed, string startDate, string endDate, string count);
 
-
+        [OperationContract]
+        [WebInvoke(Method = "PUT", UriTemplate = "policies/?id={ids}", ResponseFormat = WebMessageFormat.Json)]
+        //http://localhost:8732/IBFService/policies/?id=1&id=2
+        //HttpResponseMessage UpdatePolicyVersionSyncDate(string ids);
+        bool UpdatePolicyVersionSyncDate(string ids);
     }
 }

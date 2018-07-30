@@ -9,6 +9,8 @@ using System.Text;
 using DAL;
 using IBFWCFService.Helpers;
 using AutoMapper;
+using System.Net.Http;
+using System.Net;
 
 namespace IBFWCFService
 {
@@ -60,11 +62,13 @@ namespace IBFWCFService
                                         from beneficiaryl in beneficiarya.DefaultIfEmpty()
 
                                         where pv.IsActive == true && pv.IsHidden == false && pv.IsDelete == false
-                                        && pv.Id == 4597//3586
-                                        
-                                        //&& pv.CreateDate > startDateConverted && pv.CreateDate <= endDateConverted
+                                        //&& pv.Id == 4597//3586                                        
+                                        && (startDateConverted != null && endDateConverted != null ? pv.CreateDate > startDateConverted && pv.CreateDate <= endDateConverted :
+                                         startDateConverted != null && endDateConverted == null ? pv.CreateDate > startDateConverted :
+                                         startDateConverted == null && endDateConverted != null ? pv.CreateDate <= endDateConverted :
+                                         1 == 1)
                                         && (isConfirmedConverted == true ? pv.To1CSynchronizeDate != null : pv.To1CSynchronizeDate == null)
-                                         && (spletIDsConverted.Count() > 0 ? spletIDsConverted.Contains(pv.Id) : 1 == 1)
+                                        && (spletIDsConverted.Count() > 0 ? spletIDsConverted.Contains(pv.Id) : 1 == 1)
                                         select new
                                         {
                                             PolicyId = p.Id,
@@ -87,11 +91,10 @@ namespace IBFWCFService
                                             clientl,
                                             holderl,
                                             beneficiaryl,
-                                            reinshuranseShares = pv.PolicyReinsurances.Select(w => new { shares = w.PolicyReinsuranceShares.Where(s => s.IsActive == true), w.ReinsuranceContract }),
-                                            agentBrokers = pv.PolicyPaymentCoverAgentContracts.Where(w => w.IsActive == false && w.IsDeleted == true).Select(b => b.ContractAgentContract)
-                                            ,
+                                            reinshuranseShares = pv.PolicyReinsurances.Select(w => new { shares = w.PolicyReinsuranceShares.Where(s => s.IsActive == true && w.IsActive == true && w.ReinsuranceContract.IsActive == true && w.ReinsuranceContract.IsDelete == false && w.ReinsuranceContract.IsHidden == false), w.ReinsuranceContract }),
+                                            agentBrokers = pv.PolicyPaymentCoverAgentContracts.Where(w => w.IsActive == true && w.IsDeleted == false && w.ContractAgentContract.IsDelete == false && w.ContractAgentContract.IsHidden == false && w.ContractAgentContract.AgentBroker.IsDelete == false && w.ContractAgentContract.AgentBroker.IsHidden == false).Select(b => b.ContractAgentContract),
                                             commands = pv.PolicyPaymentCoverContractCommands.Where(r => r.IsActive == true && r.IsDeleted == false)
-                                        }).Take((int)countConverted).AsEnumerable();
+                                        }).Take(countConverted != null && countConverted <= 500 ? (int)countConverted : 500).AsEnumerable();
 
 
                     policies = policiesTemp.Select(s =>
@@ -147,7 +150,37 @@ namespace IBFWCFService
                 throw;
             }
         }
+        public bool UpdatePolicyVersionSyncDate(string ids)
+        {
+            var spletIDsConverted = new List<int>();
 
+            if (ids != "null" && !string.IsNullOrEmpty(ids))
+            {
+                foreach (var item in ids.Split(','))
+                {
+                    spletIDsConverted.Add(Convert.ToInt32(item));
+                }
+            }
+            else  throw new Exception();//return  new HttpResponseMessage(HttpStatusCode.BadRequest);
+            try
+            {
+                using (var dbContext = new IBFEntities())
+                {
+
+                    dbContext.PolicyVersions.Where(w => spletIDsConverted.Contains(w.Id)).ToList().ForEach(f => f.To1CSynchronizeDate = DateTime.Now);
+                    var rowNum = dbContext.SaveChanges();
+
+                    return rowNum == spletIDsConverted.Count() ? true : false;
+                        //new HttpResponseMessage(HttpStatusCode.OK) : new HttpResponseMessage(HttpStatusCode.InternalServerError);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+        }
         public List<PersonDto> GetPersons(string ids, string isConfirmed, string startDate, string endDate, string count)
         {
             MappingProfile.ConfigureMapper();
@@ -156,27 +189,11 @@ namespace IBFWCFService
             var persons = new List<PersonDto>();
             //var policy = new Policy();
 
-            var isConfirmedConverted = (bool?)Convert.ToBoolean(isConfirmed) ?? null;
-            var startDateConverted = Convert.ToDateTime(startDate);
-            var endDateConverted = Convert.ToDateTime(endDate);
-            int? countConverted = Convert.ToInt32(count);
-
             using (var dbContext = new IBFEntities())
             {
                 persons = dbContext.People.Select(Mapper.Map<Person, PersonDto>).Take(10).ToList();
                 return persons;
             }
-
-            //for (int i = 0; i < spletIDs.Count(); i++)
-            //{
-            //    persons.Add(new PersonDto()
-            //    {
-            //        PersonId = Convert.ToInt32(spletIDs[i]),
-            //        FullName = "Policy " + isConfirmedConverted
-            //    });
-            //}
-
-            //return persons;
         }
     }
 }
