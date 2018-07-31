@@ -19,7 +19,7 @@ namespace IBFWCFService.Models
         [DataMember]
         public decimal Amount { get; set; }
         [DataMember]
-        public decimal Currency { get; set; }
+        public int Currency { get; set; }
         [DataMember]
         public DateTime ReinsuranceContractStartDate { get; set; }
         [DataMember]

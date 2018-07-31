@@ -37,7 +37,7 @@ namespace IBFWCFService.Helpers
                 opt => opt.MapFrom(src => src.FirstName + " " + src.Lastname))
                 .ForMember(
                 dest => dest.IdentificationCode,
-                opt => opt.MapFrom(src => src.PersonNo))
+                opt => opt.MapFrom(src => src.PersonNo ?? src.IdentityNumber))
                 .ForMember(
                 dest => dest.LegalFormId,
                 opt => opt.MapFrom(src => src.LegalStatusId)) //saidan?
