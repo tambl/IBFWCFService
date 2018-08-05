@@ -40,7 +40,8 @@ namespace IBFWCFService.Models
         public PersonDto Client { get; set; }
         [DataMember]
         public PersonDto MemorandumOperator { get; set; }
-        [DataMember] //მემორანდუმის დროს ხელშეკრულების დამდები და რეალური კლიენტი განსხვავდება ხოლმე{ get; set; } [DataMember]
+        [DataMember] //მემორანდუმის დროს ხელშეკრულების დამდები და რეალური კლიენტი განსხვავდება ხოლმე{ get; set; } 
+       
         public decimal? AmountInCurrency { get; set; }
         [DataMember] //თანხა ვალუტაში
         public decimal? Amount { get; set; }
@@ -49,10 +50,12 @@ namespace IBFWCFService.Models
         [DataMember]
         public string Currency { get; set; }
         [DataMember]
+        public ContractDto Contract { get; set; }
+        [DataMember]
         public List<ReinsuarerDto> Reinsuarer { get; set; }
         [DataMember]
         public List<AgentBrokerDto> AgentBroker { get; set; }
-     
+
     }
 
 }

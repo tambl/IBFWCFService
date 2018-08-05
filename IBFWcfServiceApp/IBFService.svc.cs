@@ -13,7 +13,7 @@ using System.Text;
 
 namespace IBFWcfServiceApp
 {
-   // [ServiceBehavior(AddressFilterMode = AddressFilterMode.Any)]
+    // [ServiceBehavior(AddressFilterMode = AddressFilterMode.Any)]
     public class IBFService : IIBFService
     {
 
@@ -62,7 +62,7 @@ namespace IBFWcfServiceApp
                                         join beneficiary in dbContext.People on pv.BeneficiaryId equals beneficiary.Id into beneficiarya
                                         from beneficiaryl in beneficiarya.DefaultIfEmpty()
 
-                                        where pv.IsActive == true && pv.IsHidden == false && pv.IsDelete == false
+                                        where pv.IsActive == true && pv.IsHidden == false && pv.IsDelete == false && p.ApproveDate != null
                                         //&& pv.Id == 4597//3586                                        
                                         && (startDateConverted != null && endDateConverted != null ? pv.CreateDate > startDateConverted && pv.CreateDate <= endDateConverted :
                                          startDateConverted != null && endDateConverted == null ? pv.CreateDate > startDateConverted :
@@ -87,6 +87,7 @@ namespace IBFWcfServiceApp
                                             CurrencyId = p.CurrencyId,
                                             Currency = curr.Name,
                                             IsMemorandum = contractl.IsMemorandum,
+                                            Contract = contractl,
                                             productl,
                                             orgnl,
                                             clientl,
@@ -95,7 +96,7 @@ namespace IBFWcfServiceApp
                                             reinshuranseShares = pv.PolicyReinsurances.Select(w => new { shares = w.PolicyReinsuranceShares.Where(s => s.IsActive == true && w.IsActive == true && w.ReinsuranceContract.IsActive == true && w.ReinsuranceContract.IsDelete == false && w.ReinsuranceContract.IsHidden == false), w.ReinsuranceContract }),
                                             agentBrokers = pv.PolicyPaymentCoverAgentContracts.Where(w => w.IsActive == true && w.IsDeleted == false && w.ContractAgentContract.IsDelete == false && w.ContractAgentContract.IsHidden == false && w.ContractAgentContract.AgentBroker.IsDelete == false && w.ContractAgentContract.AgentBroker.IsHidden == false).Select(b => b.ContractAgentContract),
                                             commands = pv.PolicyPaymentCoverContractCommands.Where(r => r.IsActive == true && r.IsDeleted == false)
-                                        }).Take(countConverted != null && countConverted <= 500 ? (int)countConverted : 500).AsEnumerable();
+                                        }).Take(countConverted != null && countConverted <= 500 ? (int)countConverted : 500).ToList();
 
 
                     policies = policiesTemp.Select(s =>
@@ -121,6 +122,7 @@ namespace IBFWcfServiceApp
                         Amount = s.PremiumInGel,
                         CurrencyId = s.CurrencyId,
                         Currency = s.Currency,
+                        Contract = Mapper.Map<Contract, ContractDto>(s.Contract),
                         Reinsuarer = s.reinshuranseShares.Select(k => new ReinsuarerDto
                         {
                             ReinsuarerPerson = Mapper.Map<Person, PersonDto>(k.shares.Select(ss => ss.Person).FirstOrDefault()),

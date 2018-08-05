@@ -90,6 +90,21 @@ namespace IBFWCFService.Helpers
                 dest => dest.AgentBrokerPerson,
                 opt => opt.MapFrom(src => src.Person))
                 ;
+
+            CreateMap<Contract, ContractDto>().ForMember(
+                dest => dest.ContractId,
+                opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Client, opt => opt.MapFrom(src => src.Person))
+                .ForMember(dest => dest.ContractExternalNumber, opt => opt.MapFrom(src => src.AdditionalContractNo))//????
+                .ForMember(dest => dest.ContractFullName, opt => opt.MapFrom(src => src.ContractNo))
+                .ForMember(dest => dest.ContractInternalNumber, opt => opt.MapFrom(src => src.ContractNo))//????
+                .ForMember(dest => dest.ContractName, opt => opt.MapFrom(src => src.AdditionalContractNo))//????
+                .ForMember(dest => dest.Currency, opt => opt.MapFrom(src => src.Currency.Name))
+                .ForMember(dest => dest.CurrencyId, opt => opt.MapFrom(src => src.CurrencyId))
+                .ForMember(dest => dest.IsMemorandum, opt => opt.MapFrom(src => src.IsMemorandum))
+                .ForMember(dest => dest.PeriodEndDate, opt => opt.MapFrom(src => src.EndDate))
+                .ForMember(dest => dest.ContractFullName, opt => opt.MapFrom(src => src.StartDate))
+                ;
         }
     }
 }

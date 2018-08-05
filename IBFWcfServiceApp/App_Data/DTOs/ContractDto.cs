@@ -29,7 +29,7 @@ namespace IBFWCFService.Models
         [DataMember] // კონტრაქტის გარე ნომერი. (ივსება ხელით საჭიროების შემთხვევაში)
         public int CurrencyId { get; set; }
         [DataMember]
-        public string Currenct { get; set; }
+        public string Currency { get; set; }
         [DataMember] // ვალუტის აბრევიატურა GEL, USD….
         public bool IsMemorandum { get; set; }
 
