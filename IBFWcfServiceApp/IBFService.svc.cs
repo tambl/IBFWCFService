@@ -17,7 +17,7 @@ namespace IBFWcfServiceApp
     public class IBFService : IIBFService
     {
 
-        public List<PolicyDto> GetPolicies(string ids, string isConfirmed, string startDate, string endDate, string count)
+        public List<PolicyDto> GetPolicies(string ids, string isConfirmed, string startDate, string endDate, string count, string versionIds, string policyNumber)
         {
             try
             {
@@ -32,6 +32,16 @@ namespace IBFWcfServiceApp
                     foreach (var item in ids.Split(','))
                     {
                         spletIDsConverted.Add(Convert.ToInt32(item));
+                    }
+                }
+
+                var spletVersionIDsConverted = new List<int>();
+
+                if (ids != "null" && !string.IsNullOrEmpty(versionIds))
+                {
+                    foreach (var item in ids.Split(','))
+                    {
+                        spletVersionIDsConverted.Add(Convert.ToInt32(item));
                     }
                 }
 
@@ -62,14 +72,16 @@ namespace IBFWcfServiceApp
                                         join beneficiary in dbContext.People on pv.BeneficiaryId equals beneficiary.Id into beneficiarya
                                         from beneficiaryl in beneficiarya.DefaultIfEmpty()
 
-                                        where pv.IsActive == true && pv.IsHidden == false && pv.IsDelete == false && p.ApproveDate != null
-                                        //&& pv.Id == 4597//3586                                        
+                                        where pv.IsHidden == false && pv.IsDelete == false && p.ApproveDate != null
+                                        //&& pv.Id == 4597//3586                                     
                                         && (startDateConverted != null && endDateConverted != null ? pv.CreateDate > startDateConverted && pv.CreateDate <= endDateConverted :
                                          startDateConverted != null && endDateConverted == null ? pv.CreateDate > startDateConverted :
                                          startDateConverted == null && endDateConverted != null ? pv.CreateDate <= endDateConverted :
                                          1 == 1)
                                         && (isConfirmedConverted == true ? pv.To1CSynchronizeDate != null : pv.To1CSynchronizeDate == null)
-                                        && (spletIDsConverted.Count() > 0 ? spletIDsConverted.Contains(pv.Id) : 1 == 1)
+                                        && (spletIDsConverted.Count() > 0 ? spletIDsConverted.Contains(p.Id) && pv.IsActive == true : 1 == 1)
+                                        && (spletVersionIDsConverted.Count() > 0 ? spletVersionIDsConverted.Contains(pv.Id) && pv.IsActive == false : 1 == 1)
+                                        && ((policyNumber != "null" && !string.IsNullOrEmpty(policyNumber)) ? p.PolicyNumber == policyNumber : 1 == 1)
                                         select new
                                         {
                                             PolicyId = p.Id,

@@ -102,8 +102,8 @@ namespace IBFWCFService.Helpers
                 .ForMember(dest => dest.Currency, opt => opt.MapFrom(src => src.Currency.Name))
                 .ForMember(dest => dest.CurrencyId, opt => opt.MapFrom(src => src.CurrencyId))
                 .ForMember(dest => dest.IsMemorandum, opt => opt.MapFrom(src => src.IsMemorandum))
-                .ForMember(dest => dest.PeriodEndDate, opt => opt.MapFrom(src => src.EndDate))
-                .ForMember(dest => dest.ContractFullName, opt => opt.MapFrom(src => src.StartDate))
+                .ForMember(dest => dest.ContractPeriodStartDate, opt => opt.MapFrom(src => src.StartDate))
+                .ForMember(dest => dest.ContractPeriodEndDate, opt => opt.MapFrom(src => src.EndDate))
                 ;
         }
     }

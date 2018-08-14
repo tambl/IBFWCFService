@@ -16,22 +16,25 @@ namespace IBFWCFService.Models
         public string ContractName { get; set; }
         [DataMember]
         public string ContractFullName { get; set; }
-        [DataMember] 
+
+        [DataMember]
         public PersonDto Client { get; set; }
         [DataMember]
-        public DateTime PeriodStartDate { get; set; }
+        public DateTime? ContractPeriodStartDate { get; set; }
         [DataMember]
-        public DateTime PeriodEndDate { get; set; }
+        public DateTime? ContractPeriodEndDate { get; set; }
+
         [DataMember]
         public string ContractInternalNumber { get; set; }
         [DataMember] //კონტრაქტის შიდა ნომერი (ანიჭებს სისტემა)
         public string ContractExternalNumber { get; set; }
         [DataMember] // კონტრაქტის გარე ნომერი. (ივსება ხელით საჭიროების შემთხვევაში)
-        public int CurrencyId { get; set; }
+        public int? CurrencyId { get; set; }
         [DataMember]
         public string Currency { get; set; }
         [DataMember] // ვალუტის აბრევიატურა GEL, USD….
         public bool IsMemorandum { get; set; }
+
 
     }
 }
