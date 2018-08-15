@@ -80,7 +80,7 @@ namespace IBFWcfServiceApp
                                          1 == 1)
                                         && (isConfirmedConverted == true ? pv.To1CSynchronizeDate != null : pv.To1CSynchronizeDate == null)
                                         && (spletIDsConverted.Count() > 0 ? spletIDsConverted.Contains(p.Id) && pv.IsActive == true : 1 == 1)
-                                        && (spletVersionIDsConverted.Count() > 0 ? spletVersionIDsConverted.Contains(pv.Id) && pv.IsActive == false : 1 == 1)
+                                        && (spletVersionIDsConverted.Count() > 0 ? spletVersionIDsConverted.Contains(pv.Id) : 1 == 1)
                                         && ((policyNumber != "null" && !string.IsNullOrEmpty(policyNumber)) ? p.PolicyNumber == policyNumber : 1 == 1)
                                         select new
                                         {
