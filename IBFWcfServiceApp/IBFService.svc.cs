@@ -72,7 +72,7 @@ namespace IBFWcfServiceApp
                                         join beneficiary in dbContext.People on pv.BeneficiaryId equals beneficiary.Id into beneficiarya
                                         from beneficiaryl in beneficiarya.DefaultIfEmpty()
 
-                                        where pv.IsHidden == false && pv.IsDelete == false && p.ApproveDate != null
+                                        where pv.IsHidden == false && pv.IsDelete == false && pv.PolicyStatusId == 3
                                         //&& pv.Id == 4597//3586                                     
                                         && (startDateConverted != null && endDateConverted != null ? pv.CreateDate > startDateConverted && pv.CreateDate <= endDateConverted :
                                          startDateConverted != null && endDateConverted == null ? pv.CreateDate > startDateConverted :
