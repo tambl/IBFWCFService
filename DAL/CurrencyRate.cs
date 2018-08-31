@@ -12,22 +12,17 @@ namespace DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class PolicyReinsuranceShare
+    public partial class CurrencyRate
     {
         public int Id { get; set; }
-        public int PolicyReinsuranceId { get; set; }
-        public int ShareHolderId { get; set; }
-        public decimal Percent { get; set; }
-        public decimal Risk { get; set; }
-        public decimal Premium { get; set; }
-        public bool IsActive { get; set; }
-        public Nullable<int> CreateUserid { get; set; }
+        public int CurrencyId { get; set; }
+        public decimal Rate { get; set; }
+        public System.DateTime RateDate { get; set; }
         public System.DateTime CreateDate { get; set; }
-        public Nullable<int> LastModifiedUserId { get; set; }
         public Nullable<System.DateTime> LastModifiedDate { get; set; }
-        public Nullable<decimal> PercentFromTotalRisk { get; set; }
+        public Nullable<int> LastModifiedUserId { get; set; }
+        public Nullable<int> CreateUserId { get; set; }
     
-        public virtual Person Person { get; set; }
-        public virtual PolicyReinsurance PolicyReinsurance { get; set; }
+        public virtual Currency Currency { get; set; }
     }
 }

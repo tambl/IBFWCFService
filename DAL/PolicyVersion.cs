@@ -59,6 +59,9 @@ namespace DAL
         public Nullable<int> SaleManagerId { get; set; }
         public bool IsActive { get; set; }
         public Nullable<System.DateTime> To1CSynchronizeDate { get; set; }
+        public Nullable<decimal> MaxCompensationPerPerson { get; set; }
+        public string OuterComment { get; set; }
+        public Nullable<int> ContractVehicleAssesmentId { get; set; }
     
         public virtual Policy Policy { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

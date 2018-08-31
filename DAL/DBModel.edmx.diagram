@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ce510c02f93b42748f2fb6b711cd2400" Name="Diagram1" ZoomLevel="45">
+      <Diagram DiagramId="ce510c02f93b42748f2fb6b711cd2400" Name="Diagram1" ZoomLevel="75">
         <EntityTypeShape EntityType="IBFModel.Contract" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="IBFModel.Policy" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
         <EntityTypeShape EntityType="IBFModel.PolicyReinsurance" Width="1.5" PointX="7.5" PointY="4.125" IsExpanded="true" />
@@ -25,7 +25,7 @@
         <AssociationConnector Association="IBFModel.FK_PolicyVersion_User_PolicyHolderId" />
         <EntityTypeShape EntityType="IBFModel.LegalStatu" Width="1.5" PointX="12.125" PointY="11.125" />
         <AssociationConnector Association="IBFModel.FK_Person_Person_Person_LegalStatus_LegalStatusId" />
-        <EntityTypeShape EntityType="IBFModel.Currency" Width="1.5" PointX="0.75" PointY="4.125" />
+        <EntityTypeShape EntityType="IBFModel.Currency" Width="1.5" PointX="16.375" PointY="0.75" />
         <AssociationConnector Association="IBFModel.FK_Contract_Currency_CurrencyId" />
         <AssociationConnector Association="IBFModel.FK_Policy_Currency_CurrencyId" />
         <EntityTypeShape EntityType="IBFModel.AgentBroker" Width="1.5" PointX="11.625" PointY="19.875" />
@@ -70,6 +70,8 @@
         <AssociationConnector Association="IBFModel.FK_Command_Command_ParentCommandLogId" />
         <AssociationConnector Association="IBFModel.FK_CommandEmploye_Command_CommandId" />
         <AssociationConnector Association="IBFModel.FK_PolicyPaymentCoverContractCommand_Command_CommandId" />
+        <EntityTypeShape EntityType="IBFModel.CurrencyRate" Width="1.5" PointX="3" PointY="21.125" />
+        <AssociationConnector Association="IBFModel.FK_CurrencyRate_Currency_CurrencyId" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

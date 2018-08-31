@@ -19,7 +19,15 @@ namespace IBFWCFService.Models
         [DataMember]
         public DateTime AgentBrokerContractStartDate { get; set; }
         [DataMember]
-        public DateTime AgentBrokerContractEndDate { get; set; }        
+        public DateTime AgentBrokerContractEndDate { get; set; }
+        [DataMember]
+        public string AgentBrokerCurrency { get; set; }
+
+        [DataMember]
+        public decimal AgentBrokerAmount { get; set; }
+
+        [DataMember]
+        public decimal AgentBrokerAmountInGel { get; set; }
     }
 
 

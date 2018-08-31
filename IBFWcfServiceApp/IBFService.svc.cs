@@ -151,10 +151,12 @@ namespace IBFWcfServiceApp
                             AgentBrokerContractId = p.AgentBrokerContractId,
                             AgentBrokerContractNumber = p.AgentBroker.ContractNo,
                             AgentBrokerContractStartDate = p.AgentBroker.StartDate,
-                            AgentBrokerContractEndDate = p.AgentBroker.EndDate
+                            AgentBrokerContractEndDate = p.AgentBroker.EndDate,
+                           // AgentBrokerCurrency = p.PolicyPaymentCoverAgentContracts.Select(s=>s.Amount * s.PolicyVersion.Policy.Currency.)
                         }).Distinct().ToList()
                     }
                     ).ToList();
+                    //ვალუტა, თანხა ვალუტაში, თანხა ეროვნულ ვალუტაში
 
                     return policies;
                 }

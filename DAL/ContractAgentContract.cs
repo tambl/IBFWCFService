@@ -21,7 +21,7 @@ namespace DAL
         }
     
         public int Id { get; set; }
-        public int ContractId { get; set; }
+        public Nullable<int> ContractId { get; set; }
         public int AgentBrokerContractId { get; set; }
         public bool IsDelete { get; set; }
         public bool IsHidden { get; set; }

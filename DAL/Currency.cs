@@ -20,6 +20,7 @@ namespace DAL
             this.Contracts = new HashSet<Contract>();
             this.Policies = new HashSet<Policy>();
             this.ReinsuranceContracts = new HashSet<ReinsuranceContract>();
+            this.CurrencyRates = new HashSet<CurrencyRate>();
         }
     
         public int Id { get; set; }
@@ -44,5 +45,7 @@ namespace DAL
         public virtual ICollection<Policy> Policies { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ReinsuranceContract> ReinsuranceContracts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CurrencyRate> CurrencyRates { get; set; }
     }
 }
