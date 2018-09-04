@@ -46,7 +46,7 @@ namespace IBFWCFService.Helpers
                 opt => opt.MapFrom(src => src.LegalStatu.Name))//saidan
                 .ForMember(
                 dest => dest.Name,
-                opt => opt.MapFrom(src => src.FirstName))
+                opt => opt.MapFrom(src => src.FirstName + " " + src.Lastname))
                 .ForMember(
                 dest => dest.PersonTypeId,
                 opt => opt.MapFrom(src => src.PersonTypeId))
