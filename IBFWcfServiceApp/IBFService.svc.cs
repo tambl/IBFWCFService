@@ -17,6 +17,18 @@ namespace IBFWcfServiceApp
     public class IBFService : IIBFService
     {
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <param name="isConfirmed"></param>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <param name="count"></param>
+        /// <param name="versionIds"></param>
+        /// <param name="policyNumber"></param>
+        /// <param name="clientIds"></param>
+        /// <returns></returns>
         public List<PolicyDto> GetPolicies(string ids, string isConfirmed, string startDate, string endDate, string count, string versionIds, string policyNumber, string clientIds)
         {
             try
@@ -57,7 +69,7 @@ namespace IBFWcfServiceApp
 
                 bool tryParseConfirmed;
 
-                bool? isConfirmedConverted = ((isConfirmed != "null" && !string.IsNullOrEmpty(isConfirmed))) && bool.TryParse(isConfirmed, out tryParseConfirmed) == true ? (bool?)Convert.ToBoolean(isConfirmed) : null; //ristvisaa parametrebis dazusteba
+                bool? isConfirmedConverted = ((isConfirmed != "null" && !string.IsNullOrEmpty(isConfirmed))) && bool.TryParse(isConfirmed, out tryParseConfirmed) == true ? (bool?)Convert.ToBoolean(isConfirmed) : false; //ristvisaa parametrebis dazusteba
                 DateTime? startDateConverted = ((startDate != "null" && !string.IsNullOrEmpty(startDate))) ? (DateTime?)Convert.ToDateTime(startDate) : null;
                 DateTime? endDateConverted = ((endDate != "null" && !string.IsNullOrEmpty(endDate))) ? (DateTime?)Convert.ToDateTime(endDate) : null;
                 int? countConverted = ((count != "null" && !string.IsNullOrEmpty(count))) ? (int?)Convert.ToInt32(count) : null;
@@ -123,33 +135,51 @@ namespace IBFWcfServiceApp
                                             commands = pv.PolicyPaymentCoverContractCommands.Where(r => r.IsActive == true && r.IsDeleted == false)
                                         }).Take(countConverted != null && countConverted <= 500 ? (int)countConverted : 500).ToList();
 
-                    var currencyRatesForSpecificDate = dbContext.CurrencyRates.Where(w => policiesTemp.Select(k => k.StartDate.Value).Contains(w.RateDate));
+                    var maxDate = policiesTemp.Max(m => m.StartDate);
+                    var minDate = policiesTemp.Min(m => m.StartDate).Value;
 
-                    policies = policiesTemp.Select(s =>
+                    var currencyRatesForSpecificDate = dbContext.CurrencyRates.Where(w => w.RateDate >= minDate && w.RateDate <= maxDate).ToList();
+
+                    while (minDate <= maxDate)
+                    {
+                        var currentDatesRate = currencyRatesForSpecificDate.Where(w => w.RateDate == minDate);
+                        if (currentDatesRate.Count() == 0)
+                        {
+                            currencyRatesForSpecificDate.AddRange(GetNearestAvailableCurrencyRate(minDate));
+                        }
+                        minDate = minDate.AddDays(1);
+                    }
+
+                    var policiesWithCurrencyRate = (from policy in policiesTemp
+                                                    join c in currencyRatesForSpecificDate on policy.CurrencyId equals c.CurrencyId
+                                                    where policy.StartDate == c.RateDate
+                                                    select new { policy, c.Rate }).ToList();
+
+                    policies = policiesWithCurrencyRate.Select(s =>
 
                     new PolicyDto()
                     {
-                        PolicyId = s.PolicyId,
-                        PolicyVersionId = s.PolicyVersionId,
-                        PolicyVersionIsActive = s.PolicyVersionIsActive,
-                        Product = Mapper.Map<SubProduct, ProductDto>(s.productl),
-                        PolicyNumber = s.PolicyNumber,
-                        StartDate = s.StartDate,
-                        EndDate = s.EndDate,
-                        PolicyStatusId = s.PolicyStatusId,//??? sidan?
-                        PolicyStatus = s.PolicyStatus,//??? sidan?
-                        PolicyVersionStatusId = s.PolicyVersionStatusId,
-                        PolicyVersionStatus = s.PolicyVersionStatus,
-                        Insured = Mapper.Map<Person, PersonDto>(s.holderl),
-                        Beneficiary = Mapper.Map<Person, PersonDto>(s.beneficiaryl),
-                        Client = Mapper.Map<Person, PersonDto>(s.clientl),
-                        MemorandumOperator = s.IsMemorandum == true ? Mapper.Map<Person, PersonDto>(s.orgnl) : null,
-                        AmountInCurrency = s.FinalyPremium,
-                        Amount = s.PremiumInGel,
-                        CurrencyId = s.CurrencyId,
-                        Currency = s.Currency,
-                        Contract = Mapper.Map<Contract, ContractDto>(s.Contract),
-                        Reinsuarer = s.reinshuranseShares.Select(k => new ReinsuarerDto
+                        PolicyId = s.policy.PolicyId,
+                        PolicyVersionId = s.policy.PolicyVersionId,
+                        PolicyVersionIsActive = s.policy.PolicyVersionIsActive,
+                        Product = Mapper.Map<SubProduct, ProductDto>(s.policy.productl),
+                        PolicyNumber = s.policy.PolicyNumber,
+                        StartDate = s.policy.StartDate,
+                        EndDate = s.policy.EndDate,
+                        PolicyStatusId = s.policy.PolicyStatusId,//??? sidan?
+                        PolicyStatus = s.policy.PolicyStatus,//??? sidan?
+                        PolicyVersionStatusId = s.policy.PolicyVersionStatusId,
+                        PolicyVersionStatus = s.policy.PolicyVersionStatus,
+                        Insured = Mapper.Map<Person, PersonDto>(s.policy.holderl),
+                        Beneficiary = Mapper.Map<Person, PersonDto>(s.policy.beneficiaryl),
+                        Client = Mapper.Map<Person, PersonDto>(s.policy.clientl),
+                        MemorandumOperator = s.policy.IsMemorandum == true ? Mapper.Map<Person, PersonDto>(s.policy.orgnl) : null,
+                        AmountInCurrency = s.policy.FinalyPremium,
+                        Amount = s.policy.PremiumInGel,
+                        CurrencyId = s.policy.CurrencyId,
+                        Currency = s.policy.Currency,
+                        Contract = Mapper.Map<Contract, ContractDto>(s.policy.Contract),
+                        Reinsuarer = s.policy.reinshuranseShares.Select(k => new ReinsuarerDto
                         {
                             ReinsuarerPerson = Mapper.Map<Person, PersonDto>(k.shares.Select(ss => ss.Person).FirstOrDefault()),
                             Amount = k.shares.Select(ss => ss.Premium).FirstOrDefault(),
@@ -159,21 +189,20 @@ namespace IBFWcfServiceApp
                             ReinsuranceContractStartDate = k.ReinsuranceContract.StartDate,
                             Currency = k.ReinsuranceContract.CurrencyId
                         }).ToList(),
-                        AgentBroker = s.agentBrokers.Select(p => new AgentBrokerDto
+                        AgentBroker = s.policy.agentBrokers.Select(agent => new AgentBrokerDto
                         {
-                            AgentBrokerPerson = Mapper.Map<Person, PersonDto>(p.Person),
-                            AgentBrokerContractId = p.AgentBrokerContractId,
-                            AgentBrokerContractNumber = p.AgentBroker.ContractNo,
-                            AgentBrokerContractStartDate = p.AgentBroker.StartDate,
-                            AgentBrokerContractEndDate = p.AgentBroker.EndDate,
-                            AgentBrokerAmount = p.PolicyPaymentCoverAgentContracts.Sum(t => t.Amount),
-                            AgentBrokerCurrency = s.Currency,
-
-                            // AgentBrokerCurrency = p.PolicyPaymentCoverAgentContracts.Select(s=>s.Amount * s.PolicyVersion.Policy.Currency.)
+                            AgentBrokerPerson = Mapper.Map<Person, PersonDto>(agent.Person),
+                            AgentBrokerContractId = agent.AgentBrokerContractId,
+                            AgentBrokerContractNumber = agent.AgentBroker.ContractNo,
+                            AgentBrokerContractStartDate = agent.AgentBroker.StartDate,
+                            AgentBrokerContractEndDate = agent.AgentBroker.EndDate,
+                            AgentBrokerAmount = agent.PolicyPaymentCoverAgentContracts.Sum(t => t.Amount),
+                            AgentBrokerCurrency = s.policy.Currency,
+                            AgentBrokerAmountInGel = agent.PolicyPaymentCoverAgentContracts.Sum(t => t.Amount * s.Rate)
+                            
                         }).Distinct().ToList()
                     }
                     ).ToList();
-                    //ვალუტა, თანხა ვალუტაში, თანხა ეროვნულ ვალუტაში
 
                     return policies;
                 }
@@ -227,6 +256,24 @@ namespace IBFWcfServiceApp
             {
                 persons = dbContext.People.Select(Mapper.Map<Person, PersonDto>).Take(10).ToList();
                 return persons;
+            }
+        }
+
+        private List<CurrencyRate> GetNearestAvailableCurrencyRate(DateTime date)
+        {
+
+            using (var dbContext = new IBFEntities())
+            {
+                var rate = dbContext.CurrencyRates.Where(w => w.RateDate == date).ToList();
+                var iteratingDate = date;
+                while (rate.Count == 0)
+                {
+                    rate = dbContext.CurrencyRates.Where(w => w.RateDate == iteratingDate).ToList();
+                    rate.ForEach(item => { item.RateDate = date; });
+                    iteratingDate = iteratingDate.AddDays(-1);
+                }
+
+                return rate;
             }
         }
     }
