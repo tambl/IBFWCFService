@@ -123,7 +123,7 @@ namespace IBFWcfServiceApp
                                             commands = pv.PolicyPaymentCoverContractCommands.Where(r => r.IsActive == true && r.IsDeleted == false)
                                         }).Take(countConverted != null && countConverted <= 500 ? (int)countConverted : 500).ToList();
 
-                    //var currencyRatesForSpecificDate = dbContext.CurrencyRates.Where(w => w.RateDate == policiesTemp.FirstOrDefault(f => f.PolicyCreateDate));
+                    var currencyRatesForSpecificDate = dbContext.CurrencyRates.Where(w => policiesTemp.Select(k => k.StartDate.Value).Contains(w.RateDate));
 
                     policies = policiesTemp.Select(s =>
 
@@ -166,6 +166,9 @@ namespace IBFWcfServiceApp
                             AgentBrokerContractNumber = p.AgentBroker.ContractNo,
                             AgentBrokerContractStartDate = p.AgentBroker.StartDate,
                             AgentBrokerContractEndDate = p.AgentBroker.EndDate,
+                            AgentBrokerAmount = p.PolicyPaymentCoverAgentContracts.Sum(t => t.Amount),
+                            AgentBrokerCurrency = s.Currency,
+
                             // AgentBrokerCurrency = p.PolicyPaymentCoverAgentContracts.Select(s=>s.Amount * s.PolicyVersion.Policy.Currency.)
                         }).Distinct().ToList()
                     }
