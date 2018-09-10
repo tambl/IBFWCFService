@@ -196,9 +196,9 @@ namespace IBFWcfServiceApp
                             AgentBrokerContractNumber = agent.AgentBroker.ContractNo,
                             AgentBrokerContractStartDate = agent.AgentBroker.StartDate,
                             AgentBrokerContractEndDate = agent.AgentBroker.EndDate,
-                            AgentBrokerAmount = agent.PolicyPaymentCoverAgentContracts.Sum(t => t.Amount),
+                            AgentBrokerAmount = agent.PolicyPaymentCoverAgentContracts.Where(z=>z.PolicyVersionId == s.policy.PolicyVersionId).Sum(t => t.Amount),
                             AgentBrokerCurrency = s.policy.Currency,
-                            AgentBrokerAmountInGel = agent.PolicyPaymentCoverAgentContracts.Sum(t => t.Amount * s.Rate)
+                            AgentBrokerAmountInGel = agent.PolicyPaymentCoverAgentContracts.Where(z => z.PolicyVersionId == s.policy.PolicyVersionId).Sum(t => t.Amount * s.Rate)
                             
                         }).Distinct().ToList()
                     }
