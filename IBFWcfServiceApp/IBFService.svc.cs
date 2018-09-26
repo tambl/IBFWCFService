@@ -135,74 +135,77 @@ namespace IBFWcfServiceApp
                                             commands = pv.PolicyPaymentCoverContractCommands.Where(r => r.IsActive == true && r.IsDeleted == false)
                                         }).Take(countConverted != null && countConverted <= 500 ? (int)countConverted : 500).ToList();
 
-                    var maxDate = policiesTemp.Max(m => m.StartDate);
-                    var minDate = policiesTemp.Min(m => m.StartDate).Value;
-
-                    var currencyRatesForSpecificDate = dbContext.CurrencyRates.Where(w => w.RateDate >= minDate && w.RateDate <= maxDate).ToList();
-
-                    while (minDate <= maxDate)
+                    if (policiesTemp != null && policiesTemp.Count > 0)
                     {
-                        var currentDatesRate = currencyRatesForSpecificDate.Where(w => w.RateDate == minDate);
-                        if (currentDatesRate.Count() == 0)
+                        var maxDate = policiesTemp.Max(m => m.StartDate);
+                        var minDate = policiesTemp.Min(m => m.StartDate).Value;
+
+                        var currencyRatesForSpecificDate = dbContext.CurrencyRates.Where(w => w.RateDate >= minDate && w.RateDate <= maxDate).ToList();
+
+                        while (minDate <= maxDate)
                         {
-                            currencyRatesForSpecificDate.AddRange(GetNearestAvailableCurrencyRate(minDate));
+                            var currentDatesRate = currencyRatesForSpecificDate.Where(w => w.RateDate == minDate);
+                            if (currentDatesRate.Count() == 0)
+                            {
+                                currencyRatesForSpecificDate.AddRange(GetNearestAvailableCurrencyRate(minDate));
+                            }
+                            minDate = minDate.AddDays(1);
                         }
-                        minDate = minDate.AddDays(1);
-                    }
 
-                    var policiesWithCurrencyRate = (from policy in policiesTemp
-                                                    join c in currencyRatesForSpecificDate on policy.CurrencyId equals c.CurrencyId
-                                                    where policy.StartDate == c.RateDate
-                                                    select new { policy, c.Rate }).ToList();
+                        var policiesWithCurrencyRate = (from policy in policiesTemp
+                                                        join c in currencyRatesForSpecificDate on policy.CurrencyId equals c.CurrencyId
+                                                        where policy.StartDate == c.RateDate
+                                                        select new { policy, c.Rate }).ToList();
 
-                    policies = policiesWithCurrencyRate.Select(s =>
+                        policies = policiesWithCurrencyRate.Select(s =>
 
-                    new PolicyDto()
-                    {
-                        PolicyId = s.policy.PolicyId,
-                        PolicyVersionId = s.policy.PolicyVersionId,
-                        PolicyVersionIsActive = s.policy.PolicyVersionIsActive,
-                        Product = Mapper.Map<SubProduct, ProductDto>(s.policy.productl),
-                        PolicyNumber = s.policy.PolicyNumber,
-                        StartDate = s.policy.StartDate,
-                        EndDate = s.policy.EndDate,
-                        PolicyStatusId = s.policy.PolicyStatusId,//??? sidan?
-                        PolicyStatus = s.policy.PolicyStatus,//??? sidan?
-                        PolicyVersionStatusId = s.policy.PolicyVersionStatusId,
-                        PolicyVersionStatus = s.policy.PolicyVersionStatus,
-                        Insured = Mapper.Map<Person, PersonDto>(s.policy.holderl),
-                        Beneficiary = Mapper.Map<Person, PersonDto>(s.policy.beneficiaryl),
-                        Client = Mapper.Map<Person, PersonDto>(s.policy.clientl),
-                        MemorandumOperator = s.policy.IsMemorandum == true ? Mapper.Map<Person, PersonDto>(s.policy.orgnl) : null,
-                        AmountInCurrency = s.policy.FinalyPremium,
-                        Amount = s.policy.PremiumInGel ?? s.policy.FinalyPremium * s.Rate,
-                        CurrencyId = s.policy.CurrencyId,
-                        Currency = s.policy.Currency,
-                        Contract = Mapper.Map<Contract, ContractDto>(s.policy.Contract),
-                        Reinsuarer = s.policy.reinshuranseShares.Select(k => new ReinsuarerDto
+                        new PolicyDto()
                         {
-                            ReinsuarerPerson = Mapper.Map<Person, PersonDto>(k.shares.Select(ss => ss.Person).FirstOrDefault()),
-                            Amount = k.shares.Select(ss => ss.Premium).FirstOrDefault(),
-                            ReinsuarerContractId = k.ReinsuranceContract.Id,
-                            ReinsuarerContractNumber = k.ReinsuranceContract.ContractNumber,
-                            ReinsuranceContractEndDate = k.ReinsuranceContract.EndDate,
-                            ReinsuranceContractStartDate = k.ReinsuranceContract.StartDate,
-                            Currency = k.ReinsuranceContract.CurrencyId
-                        }).ToList(),
-                        AgentBroker = s.policy.agentBrokers.Select(agent => new AgentBrokerDto
-                        {
-                            AgentBrokerPerson = Mapper.Map<Person, PersonDto>(agent.Person),
-                            AgentBrokerContractId = agent.AgentBrokerContractId,
-                            AgentBrokerContractNumber = agent.AgentBroker.ContractNo,
-                            AgentBrokerContractStartDate = agent.AgentBroker.StartDate,
-                            AgentBrokerContractEndDate = agent.AgentBroker.EndDate,
-                            AgentBrokerAmount = agent.PolicyPaymentCoverAgentContracts.Where(z => z.PolicyVersionId == s.policy.PolicyVersionId).Sum(t => t.Amount),
-                            AgentBrokerCurrency = s.policy.Currency,
-                            AgentBrokerAmountInGel = agent.PolicyPaymentCoverAgentContracts.Where(z => z.PolicyVersionId == s.policy.PolicyVersionId).Sum(t => t.Amount * s.Rate)
+                            PolicyId = s.policy.PolicyId,
+                            PolicyVersionId = s.policy.PolicyVersionId,
+                            PolicyVersionIsActive = s.policy.PolicyVersionIsActive,
+                            Product = Mapper.Map<SubProduct, ProductDto>(s.policy.productl),
+                            PolicyNumber = s.policy.PolicyNumber,
+                            StartDate = s.policy.StartDate,
+                            EndDate = s.policy.EndDate,
+                            PolicyStatusId = s.policy.PolicyStatusId,//??? sidan?
+                            PolicyStatus = s.policy.PolicyStatus,//??? sidan?
+                            PolicyVersionStatusId = s.policy.PolicyVersionStatusId,
+                            PolicyVersionStatus = s.policy.PolicyVersionStatus,
+                            Insured = Mapper.Map<Person, PersonDto>(s.policy.holderl),
+                            Beneficiary = Mapper.Map<Person, PersonDto>(s.policy.beneficiaryl),
+                            Client = Mapper.Map<Person, PersonDto>(s.policy.clientl),
+                            MemorandumOperator = s.policy.IsMemorandum == true ? Mapper.Map<Person, PersonDto>(s.policy.orgnl) : null,
+                            AmountInCurrency = s.policy.FinalyPremium,
+                            Amount = s.policy.PremiumInGel ?? s.policy.FinalyPremium * s.Rate,
+                            CurrencyId = s.policy.CurrencyId,
+                            Currency = s.policy.Currency,
+                            Contract = Mapper.Map<Contract, ContractDto>(s.policy.Contract),
+                            Reinsuarer = s.policy.reinshuranseShares.Select(k => new ReinsuarerDto
+                            {
+                                ReinsuarerPerson = Mapper.Map<Person, PersonDto>(k.shares.Select(ss => ss.Person).FirstOrDefault()),
+                                Amount = k.shares.Select(ss => ss.Premium).FirstOrDefault(),
+                                ReinsuarerContractId = k.ReinsuranceContract.Id,
+                                ReinsuarerContractNumber = k.ReinsuranceContract.ContractNumber,
+                                ReinsuranceContractEndDate = k.ReinsuranceContract.EndDate,
+                                ReinsuranceContractStartDate = k.ReinsuranceContract.StartDate,
+                                Currency = k.ReinsuranceContract.CurrencyId
+                            }).ToList(),
+                            AgentBroker = s.policy.agentBrokers.Select(agent => new AgentBrokerDto
+                            {
+                                AgentBrokerPerson = Mapper.Map<Person, PersonDto>(agent.Person),
+                                AgentBrokerContractId = agent.AgentBrokerContractId,
+                                AgentBrokerContractNumber = agent.AgentBroker.ContractNo,
+                                AgentBrokerContractStartDate = agent.AgentBroker.StartDate,
+                                AgentBrokerContractEndDate = agent.AgentBroker.EndDate,
+                                AgentBrokerAmount = agent.PolicyPaymentCoverAgentContracts.Where(z => z.PolicyVersionId == s.policy.PolicyVersionId).Sum(t => t.Amount),
+                                AgentBrokerCurrency = s.policy.Currency,
+                                AgentBrokerAmountInGel = agent.PolicyPaymentCoverAgentContracts.Where(z => z.PolicyVersionId == s.policy.PolicyVersionId).Sum(t => t.Amount * s.Rate)
 
-                        }).Distinct().ToList()
+                            }).Distinct().ToList()
+                        }
+                        ).ToList();
                     }
-                    ).ToList();
 
                     return policies;
                 }
