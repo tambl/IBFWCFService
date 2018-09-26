@@ -175,7 +175,7 @@ namespace IBFWcfServiceApp
                         Client = Mapper.Map<Person, PersonDto>(s.policy.clientl),
                         MemorandumOperator = s.policy.IsMemorandum == true ? Mapper.Map<Person, PersonDto>(s.policy.orgnl) : null,
                         AmountInCurrency = s.policy.FinalyPremium,
-                        Amount = s.policy.PremiumInGel,
+                        Amount = s.policy.PremiumInGel ?? s.policy.FinalyPremium * s.Rate,
                         CurrencyId = s.policy.CurrencyId,
                         Currency = s.policy.Currency,
                         Contract = Mapper.Map<Contract, ContractDto>(s.policy.Contract),
@@ -196,10 +196,10 @@ namespace IBFWcfServiceApp
                             AgentBrokerContractNumber = agent.AgentBroker.ContractNo,
                             AgentBrokerContractStartDate = agent.AgentBroker.StartDate,
                             AgentBrokerContractEndDate = agent.AgentBroker.EndDate,
-                            AgentBrokerAmount = agent.PolicyPaymentCoverAgentContracts.Where(z=>z.PolicyVersionId == s.policy.PolicyVersionId).Sum(t => t.Amount),
+                            AgentBrokerAmount = agent.PolicyPaymentCoverAgentContracts.Where(z => z.PolicyVersionId == s.policy.PolicyVersionId).Sum(t => t.Amount),
                             AgentBrokerCurrency = s.policy.Currency,
                             AgentBrokerAmountInGel = agent.PolicyPaymentCoverAgentContracts.Where(z => z.PolicyVersionId == s.policy.PolicyVersionId).Sum(t => t.Amount * s.Rate)
-                            
+
                         }).Distinct().ToList()
                     }
                     ).ToList();
