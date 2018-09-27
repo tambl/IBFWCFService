@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.ServiceModel;
@@ -24,7 +25,7 @@ namespace IBFWcfServiceApp
                     Name = svcCredentials[0],
                     Password = svcCredentials[1]
                 };
-                if ((user.Name == "IBFServiceUser" && user.Password == "testpass369"))
+                if ((user.Name == ConfigurationManager.AppSettings["IBFWcfServiceAppUserName"] && user.Password == ConfigurationManager.AppSettings["IBFWcfServiceAppUserPassword"]))
                 {
                     //User is authrized and originating call will proceed  
                     return true;
