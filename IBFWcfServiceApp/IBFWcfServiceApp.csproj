@@ -125,6 +125,7 @@
     </Compile>
     <Compile Include="IIBFService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RestAuthorizationManager.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
