@@ -55,6 +55,8 @@ namespace IBFWCFService.Models
         public List<ReinsuarerDto> Reinsuarer { get; set; }
         [DataMember]
         public List<AgentBrokerDto> AgentBroker { get; set; }
+        [DataMember]
+        public bool IsRetailPolicy { get; set; }
 
     }
 

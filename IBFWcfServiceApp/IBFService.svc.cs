@@ -123,7 +123,7 @@ namespace IBFWcfServiceApp
                                             PremiumInGel = pv.PremiumInGel,
                                             CurrencyId = p.CurrencyId,
                                             Currency = curr.Name,
-                                            IsMemorandum = contractl.IsMemorandum,
+                                            IsMemorandum = contractl != null ? contractl.IsMemorandum : false,
                                             Contract = contractl,
                                             productl,
                                             orgnl,
@@ -180,7 +180,20 @@ namespace IBFWcfServiceApp
                             Amount = s.policy.PremiumInGel ?? s.policy.FinalyPremium * s.Rate,
                             CurrencyId = s.policy.CurrencyId,
                             Currency = s.policy.Currency,
-                            Contract = Mapper.Map<Contract, ContractDto>(s.policy.Contract),
+                            IsRetailPolicy = s.policy.Contract != null ? false : true,
+                            Contract = s.policy.Contract != null ? Mapper.Map<Contract, ContractDto>(s.policy.Contract) :
+                             Mapper.Map<Contract, ContractDto>(new Contract
+                             {
+                                 Id = s.policy.PolicyId,
+                                 Person = s.policy.clientl,
+                                 AdditionalContractNo = s.policy.PolicyNumber,
+                                 ContractNo = s.policy.PolicyNumber,
+                                 Currency = new Currency { Id = (int)s.policy.CurrencyId, Name = s.policy.Currency },
+                                 CurrencyId = s.policy.CurrencyId,
+                                 IsMemorandum = false,
+                                 StartDate = s.policy.StartDate,
+                                 EndDate = s.policy.EndDate
+                             }),
                             Reinsuarer = s.policy.reinshuranseShares.Select(k => new ReinsuarerDto
                             {
                                 ReinsuarerPerson = Mapper.Map<Person, PersonDto>(k.shares.Select(ss => ss.Person).FirstOrDefault()),
