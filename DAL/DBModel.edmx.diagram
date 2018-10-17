@@ -72,6 +72,19 @@
         <AssociationConnector Association="IBFModel.FK_PolicyPaymentCoverContractCommand_Command_CommandId" />
         <EntityTypeShape EntityType="IBFModel.CurrencyRate" Width="1.5" PointX="3" PointY="21.125" />
         <AssociationConnector Association="IBFModel.FK_CurrencyRate_Currency_CurrencyId" />
+        <EntityTypeShape EntityType="IBFModel.IncomeType" Width="1.5" PointX="20.375" PointY="0.75" />
+        <EntityTypeShape EntityType="IBFModel.Transfer" Width="1.5" PointX="22.625" PointY="2.625" />
+        <AssociationConnector Association="IBFModel.FK_Transfer_IncomeType_IncomeTypeId" />
+        <AssociationConnector Association="IBFModel.FK_Transfer_TransferType_TransferTypeId" />
+        <AssociationConnector Association="IBFModel.FK_Transfer_Currency_CurrencyId" />
+        <AssociationConnector Association="IBFModel.FK_Transfer_Person_ClientId" />
+        <AssociationConnector Association="IBFModel.FK_Transfer_Transfer_parentTransferId" />
+        <AssociationConnector Association="IBFModel.FK_Transfer_Transfer_VirtualTransferId" />
+        <EntityTypeShape EntityType="IBFModel.IncomingOrderTable" Width="1.5" PointX="25.625" PointY="2.375" />
+        <AssociationConnector Association="IBFModel.FK_IncomingOrderTable_IncomeType_IncomeTypeId" />
+        <AssociationConnector Association="IBFModel.FK_IncomingOrderTable_Currency_CurrencyId" />
+        <AssociationConnector Association="IBFModel.FK_IncomingOrderTable_Person_ClientId" />
+        <AssociationConnector Association="IBFModel.FK_Transfer_IncomingOrderTable" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

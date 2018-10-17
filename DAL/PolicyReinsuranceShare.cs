@@ -26,6 +26,7 @@ namespace DAL
         public Nullable<int> LastModifiedUserId { get; set; }
         public Nullable<System.DateTime> LastModifiedDate { get; set; }
         public Nullable<decimal> PercentFromTotalRisk { get; set; }
+        public Nullable<decimal> PremiumPerDay { get; set; }
     
         public virtual Person Person { get; set; }
         public virtual PolicyReinsurance PolicyReinsurance { get; set; }

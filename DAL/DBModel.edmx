@@ -18,6 +18,20 @@
           <Property Name="LastModifiedUserId" Type="int" />
           <Property Name="CreateUserId" Type="int" />
         </EntityType>
+        <EntityType Name="IncomeType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsDelete" Type="bit" Nullable="false" />
+          <Property Name="IsHidden" Type="bit" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="LastModifiedDate" Type="datetime2" Precision="7" />
+          <Property Name="LastModifiedUserId" Type="int" />
+          <Property Name="CreateUserId" Type="int" />
+          <Property Name="TranslateDictionaryId" Type="int" />
+        </EntityType>
         <EntityType Name="Contract">
           <Key>
             <PropertyRef Name="Id" />
@@ -31,7 +45,6 @@
           <Property Name="ContractNo" Type="nvarchar" MaxLength="300" />
           <Property Name="AdditionalContractNo" Type="nvarchar" MaxLength="300" />
           <Property Name="ClientId" Type="int" />
-          <Property Name="ParentOrganizationId" Type="int" />
           <Property Name="StartDate" Type="datetime2" Precision="0" />
           <Property Name="EndDate" Type="datetime2" Precision="0" />
           <Property Name="IsDraft" Type="bit" Nullable="false" />
@@ -63,6 +76,7 @@
           <Property Name="IsUnApproved" Type="bit" />
           <Property Name="OriginalDocumentDeadlineDay" Type="int" />
           <Property Name="LedManagerId" Type="int" />
+          <Property Name="ParentOrganizationId" Type="int" />
         </EntityType>
         <EntityType Name="ContractAgentContract">
           <Key>
@@ -155,6 +169,36 @@
           <Property Name="CreateDate" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="LastModifiedUserId" Type="int" />
           <Property Name="LastModifiedDate" Type="datetime2" Precision="7" />
+        </EntityType>
+        <EntityType Name="IncomingOrderTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientId" Type="int" />
+          <Property Name="DocNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="Payer" Type="nvarchar" MaxLength="300" />
+          <Property Name="IncomingChannelld" Type="int" />
+          <Property Name="BankId" Type="int" />
+          <Property Name="Account" Type="nvarchar" MaxLength="50" />
+          <Property Name="DebitAmount" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="CurrencyId" Type="int" Nullable="false" />
+          <Property Name="TaxCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsDelete" Type="bit" Nullable="false" />
+          <Property Name="IsHidden" Type="bit" Nullable="false" />
+          <Property Name="CreateUserId" Type="int" />
+          <Property Name="CreateDate" Type="datetime2" Precision="7" />
+          <Property Name="LastModifiedDate" Type="datetime2" Precision="7" />
+          <Property Name="LastModifiedUserId" Type="int" />
+          <Property Name="ApproveDate" Type="datetime2" Precision="7" />
+          <Property Name="IncomeDate" Type="datetime2" Precision="7" />
+          <Property Name="IncomeTypeId" Type="int" />
+          <Property Name="StatusId" Type="int" />
+          <Property Name="InvoiceId" Type="int" />
+          <Property Name="IsNotifyRead" Type="bit" />
+          <Property Name="Balance" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="IsIncomingOrderDistr" Type="bit" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="AgentBroker">
           <Key>
@@ -251,7 +295,6 @@
           <Property Name="PolicyNumber" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="ContractPackageId" Type="int" />
           <Property Name="MedicalCoverageId" Type="int" />
-          <Property Name="VehicleAssessmentId" Type="int" />
           <Property Name="CurrencyId" Type="int" />
           <Property Name="ProductId" Type="int" />
           <Property Name="ServiceManageraId" Type="int" />
@@ -283,6 +326,7 @@
           <Property Name="CreateUserId" Type="int" />
           <Property Name="ParentPolicyLogId" Type="int" />
           <Property Name="ContractPackageServiceId" Type="int" />
+          <Property Name="VehicleAssessmentId" Type="int" />
           <Property Name="ApprovePersonCount" Type="int" />
         </EntityType>
         <EntityType Name="PolicyPaymentCoverAgentContract">
@@ -343,6 +387,7 @@
           <Property Name="CreateDate" Type="datetime2" Precision="0" Nullable="false" />
           <Property Name="LastModifiedUserId" Type="int" />
           <Property Name="LastModifiedDate" Type="datetime2" Precision="0" />
+          <Property Name="TreatPremiumPerDay" Type="decimal" Precision="18" Scale="10" />
         </EntityType>
         <EntityType Name="PolicyReinsuranceShare">
           <Key>
@@ -360,6 +405,7 @@
           <Property Name="LastModifiedUserId" Type="int" />
           <Property Name="LastModifiedDate" Type="datetime2" Precision="0" />
           <Property Name="PercentFromTotalRisk" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="PremiumPerDay" Type="decimal" Precision="18" Scale="10" />
         </EntityType>
         <EntityType Name="PolicyStatus">
           <Key>
@@ -419,6 +465,9 @@
           <Property Name="MaxCompensationPerPerson" Type="decimal" Precision="10" Scale="2" />
           <Property Name="OuterComment" Type="nvarchar" MaxLength="2000" />
           <Property Name="ContractVehicleAssesmentId" Type="int" />
+          <Property Name="FinalyPremiumPerDay" Type="decimal" Precision="18" Scale="10" />
+          <Property Name="HasSupervisionCheck" Type="bit" />
+          <Property Name="SupervisionCheckResultDate" Type="datetime2" Precision="7" />
         </EntityType>
         <EntityType Name="PolicyVersionStatus">
           <Key>
@@ -469,7 +518,6 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ExistingProductTypeId" Type="int" />
           <Property Name="ProductId" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="300" Nullable="false" />
           <Property Name="PrintName" Type="nvarchar" MaxLength="300" />
@@ -482,6 +530,7 @@
           <Property Name="LastModifiedDate" Type="datetime2" Precision="0" />
           <Property Name="TranslateDictionaryId" Type="int" />
           <Property Name="PrintTranslateDictionaryId" Type="int" />
+          <Property Name="ExistingProductTypeId" Type="int" />
         </EntityType>
         <EntityType Name="ReinsuranceContract">
           <Key>
@@ -522,6 +571,46 @@
           <Property Name="PolicyPeriodLimitation" Type="int" />
           <Property Name="BrokerMinDeposit" Type="float" />
           <Property Name="ParentLogId" Type="int" />
+        </EntityType>
+        <EntityType Name="Transfer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientId" Type="int" />
+          <Property Name="DocNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="Payer" Type="nvarchar" MaxLength="300" />
+          <Property Name="IncomeChanneld" Type="int" />
+          <Property Name="BankId" Type="int" />
+          <Property Name="Account" Type="nvarchar" MaxLength="50" />
+          <Property Name="IncomeAmount" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="ExtendAmount" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="CashBackAmount" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="DistributedAmount" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Balance" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="CurrencyId" Type="int" Nullable="false" />
+          <Property Name="TaxCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsUsed" Type="bit" Nullable="false" />
+          <Property Name="IsDistributed" Type="bit" Nullable="false" />
+          <Property Name="TypeId" Type="int" />
+          <Property Name="RateEur" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="RateUsd" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="TransferStatusId" Type="int" />
+          <Property Name="IncomeTypeId" Type="int" />
+          <Property Name="ParentTransferId" Type="int" />
+          <Property Name="VirtualTransferId" Type="int" />
+          <Property Name="IsVirtuel" Type="bit" Nullable="false" />
+          <Property Name="IsIncomingOrderDistr" Type="bit" Nullable="false" />
+          <Property Name="IsDelete" Type="bit" Nullable="false" />
+          <Property Name="IsHidden" Type="bit" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime2" Precision="7" />
+          <Property Name="LastModifiedDate" Type="datetime2" Precision="7" />
+          <Property Name="LastModifiedUserId" Type="int" />
+          <Property Name="CreateUserId" Type="int" />
+          <Property Name="IncomeDate" Type="datetime2" Precision="7" />
+          <Property Name="IncomingOrderId" Type="int" />
+          <Property Name="To1CSynchronizeDate" Type="datetime" />
+          <Property Name="NeedsReSynchronizeTo1C" Type="bit" />
         </EntityType>
         <Association Name="FK_AgentBroker_AgentBroker_ParentAgentBrokerLogId">
           <End Role="AgentBroker" Type="Self.AgentBroker" Multiplicity="0..1" />
@@ -712,6 +801,42 @@
             </Principal>
             <Dependent Role="CurrencyRate">
               <PropertyRef Name="CurrencyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IncomingOrderTable_Currency_CurrencyId">
+          <End Role="Currency" Type="Self.Currency" Multiplicity="1" />
+          <End Role="IncomingOrderTable" Type="Self.IncomingOrderTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Currency">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IncomingOrderTable">
+              <PropertyRef Name="CurrencyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IncomingOrderTable_IncomeType_IncomeTypeId">
+          <End Role="IncomeType" Type="Self.IncomeType" Multiplicity="0..1" />
+          <End Role="IncomingOrderTable" Type="Self.IncomingOrderTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IncomeType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IncomingOrderTable">
+              <PropertyRef Name="IncomeTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IncomingOrderTable_Person_ClientId">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="IncomingOrderTable" Type="Self.IncomingOrderTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IncomingOrderTable">
+              <PropertyRef Name="ClientId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1063,14 +1188,100 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Transfer_Currency_CurrencyId">
+          <End Role="Currency" Type="Self.Currency" Multiplicity="1" />
+          <End Role="Transfer" Type="Self.Transfer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Currency">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transfer">
+              <PropertyRef Name="CurrencyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transfer_IncomeType_IncomeTypeId">
+          <End Role="IncomeType" Type="Self.IncomeType" Multiplicity="0..1" />
+          <End Role="Transfer" Type="Self.Transfer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IncomeType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transfer">
+              <PropertyRef Name="IncomeTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transfer_IncomingOrderTable">
+          <End Role="IncomingOrderTable" Type="Self.IncomingOrderTable" Multiplicity="0..1" />
+          <End Role="Transfer" Type="Self.Transfer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IncomingOrderTable">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transfer">
+              <PropertyRef Name="IncomingOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transfer_Person_ClientId">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="Transfer" Type="Self.Transfer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transfer">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transfer_Transfer_parentTransferId">
+          <End Role="Transfer" Type="Self.Transfer" Multiplicity="0..1" />
+          <End Role="Transfer1" Type="Self.Transfer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Transfer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transfer1">
+              <PropertyRef Name="ParentTransferId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transfer_Transfer_VirtualTransferId">
+          <End Role="Transfer" Type="Self.Transfer" Multiplicity="0..1" />
+          <End Role="Transfer1" Type="Self.Transfer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Transfer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transfer1">
+              <PropertyRef Name="VirtualTransferId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transfer_TransferType_TransferTypeId">
+          <End Role="IncomeType" Type="Self.IncomeType" Multiplicity="0..1" />
+          <End Role="Transfer" Type="Self.Transfer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IncomeType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transfer">
+              <PropertyRef Name="IncomeTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="IBFModelStoreContainer">
           <EntitySet Name="CurrencyRate" EntityType="Self.CurrencyRate" Schema="Account" store:Type="Tables" />
+          <EntitySet Name="IncomeType" EntityType="Self.IncomeType" Schema="Account" store:Type="Tables" />
           <EntitySet Name="Contract" EntityType="Self.Contract" Schema="Contract" store:Type="Tables" />
           <EntitySet Name="ContractAgentContract" EntityType="Self.ContractAgentContract" Schema="Contract" store:Type="Tables" />
           <EntitySet Name="ContractCommand" EntityType="Self.ContractCommand" Schema="Contract" store:Type="Tables" />
           <EntitySet Name="Currency" EntityType="Self.Currency" Schema="Dictionary" store:Type="Tables" />
           <EntitySet Name="Command" EntityType="Self.Command" Schema="HumanResource" store:Type="Tables" />
           <EntitySet Name="CommandEmploye" EntityType="Self.CommandEmploye" Schema="HumanResource" store:Type="Tables" />
+          <EntitySet Name="IncomingOrderTable" EntityType="Self.IncomingOrderTable" Schema="IncomingOrder" store:Type="Tables" />
           <EntitySet Name="AgentBroker" EntityType="Self.AgentBroker" Schema="Mediator" store:Type="Tables" />
           <EntitySet Name="LegalStatus" EntityType="Self.LegalStatus" Schema="Person" store:Type="Tables" />
           <EntitySet Name="Person" EntityType="Self.Person" Schema="Person" store:Type="Tables" />
@@ -1086,6 +1297,7 @@
           <EntitySet Name="ProductType" EntityType="Self.ProductType" Schema="Product" store:Type="Tables" />
           <EntitySet Name="SubProduct" EntityType="Self.SubProduct" Schema="Product" store:Type="Tables" />
           <EntitySet Name="ReinsuranceContract" EntityType="Self.ReinsuranceContract" Schema="Reinsurance" store:Type="Tables" />
+          <EntitySet Name="Transfer" EntityType="Self.Transfer" Schema="Transfer" store:Type="Tables" />
           <AssociationSet Name="FK_AgentBroker_AgentBroker_ParentAgentBrokerLogId" Association="Self.FK_AgentBroker_AgentBroker_ParentAgentBrokerLogId">
             <End Role="AgentBroker" EntitySet="AgentBroker" />
             <End Role="AgentBroker1" EntitySet="AgentBroker" />
@@ -1149,6 +1361,18 @@
           <AssociationSet Name="FK_CurrencyRate_Currency_CurrencyId" Association="Self.FK_CurrencyRate_Currency_CurrencyId">
             <End Role="Currency" EntitySet="Currency" />
             <End Role="CurrencyRate" EntitySet="CurrencyRate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IncomingOrderTable_Currency_CurrencyId" Association="Self.FK_IncomingOrderTable_Currency_CurrencyId">
+            <End Role="Currency" EntitySet="Currency" />
+            <End Role="IncomingOrderTable" EntitySet="IncomingOrderTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IncomingOrderTable_IncomeType_IncomeTypeId" Association="Self.FK_IncomingOrderTable_IncomeType_IncomeTypeId">
+            <End Role="IncomeType" EntitySet="IncomeType" />
+            <End Role="IncomingOrderTable" EntitySet="IncomingOrderTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IncomingOrderTable_Person_ClientId" Association="Self.FK_IncomingOrderTable_Person_ClientId">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="IncomingOrderTable" EntitySet="IncomingOrderTable" />
           </AssociationSet>
           <AssociationSet Name="FK_Person_Person_Person_LegalStatus_LegalStatusId" Association="Self.FK_Person_Person_Person_LegalStatus_LegalStatusId">
             <End Role="LegalStatus" EntitySet="LegalStatus" />
@@ -1265,6 +1489,34 @@
           <AssociationSet Name="FK_SubProduct_Product_ProductId" Association="Self.FK_SubProduct_Product_ProductId">
             <End Role="Product" EntitySet="Product" />
             <End Role="SubProduct" EntitySet="SubProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transfer_Currency_CurrencyId" Association="Self.FK_Transfer_Currency_CurrencyId">
+            <End Role="Currency" EntitySet="Currency" />
+            <End Role="Transfer" EntitySet="Transfer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transfer_IncomeType_IncomeTypeId" Association="Self.FK_Transfer_IncomeType_IncomeTypeId">
+            <End Role="IncomeType" EntitySet="IncomeType" />
+            <End Role="Transfer" EntitySet="Transfer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transfer_IncomingOrderTable" Association="Self.FK_Transfer_IncomingOrderTable">
+            <End Role="IncomingOrderTable" EntitySet="IncomingOrderTable" />
+            <End Role="Transfer" EntitySet="Transfer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transfer_Person_ClientId" Association="Self.FK_Transfer_Person_ClientId">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Transfer" EntitySet="Transfer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transfer_Transfer_parentTransferId" Association="Self.FK_Transfer_Transfer_parentTransferId">
+            <End Role="Transfer" EntitySet="Transfer" />
+            <End Role="Transfer1" EntitySet="Transfer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transfer_Transfer_VirtualTransferId" Association="Self.FK_Transfer_Transfer_VirtualTransferId">
+            <End Role="Transfer" EntitySet="Transfer" />
+            <End Role="Transfer1" EntitySet="Transfer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transfer_TransferType_TransferTypeId" Association="Self.FK_Transfer_TransferType_TransferTypeId">
+            <End Role="IncomeType" EntitySet="IncomeType" />
+            <End Role="Transfer" EntitySet="Transfer" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -1394,6 +1646,7 @@
           <NavigationProperty Name="PolicyVersion" Relationship="Self.FK_PolicyReinsurance_PolicyVersion_PolicyVersionId" FromRole="PolicyReinsurance" ToRole="PolicyVersion" />
           <NavigationProperty Name="ReinsuranceContract" Relationship="IBFModel.FK_PolicyReinsurance_ReinsuranceContract_ReinsuranceContractId" FromRole="PolicyReinsurance" ToRole="ReinsuranceContract" />
           <NavigationProperty Name="PolicyReinsuranceShares" Relationship="IBFModel.FK_PolicyReinsuranceShare_PolicyReinsurance_PolicyReinsuranceId" FromRole="PolicyReinsurance" ToRole="PolicyReinsuranceShare" />
+          <Property Name="TreatPremiumPerDay" Type="Decimal" Precision="18" Scale="10" />
         </EntityType>
         <EntityType Name="PolicyVersion">
           <Key>
@@ -1450,6 +1703,9 @@
           <Property Name="MaxCompensationPerPerson" Type="Decimal" Precision="10" Scale="2" />
           <Property Name="OuterComment" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
           <Property Name="ContractVehicleAssesmentId" Type="Int32" />
+          <Property Name="FinalyPremiumPerDay" Type="Decimal" Precision="18" Scale="10" />
+          <Property Name="HasSupervisionCheck" Type="Boolean" />
+          <Property Name="SupervisionCheckResultDate" Type="DateTime" Precision="7" />
         </EntityType>
         <Association Name="FK_Contract_Contract_ParentContractLogId">
           <End Role="Contract" Type="Self.Contract" Multiplicity="0..1" />
@@ -1714,6 +1970,49 @@
             <End Role="Currency" EntitySet="Currencies" />
             <End Role="CurrencyRate" EntitySet="CurrencyRates" />
           </AssociationSet>
+          <EntitySet Name="IncomeTypes" EntityType="IBFModel.IncomeType" />
+          <EntitySet Name="Transfers" EntityType="IBFModel.Transfer" />
+          <AssociationSet Name="FK_Transfer_IncomeType_IncomeTypeId" Association="IBFModel.FK_Transfer_IncomeType_IncomeTypeId">
+            <End Role="IncomeType" EntitySet="IncomeTypes" />
+            <End Role="Transfer" EntitySet="Transfers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transfer_TransferType_TransferTypeId" Association="IBFModel.FK_Transfer_TransferType_TransferTypeId">
+            <End Role="IncomeType" EntitySet="IncomeTypes" />
+            <End Role="Transfer" EntitySet="Transfers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transfer_Currency_CurrencyId" Association="IBFModel.FK_Transfer_Currency_CurrencyId">
+            <End Role="Currency" EntitySet="Currencies" />
+            <End Role="Transfer" EntitySet="Transfers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transfer_Person_ClientId" Association="IBFModel.FK_Transfer_Person_ClientId">
+            <End Role="Person" EntitySet="People" />
+            <End Role="Transfer" EntitySet="Transfers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transfer_Transfer_parentTransferId" Association="IBFModel.FK_Transfer_Transfer_parentTransferId">
+            <End Role="Transfer" EntitySet="Transfers" />
+            <End Role="Transfer1" EntitySet="Transfers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transfer_Transfer_VirtualTransferId" Association="IBFModel.FK_Transfer_Transfer_VirtualTransferId">
+            <End Role="Transfer" EntitySet="Transfers" />
+            <End Role="Transfer1" EntitySet="Transfers" />
+          </AssociationSet>
+          <EntitySet Name="IncomingOrderTables" EntityType="IBFModel.IncomingOrderTable" />
+          <AssociationSet Name="FK_IncomingOrderTable_IncomeType_IncomeTypeId" Association="IBFModel.FK_IncomingOrderTable_IncomeType_IncomeTypeId">
+            <End Role="IncomeType" EntitySet="IncomeTypes" />
+            <End Role="IncomingOrderTable" EntitySet="IncomingOrderTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IncomingOrderTable_Currency_CurrencyId" Association="IBFModel.FK_IncomingOrderTable_Currency_CurrencyId">
+            <End Role="Currency" EntitySet="Currencies" />
+            <End Role="IncomingOrderTable" EntitySet="IncomingOrderTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IncomingOrderTable_Person_ClientId" Association="IBFModel.FK_IncomingOrderTable_Person_ClientId">
+            <End Role="Person" EntitySet="People" />
+            <End Role="IncomingOrderTable" EntitySet="IncomingOrderTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transfer_IncomingOrderTable" Association="IBFModel.FK_Transfer_IncomingOrderTable">
+            <End Role="IncomingOrderTable" EntitySet="IncomingOrderTables" />
+            <End Role="Transfer" EntitySet="Transfers" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Person">
           <Key>
@@ -1778,6 +2077,8 @@
           <NavigationProperty Name="AgentBrokers" Relationship="IBFModel.FK_AgentBroker_Person_PersonId" FromRole="Person" ToRole="AgentBroker" />
           <NavigationProperty Name="PolicyReinsuranceShares" Relationship="IBFModel.FK_PolicyReinsuranceShare_Person_ShareHolderId" FromRole="Person" ToRole="PolicyReinsuranceShare" />
           <NavigationProperty Name="ContractAgentContracts" Relationship="IBFModel.FK_ContractAgentContract_Person_AgentId" FromRole="Person" ToRole="ContractAgentContract" />
+          <NavigationProperty Name="Transfers" Relationship="IBFModel.FK_Transfer_Person_ClientId" FromRole="Person" ToRole="Transfer" />
+          <NavigationProperty Name="IncomingOrderTables" Relationship="IBFModel.FK_IncomingOrderTable_Person_ClientId" FromRole="Person" ToRole="IncomingOrderTable" />
         </EntityType>
         <Association Name="FK_Contract_Person_ClientId">
           <End Type="IBFModel.Person" Role="Person" Multiplicity="0..1" />
@@ -1925,6 +2226,8 @@
           <NavigationProperty Name="Policies" Relationship="IBFModel.FK_Policy_Currency_CurrencyId" FromRole="Currency" ToRole="Policy" />
           <NavigationProperty Name="ReinsuranceContracts" Relationship="IBFModel.FK_ReinsuranceContract_Currency_CurrencyId" FromRole="Currency" ToRole="ReinsuranceContract" />
           <NavigationProperty Name="CurrencyRates" Relationship="IBFModel.FK_CurrencyRate_Currency_CurrencyId" FromRole="Currency" ToRole="CurrencyRate" />
+          <NavigationProperty Name="Transfers" Relationship="IBFModel.FK_Transfer_Currency_CurrencyId" FromRole="Currency" ToRole="Transfer" />
+          <NavigationProperty Name="IncomingOrderTables" Relationship="IBFModel.FK_IncomingOrderTable_Currency_CurrencyId" FromRole="Currency" ToRole="IncomingOrderTable" />
         </EntityType>
         <Association Name="FK_Contract_Currency_CurrencyId">
           <End Type="IBFModel.Currency" Role="Currency" Multiplicity="0..1" />
@@ -2272,6 +2575,7 @@
           <NavigationProperty Name="Person" Relationship="IBFModel.FK_PolicyReinsuranceShare_Person_ShareHolderId" FromRole="PolicyReinsuranceShare" ToRole="Person" />
           <NavigationProperty Name="PolicyReinsurance" Relationship="IBFModel.FK_PolicyReinsuranceShare_PolicyReinsurance_PolicyReinsuranceId" FromRole="PolicyReinsuranceShare" ToRole="PolicyReinsurance" />
           <Property Name="PercentFromTotalRisk" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="PremiumPerDay" Type="Decimal" Precision="18" Scale="10" />
         </EntityType>
         <Association Name="FK_PolicyReinsuranceShare_Person_ShareHolderId">
           <End Type="IBFModel.Person" Role="Person" Multiplicity="1" />
@@ -2623,6 +2927,226 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="IncomeType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+          <Property Name="IsHidden" Type="Boolean" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="LastModifiedDate" Type="DateTime" Precision="7" />
+          <Property Name="LastModifiedUserId" Type="Int32" />
+          <Property Name="CreateUserId" Type="Int32" />
+          <Property Name="TranslateDictionaryId" Type="Int32" />
+          <NavigationProperty Name="Transfers" Relationship="IBFModel.FK_Transfer_IncomeType_IncomeTypeId" FromRole="IncomeType" ToRole="Transfer" />
+          <NavigationProperty Name="Transfers1" Relationship="IBFModel.FK_Transfer_TransferType_TransferTypeId" FromRole="IncomeType" ToRole="Transfer" />
+          <NavigationProperty Name="IncomingOrderTables" Relationship="IBFModel.FK_IncomingOrderTable_IncomeType_IncomeTypeId" FromRole="IncomeType" ToRole="IncomingOrderTable" />
+        </EntityType>
+        <EntityType Name="Transfer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientId" Type="Int32" />
+          <Property Name="DocNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Payer" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="IncomeChanneld" Type="Int32" />
+          <Property Name="BankId" Type="Int32" />
+          <Property Name="Account" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IncomeAmount" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="ExtendAmount" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="CashBackAmount" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="DistributedAmount" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Balance" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="CurrencyId" Type="Int32" Nullable="false" />
+          <Property Name="TaxCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsUsed" Type="Boolean" Nullable="false" />
+          <Property Name="IsDistributed" Type="Boolean" Nullable="false" />
+          <Property Name="TypeId" Type="Int32" />
+          <Property Name="RateEur" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="RateUsd" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="TransferStatusId" Type="Int32" />
+          <Property Name="IncomeTypeId" Type="Int32" />
+          <Property Name="ParentTransferId" Type="Int32" />
+          <Property Name="VirtualTransferId" Type="Int32" />
+          <Property Name="IsVirtuel" Type="Boolean" Nullable="false" />
+          <Property Name="IsIncomingOrderDistr" Type="Boolean" Nullable="false" />
+          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+          <Property Name="IsHidden" Type="Boolean" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="7" />
+          <Property Name="LastModifiedDate" Type="DateTime" Precision="7" />
+          <Property Name="LastModifiedUserId" Type="Int32" />
+          <Property Name="CreateUserId" Type="Int32" />
+          <Property Name="IncomeDate" Type="DateTime" Precision="7" />
+          <Property Name="IncomingOrderId" Type="Int32" />
+          <Property Name="To1CSynchronizeDate" Type="DateTime" Precision="3" />
+          <Property Name="NeedsReSynchronizeTo1C" Type="Boolean" />
+          <NavigationProperty Name="IncomeType" Relationship="IBFModel.FK_Transfer_IncomeType_IncomeTypeId" FromRole="Transfer" ToRole="IncomeType" />
+          <NavigationProperty Name="IncomeType1" Relationship="IBFModel.FK_Transfer_TransferType_TransferTypeId" FromRole="Transfer" ToRole="IncomeType" />
+          <NavigationProperty Name="Currency" Relationship="IBFModel.FK_Transfer_Currency_CurrencyId" FromRole="Transfer" ToRole="Currency" />
+          <NavigationProperty Name="Person" Relationship="IBFModel.FK_Transfer_Person_ClientId" FromRole="Transfer" ToRole="Person" />
+          <NavigationProperty Name="Transfer1" Relationship="IBFModel.FK_Transfer_Transfer_parentTransferId" FromRole="Transfer" ToRole="Transfer1" />
+          <NavigationProperty Name="Transfer2" Relationship="IBFModel.FK_Transfer_Transfer_parentTransferId" FromRole="Transfer1" ToRole="Transfer" />
+          <NavigationProperty Name="Transfer11" Relationship="IBFModel.FK_Transfer_Transfer_VirtualTransferId" FromRole="Transfer" ToRole="Transfer1" />
+          <NavigationProperty Name="Transfer3" Relationship="IBFModel.FK_Transfer_Transfer_VirtualTransferId" FromRole="Transfer1" ToRole="Transfer" />
+          <NavigationProperty Name="IncomingOrderTable" Relationship="IBFModel.FK_Transfer_IncomingOrderTable" FromRole="Transfer" ToRole="IncomingOrderTable" />
+        </EntityType>
+        <Association Name="FK_Transfer_IncomeType_IncomeTypeId">
+          <End Type="IBFModel.IncomeType" Role="IncomeType" Multiplicity="0..1" />
+          <End Type="IBFModel.Transfer" Role="Transfer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IncomeType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transfer">
+              <PropertyRef Name="IncomeTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transfer_TransferType_TransferTypeId">
+          <End Type="IBFModel.IncomeType" Role="IncomeType" Multiplicity="0..1" />
+          <End Type="IBFModel.Transfer" Role="Transfer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IncomeType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transfer">
+              <PropertyRef Name="IncomeTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transfer_Currency_CurrencyId">
+          <End Type="IBFModel.Currency" Role="Currency" Multiplicity="1" />
+          <End Type="IBFModel.Transfer" Role="Transfer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Currency">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transfer">
+              <PropertyRef Name="CurrencyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transfer_Person_ClientId">
+          <End Type="IBFModel.Person" Role="Person" Multiplicity="0..1" />
+          <End Type="IBFModel.Transfer" Role="Transfer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transfer">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transfer_Transfer_parentTransferId">
+          <End Type="IBFModel.Transfer" Role="Transfer" Multiplicity="0..1" />
+          <End Type="IBFModel.Transfer" Role="Transfer1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Transfer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transfer1">
+              <PropertyRef Name="ParentTransferId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transfer_Transfer_VirtualTransferId">
+          <End Type="IBFModel.Transfer" Role="Transfer" Multiplicity="0..1" />
+          <End Type="IBFModel.Transfer" Role="Transfer1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Transfer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transfer1">
+              <PropertyRef Name="VirtualTransferId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="IncomingOrderTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientId" Type="Int32" />
+          <Property Name="DocNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Payer" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="IncomingChannelld" Type="Int32" />
+          <Property Name="BankId" Type="Int32" />
+          <Property Name="Account" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DebitAmount" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="CurrencyId" Type="Int32" Nullable="false" />
+          <Property Name="TaxCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+          <Property Name="IsHidden" Type="Boolean" Nullable="false" />
+          <Property Name="CreateUserId" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Precision="7" />
+          <Property Name="LastModifiedDate" Type="DateTime" Precision="7" />
+          <Property Name="LastModifiedUserId" Type="Int32" />
+          <Property Name="ApproveDate" Type="DateTime" Precision="7" />
+          <Property Name="IncomeDate" Type="DateTime" Precision="7" />
+          <Property Name="IncomeTypeId" Type="Int32" />
+          <Property Name="StatusId" Type="Int32" />
+          <Property Name="InvoiceId" Type="Int32" />
+          <Property Name="IsNotifyRead" Type="Boolean" />
+          <Property Name="Balance" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="IsIncomingOrderDistr" Type="Boolean" />
+          <Property Name="Comment" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="IncomeType" Relationship="IBFModel.FK_IncomingOrderTable_IncomeType_IncomeTypeId" FromRole="IncomingOrderTable" ToRole="IncomeType" />
+          <NavigationProperty Name="Currency" Relationship="IBFModel.FK_IncomingOrderTable_Currency_CurrencyId" FromRole="IncomingOrderTable" ToRole="Currency" />
+          <NavigationProperty Name="Person" Relationship="IBFModel.FK_IncomingOrderTable_Person_ClientId" FromRole="IncomingOrderTable" ToRole="Person" />
+          <NavigationProperty Name="Transfers" Relationship="IBFModel.FK_Transfer_IncomingOrderTable" FromRole="IncomingOrderTable" ToRole="Transfer" />
+        </EntityType>
+        <Association Name="FK_IncomingOrderTable_IncomeType_IncomeTypeId">
+          <End Type="IBFModel.IncomeType" Role="IncomeType" Multiplicity="0..1" />
+          <End Type="IBFModel.IncomingOrderTable" Role="IncomingOrderTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IncomeType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IncomingOrderTable">
+              <PropertyRef Name="IncomeTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IncomingOrderTable_Currency_CurrencyId">
+          <End Type="IBFModel.Currency" Role="Currency" Multiplicity="1" />
+          <End Type="IBFModel.IncomingOrderTable" Role="IncomingOrderTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Currency">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IncomingOrderTable">
+              <PropertyRef Name="CurrencyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IncomingOrderTable_Person_ClientId">
+          <End Type="IBFModel.Person" Role="Person" Multiplicity="0..1" />
+          <End Type="IBFModel.IncomingOrderTable" Role="IncomingOrderTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="IncomingOrderTable">
+              <PropertyRef Name="ClientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transfer_IncomingOrderTable">
+          <End Type="IBFModel.IncomingOrderTable" Role="IncomingOrderTable" Multiplicity="0..1" />
+          <End Type="IBFModel.Transfer" Role="Transfer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IncomingOrderTable">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transfer">
+              <PropertyRef Name="IncomingOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2722,6 +3246,7 @@
           <EntitySetMapping Name="PolicyReinsurances">
             <EntityTypeMapping TypeName="IBFModel.PolicyReinsurance">
               <MappingFragment StoreEntitySet="PolicyReinsurance">
+                <ScalarProperty Name="TreatPremiumPerDay" ColumnName="TreatPremiumPerDay" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="PolicyVersionId" ColumnName="PolicyVersionId" />
                 <ScalarProperty Name="ReinsuranceContractId" ColumnName="ReinsuranceContractId" />
@@ -2742,6 +3267,9 @@
           <EntitySetMapping Name="PolicyVersions">
             <EntityTypeMapping TypeName="IBFModel.PolicyVersion">
               <MappingFragment StoreEntitySet="PolicyVersion">
+                <ScalarProperty Name="SupervisionCheckResultDate" ColumnName="SupervisionCheckResultDate" />
+                <ScalarProperty Name="HasSupervisionCheck" ColumnName="HasSupervisionCheck" />
+                <ScalarProperty Name="FinalyPremiumPerDay" ColumnName="FinalyPremiumPerDay" />
                 <ScalarProperty Name="ContractVehicleAssesmentId" ColumnName="ContractVehicleAssesmentId" />
                 <ScalarProperty Name="OuterComment" ColumnName="OuterComment" />
                 <ScalarProperty Name="MaxCompensationPerPerson" ColumnName="MaxCompensationPerPerson" />
@@ -3022,6 +3550,7 @@
           <EntitySetMapping Name="PolicyReinsuranceShares">
             <EntityTypeMapping TypeName="IBFModel.PolicyReinsuranceShare">
               <MappingFragment StoreEntitySet="PolicyReinsuranceShare">
+                <ScalarProperty Name="PremiumPerDay" ColumnName="PremiumPerDay" />
                 <ScalarProperty Name="PercentFromTotalRisk" ColumnName="PercentFromTotalRisk" />
                 <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
                 <ScalarProperty Name="LastModifiedUserId" ColumnName="LastModifiedUserId" />
@@ -3165,6 +3694,93 @@
                 <ScalarProperty Name="RateDate" ColumnName="RateDate" />
                 <ScalarProperty Name="Rate" ColumnName="Rate" />
                 <ScalarProperty Name="CurrencyId" ColumnName="CurrencyId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IncomeTypes">
+            <EntityTypeMapping TypeName="IBFModel.IncomeType">
+              <MappingFragment StoreEntitySet="IncomeType">
+                <ScalarProperty Name="TranslateDictionaryId" ColumnName="TranslateDictionaryId" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="LastModifiedUserId" ColumnName="LastModifiedUserId" />
+                <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="IsHidden" ColumnName="IsHidden" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transfers">
+            <EntityTypeMapping TypeName="IBFModel.Transfer">
+              <MappingFragment StoreEntitySet="Transfer">
+                <ScalarProperty Name="NeedsReSynchronizeTo1C" ColumnName="NeedsReSynchronizeTo1C" />
+                <ScalarProperty Name="To1CSynchronizeDate" ColumnName="To1CSynchronizeDate" />
+                <ScalarProperty Name="IncomingOrderId" ColumnName="IncomingOrderId" />
+                <ScalarProperty Name="IncomeDate" ColumnName="IncomeDate" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="LastModifiedUserId" ColumnName="LastModifiedUserId" />
+                <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="IsHidden" ColumnName="IsHidden" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="IsIncomingOrderDistr" ColumnName="IsIncomingOrderDistr" />
+                <ScalarProperty Name="IsVirtuel" ColumnName="IsVirtuel" />
+                <ScalarProperty Name="VirtualTransferId" ColumnName="VirtualTransferId" />
+                <ScalarProperty Name="ParentTransferId" ColumnName="ParentTransferId" />
+                <ScalarProperty Name="IncomeTypeId" ColumnName="IncomeTypeId" />
+                <ScalarProperty Name="TransferStatusId" ColumnName="TransferStatusId" />
+                <ScalarProperty Name="RateUsd" ColumnName="RateUsd" />
+                <ScalarProperty Name="RateEur" ColumnName="RateEur" />
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="IsDistributed" ColumnName="IsDistributed" />
+                <ScalarProperty Name="IsUsed" ColumnName="IsUsed" />
+                <ScalarProperty Name="TaxCode" ColumnName="TaxCode" />
+                <ScalarProperty Name="CurrencyId" ColumnName="CurrencyId" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="DistributedAmount" ColumnName="DistributedAmount" />
+                <ScalarProperty Name="CashBackAmount" ColumnName="CashBackAmount" />
+                <ScalarProperty Name="ExtendAmount" ColumnName="ExtendAmount" />
+                <ScalarProperty Name="IncomeAmount" ColumnName="IncomeAmount" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="BankId" ColumnName="BankId" />
+                <ScalarProperty Name="IncomeChanneld" ColumnName="IncomeChanneld" />
+                <ScalarProperty Name="Payer" ColumnName="Payer" />
+                <ScalarProperty Name="DocNumber" ColumnName="DocNumber" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IncomingOrderTables">
+            <EntityTypeMapping TypeName="IBFModel.IncomingOrderTable">
+              <MappingFragment StoreEntitySet="IncomingOrderTable">
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="IsIncomingOrderDistr" ColumnName="IsIncomingOrderDistr" />
+                <ScalarProperty Name="Balance" ColumnName="Balance" />
+                <ScalarProperty Name="IsNotifyRead" ColumnName="IsNotifyRead" />
+                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="IncomeTypeId" ColumnName="IncomeTypeId" />
+                <ScalarProperty Name="IncomeDate" ColumnName="IncomeDate" />
+                <ScalarProperty Name="ApproveDate" ColumnName="ApproveDate" />
+                <ScalarProperty Name="LastModifiedUserId" ColumnName="LastModifiedUserId" />
+                <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUserId" ColumnName="CreateUserId" />
+                <ScalarProperty Name="IsHidden" ColumnName="IsHidden" />
+                <ScalarProperty Name="IsDelete" ColumnName="IsDelete" />
+                <ScalarProperty Name="TaxCode" ColumnName="TaxCode" />
+                <ScalarProperty Name="CurrencyId" ColumnName="CurrencyId" />
+                <ScalarProperty Name="DebitAmount" ColumnName="DebitAmount" />
+                <ScalarProperty Name="Account" ColumnName="Account" />
+                <ScalarProperty Name="BankId" ColumnName="BankId" />
+                <ScalarProperty Name="IncomingChannelld" ColumnName="IncomingChannelld" />
+                <ScalarProperty Name="Payer" ColumnName="Payer" />
+                <ScalarProperty Name="DocNumber" ColumnName="DocNumber" />
+                <ScalarProperty Name="ClientId" ColumnName="ClientId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -62,6 +62,9 @@ namespace DAL
         public Nullable<decimal> MaxCompensationPerPerson { get; set; }
         public string OuterComment { get; set; }
         public Nullable<int> ContractVehicleAssesmentId { get; set; }
+        public Nullable<decimal> FinalyPremiumPerDay { get; set; }
+        public Nullable<bool> HasSupervisionCheck { get; set; }
+        public Nullable<System.DateTime> SupervisionCheckResultDate { get; set; }
     
         public virtual Policy Policy { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

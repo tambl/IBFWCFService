@@ -260,6 +260,157 @@ namespace IBFWcfServiceApp
             }
 
         }
+        public bool UpdateTransfersSyncDate(string ids)
+        {
+            var spletIDsConverted = new List<int>();
+
+            if (ids != "null" && !string.IsNullOrEmpty(ids))
+            {
+                foreach (var item in ids.Split(','))
+                {
+                    spletIDsConverted.Add(Convert.ToInt32(item));
+                }
+            }
+            else throw new Exception();//return  new HttpResponseMessage(HttpStatusCode.BadRequest);
+            try
+            {
+                using (var dbContext = new IBFEntities())
+                {
+
+                    dbContext.Transfers.Where(w => spletIDsConverted.Contains(w.Id)).ToList().ForEach(f => { f.To1CSynchronizeDate = DateTime.Now; f.NeedsReSynchronizeTo1C = false; });
+                    var rowNum = dbContext.SaveChanges();
+
+                    return rowNum == spletIDsConverted.Count() ? true : false;
+                    //new HttpResponseMessage(HttpStatusCode.OK) : new HttpResponseMessage(HttpStatusCode.InternalServerError);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+
+        }
+        public List<TransferDto> GetTransfers(string ids, string isConfirmed, string startDate, string endDate, string clientIds, string bankAccounts, string count)
+        {
+            try
+            {
+                MappingProfile.ConfigureMapper();
+
+                var transfers = new List<TransferDto>();
+
+                var spletIDsConverted = new List<int>();
+
+                if (ids != "null" && !string.IsNullOrEmpty(ids))
+                {
+                    foreach (var item in ids.Split(','))
+                    {
+                        spletIDsConverted.Add(Convert.ToInt32(item));
+                    }
+                }
+                var spletClientIDsConverted = new List<int>();
+
+                if (clientIds != "null" && !string.IsNullOrEmpty(clientIds))
+                {
+                    foreach (var item in clientIds.Split(','))
+                    {
+                        spletClientIDsConverted.Add(Convert.ToInt32(item));
+                    }
+                }
+                string[] spletAccounts = new string[0];
+                if (bankAccounts != null)
+                {
+                    spletAccounts = bankAccounts.Split(',');
+                }
+
+                bool tryParseConfirmed;
+
+                bool? isConfirmedConverted = ((isConfirmed != "null" && !string.IsNullOrEmpty(isConfirmed))) && bool.TryParse(isConfirmed, out tryParseConfirmed) == true ? (bool?)Convert.ToBoolean(isConfirmed) : false; //ristvisaa parametrebis dazusteba
+                DateTime? startDateConverted = ((startDate != "null" && !string.IsNullOrEmpty(startDate))) ? (DateTime?)Convert.ToDateTime(startDate) : null;
+                DateTime? endDateConverted = ((endDate != "null" && !string.IsNullOrEmpty(endDate))) ? (DateTime?)Convert.ToDateTime(endDate) : null;
+                int? countConverted = ((count != "null" && !string.IsNullOrEmpty(count))) ? (int?)Convert.ToInt32(count) : null;
+
+                using (var dbContext = new IBFEntities())
+                {
+                    var tempData = (from t in dbContext.Transfers
+                                    join it in dbContext.IncomeTypes on t.IncomeTypeId equals it.Id
+                                    join iot in dbContext.IncomingOrderTables on t.IncomingOrderId equals iot.Id
+                                    where t.IsHidden == false && t.IsDelete == false
+                                        && (startDateConverted != null && endDateConverted != null ? t.IncomeDate > startDateConverted && t.IncomeDate <= endDateConverted :
+                                         startDateConverted != null && endDateConverted == null ? t.IncomeDate > startDateConverted :
+                                         startDateConverted == null && endDateConverted != null ? t.IncomeDate <= endDateConverted :
+                                         1 == 1)
+                                        && (isConfirmedConverted == true ? t.To1CSynchronizeDate != null
+                                        && (t.NeedsReSynchronizeTo1C == false || t.NeedsReSynchronizeTo1C == null) || t.NeedsReSynchronizeTo1C == true
+                                        : t.To1CSynchronizeDate == null && (t.NeedsReSynchronizeTo1C == false || t.NeedsReSynchronizeTo1C == null) || t.NeedsReSynchronizeTo1C == true)
+                                        && (spletIDsConverted.Count() > 0 ? spletIDsConverted.Contains(t.Id) : 1 == 1)
+                                        && (spletClientIDsConverted.Count() > 0 ? spletClientIDsConverted.Contains((int)t.ClientId) : 1 == 1)
+                                        && (spletAccounts.Count() > 0 ? spletAccounts.Contains(t.Account) : 1 == 1)
+                                    select new
+                                    {
+                                        TransferId = t.Id,
+                                        Account = t.Account,
+                                        Client = t.Person,
+                                        Currency = t.Currency.Name,
+                                        CurrencyId = t.CurrencyId,
+                                        IncomeAmountInCurrency = (decimal)t.IncomeAmount,
+                                        IncomeDate = t.IncomeDate.Value,
+                                        IncomeTypeId = t.IncomeTypeId.Value,
+                                        IncomeType = t.IncomeType.Name,
+                                        Purpose = iot.Comment
+                                    }).Take(countConverted != null && countConverted <= 500 ? (int)countConverted : 500).ToList();
+
+                    if (tempData != null && tempData.Count() > 0)
+                    {
+
+                        var maxDate = tempData.Max(m => m.IncomeDate);
+                        var minDate = tempData.Min(m => m.IncomeDate);
+
+                        var currencyRatesForSpecificDate = dbContext.CurrencyRates.Where(w => w.RateDate >= minDate && w.RateDate <= maxDate).ToList();
+
+                        while (minDate <= maxDate)
+                        {
+                            var currentDatesRate = currencyRatesForSpecificDate.Where(w => w.RateDate == minDate);
+                            if (currentDatesRate.Count() == 0)
+                            {
+                                currencyRatesForSpecificDate.AddRange(GetNearestAvailableCurrencyRate(minDate));
+                            }
+                            minDate = minDate.AddDays(1);
+                        }
+
+                        var transfersWithCurrencyRate = (from transfer in tempData
+                                                         join c in currencyRatesForSpecificDate on transfer.CurrencyId equals c.CurrencyId
+                                                         where transfer.IncomeDate == c.RateDate
+                                                         select new { transfer, c.Rate }).ToList();
+
+
+                        transfers = transfersWithCurrencyRate.Select(t =>
+                        new TransferDto()
+                        {
+                            TransferId = t.transfer.TransferId,
+                            Account = t.transfer.Account,
+                            Client = Mapper.Map<Person, PersonDto>(t.transfer.Client),
+                            Currency = t.transfer.Currency,
+                            CurrencyId = t.transfer.CurrencyId,
+                            IncomeAmountInCurrency = (decimal)t.transfer.IncomeAmountInCurrency,
+                            IncomeAmount = t.transfer.IncomeAmountInCurrency * t.Rate,
+                            IncomeDate = t.transfer.IncomeDate,
+                            IncomeTypeId = t.transfer.IncomeTypeId,
+                            IncomeType = t.transfer.IncomeType,
+                            Purpose = t.transfer.Purpose
+                        }
+                        ).ToList();
+                    }
+                }
+
+                return transfers;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+        }
         public List<PersonDto> GetPersons(string ids, string isConfirmed, string startDate, string endDate, string count)
         {
             MappingProfile.ConfigureMapper();
@@ -292,5 +443,6 @@ namespace IBFWcfServiceApp
                 return rate;
             }
         }
+
     }
 }

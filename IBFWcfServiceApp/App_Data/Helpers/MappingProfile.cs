@@ -105,6 +105,15 @@ namespace IBFWCFService.Helpers
                 .ForMember(dest => dest.ContractPeriodStartDate, opt => opt.MapFrom(src => src.StartDate))
                 .ForMember(dest => dest.ContractPeriodEndDate, opt => opt.MapFrom(src => src.EndDate))
                 ;
+
+            CreateMap<Transfer, TransferDto>().ForMember(
+                dest => dest.Client, opt => opt.MapFrom(src => src.Person))
+                .ForMember(dest => dest.TransferId, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Currency, opt => opt.MapFrom(src => src.Currency.Name))
+                .ForMember(dest => dest.CurrencyId, opt => opt.MapFrom(src => src.CurrencyId))
+                .ForMember(dest => dest.Purpose, opt => opt.MapFrom(src => src.Payer))
+                .ForMember(dest => dest.IncomeType, opt => opt.MapFrom(src => src.IncomeType.Name))
+                .ForMember(dest => dest.IncomeTypeId, opt => opt.MapFrom(src => src.IncomeTypeId));
         }
     }
 }

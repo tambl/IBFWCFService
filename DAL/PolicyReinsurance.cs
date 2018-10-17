@@ -34,6 +34,7 @@ namespace DAL
         public System.DateTime CreateDate { get; set; }
         public Nullable<int> LastModifiedUserId { get; set; }
         public Nullable<System.DateTime> LastModifiedDate { get; set; }
+        public Nullable<decimal> TreatPremiumPerDay { get; set; }
     
         public virtual PolicyVersion PolicyVersion { get; set; }
         public virtual ReinsuranceContract ReinsuranceContract { get; set; }

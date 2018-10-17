@@ -12,27 +12,18 @@ namespace DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class Currency
+    public partial class IncomeType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Currency()
+        public IncomeType()
         {
-            this.Contracts = new HashSet<Contract>();
-            this.Policies = new HashSet<Policy>();
-            this.ReinsuranceContracts = new HashSet<ReinsuranceContract>();
-            this.CurrencyRates = new HashSet<CurrencyRate>();
             this.Transfers = new HashSet<Transfer>();
+            this.Transfers1 = new HashSet<Transfer>();
             this.IncomingOrderTables = new HashSet<IncomingOrderTable>();
         }
     
         public int Id { get; set; }
-        public string Code { get; set; }
         public string Name { get; set; }
-        public string Symbol { get; set; }
-        public string MinorUnit { get; set; }
-        public int NumericCode { get; set; }
-        public string ThousandSeparator { get; set; }
-        public string DecimalSeparator { get; set; }
         public bool IsDelete { get; set; }
         public bool IsHidden { get; set; }
         public System.DateTime CreateDate { get; set; }
@@ -42,15 +33,9 @@ namespace DAL
         public Nullable<int> TranslateDictionaryId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Contract> Contracts { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Policy> Policies { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ReinsuranceContract> ReinsuranceContracts { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CurrencyRate> CurrencyRates { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Transfer> Transfers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Transfer> Transfers1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<IncomingOrderTable> IncomingOrderTables { get; set; }
     }

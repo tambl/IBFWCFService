@@ -33,6 +33,16 @@ namespace IBFWcfServiceApp
         //HttpResponseMessage UpdatePolicyVersionSyncDate(string ids);
         bool UpdatePolicyVersionSyncDate(string ids);
 
+        [OperationContract]
+        [WebInvoke(Method = "GET", UriTemplate = "transfers/?id={ids}&isConfirmed={isConfirmed}&startDate={startDate}&endDate={endDate}&clientId={clientIds}&bankAccounts={bankAccounts}&count={count}", ResponseFormat = WebMessageFormat.Json)]
+        //http://localhost:8732/IBFService.svc/transfers/?id=1&id=2&isConfirmed=true&startDate=01-01-2013&endDate=01-02-2013&count=5
+        List<TransferDto> GetTransfers(string ids, string isConfirmed, string startDate, string endDate, string clientIds, string bankAccounts, string count);
+
+        [OperationContract]
+        [WebInvoke(Method = "PUT", UriTemplate = "transfers/?id={ids}", ResponseFormat = WebMessageFormat.Json)]
+        //http://localhost:8732/IBFService.svc/transfers/?id=1&id=2
+        bool UpdateTransfersSyncDate(string ids);
+
     }
 
 

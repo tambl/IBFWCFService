@@ -127,6 +127,7 @@
     <Compile Include="IIBFService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RestAuthorizationManager.cs" />
+    <Compile Include="App_Data\DTOs\TransferDto.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

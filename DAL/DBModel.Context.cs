@@ -47,5 +47,8 @@ namespace DAL
         public virtual DbSet<Command> Commands { get; set; }
         public virtual DbSet<CommandEmploye> CommandEmployes { get; set; }
         public virtual DbSet<CurrencyRate> CurrencyRates { get; set; }
+        public virtual DbSet<IncomeType> IncomeTypes { get; set; }
+        public virtual DbSet<Transfer> Transfers { get; set; }
+        public virtual DbSet<IncomingOrderTable> IncomingOrderTables { get; set; }
     }
 }

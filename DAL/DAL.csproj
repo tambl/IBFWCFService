@@ -88,6 +88,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DBModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="IncomeType.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IncomingOrderTable.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="LegalStatu.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
@@ -129,6 +135,9 @@
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SubProduct.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Transfer.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>
