@@ -115,6 +115,12 @@
   <ItemGroup>
     <Compile Include="App_Data\DTOs\AgentBrokerDto.cs" />
     <Compile Include="App_Data\DTOs\ContractDto.cs" />
+    <Compile Include="App_Data\DTOs\PartnerDto.cs" />
+    <Compile Include="App_Data\DTOs\ReturnDataDto.cs" />
+    <Compile Include="App_Data\DTOs\PolicyV2Dto.cs" />
+    <Compile Include="App_Data\DTOs\ServiceDto.cs" />
+    <Compile Include="App_Data\DTOs\PolicyInfoDto.cs" />
+    <Compile Include="App_Data\DTOs\PositionDto.cs" />
     <Compile Include="App_Data\DTOs\PersonDto.cs" />
     <Compile Include="App_Data\DTOs\PolicyDto.cs" />
     <Compile Include="App_Data\DTOs\ProductCategoryDto.cs" />
@@ -128,6 +134,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RestAuthorizationManager.cs" />
     <Compile Include="App_Data\DTOs\TransferDto.cs" />
+    <Compile Include="App_Data\DTOs\EmployeeDto.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

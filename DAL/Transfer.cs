@@ -56,6 +56,7 @@ namespace DAL
         public Nullable<int> IncomingOrderId { get; set; }
         public Nullable<System.DateTime> To1CSynchronizeDate { get; set; }
         public Nullable<bool> NeedsReSynchronizeTo1C { get; set; }
+        public string Comment { get; set; }
     
         public virtual IncomeType IncomeType { get; set; }
         public virtual IncomeType IncomeType1 { get; set; }

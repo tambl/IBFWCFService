@@ -58,6 +58,7 @@ namespace IBFWCFService.Models
         [DataMember]
         public bool IsRetailPolicy { get; set; }
 
+
     }
 
 }

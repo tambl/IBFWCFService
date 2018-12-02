@@ -38,5 +38,6 @@ namespace DAL
         public virtual ICollection<Transfer> Transfers1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<IncomingOrderTable> IncomingOrderTables { get; set; }
+        public virtual Dictionary Dictionary { get; set; }
     }
 }

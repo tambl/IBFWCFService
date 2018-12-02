@@ -30,6 +30,9 @@ namespace DAL
             this.ContractAgentContracts = new HashSet<ContractAgentContract>();
             this.Transfers = new HashSet<Transfer>();
             this.IncomingOrderTables = new HashSet<IncomingOrderTable>();
+            this.Employes = new HashSet<Employe>();
+            this.PersonContacts = new HashSet<PersonContact>();
+            this.PersonPositions = new HashSet<PersonPosition>();
         }
     
         public int Id { get; set; }
@@ -107,5 +110,12 @@ namespace DAL
         public virtual ICollection<Transfer> Transfers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<IncomingOrderTable> IncomingOrderTables { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Employe> Employes { get; set; }
+        public virtual PersonType PersonType { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PersonContact> PersonContacts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PersonPosition> PersonPositions { get; set; }
     }
 }

@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ce510c02f93b42748f2fb6b711cd2400" Name="Diagram1" ZoomLevel="75">
+      <Diagram DiagramId="ce510c02f93b42748f2fb6b711cd2400" Name="Diagram1" ZoomLevel="57">
         <EntityTypeShape EntityType="IBFModel.Contract" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="IBFModel.Policy" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
         <EntityTypeShape EntityType="IBFModel.PolicyReinsurance" Width="1.5" PointX="7.5" PointY="4.125" IsExpanded="true" />
@@ -85,6 +85,68 @@
         <AssociationConnector Association="IBFModel.FK_IncomingOrderTable_Currency_CurrencyId" />
         <AssociationConnector Association="IBFModel.FK_IncomingOrderTable_Person_ClientId" />
         <AssociationConnector Association="IBFModel.FK_Transfer_IncomingOrderTable" />
+        <EntityTypeShape EntityType="IBFModel.Employe" Width="1.5" PointX="17.625" PointY="14.875" />
+        <EntityTypeShape EntityType="IBFModel.EmployeStatu" Width="1.5" PointX="15.375" PointY="18.5" />
+        <EntityTypeShape EntityType="IBFModel.ContactType" Width="1.5" PointX="18.375" PointY="22.5" />
+        <EntityTypeShape EntityType="IBFModel.PersonContact" Width="1.5" PointX="20.625" PointY="14.75" />
+        <EntityTypeShape EntityType="IBFModel.PersonPosition" Width="1.5" PointX="12.625" PointY="16.375" />
+        <EntityTypeShape EntityType="IBFModel.PersonType" Width="1.5" PointX="7.125" PointY="26.5" />
+        <EntityTypeShape EntityType="IBFModel.Position" Width="1.5" PointX="10.375" PointY="27.5" />
+        <AssociationConnector Association="IBFModel.FK_Contract_Employe_ClaimManagerId" />
+        <AssociationConnector Association="IBFModel.FK_Contract_Employe_LedManagerId" />
+        <AssociationConnector Association="IBFModel.FK_Contract_Employees_ServiceManagerId" />
+        <AssociationConnector Association="IBFModel.FK_ContractCommand_Employe_EmployeId" />
+        <AssociationConnector Association="IBFModel.FK_CommandEmploye_Employe_EmployeId" />
+        <AssociationConnector Association="IBFModel.FK_HumanResource_Employe_HumanResource_EmployeStatus_EmployeStatusId" />
+        <AssociationConnector Association="IBFModel.FK_HumanResource_Employe_Person_Person_PersonId" />
+        <AssociationConnector Association="IBFModel.FK_Policy_Employe_CLaimManagerId" />
+        <AssociationConnector Association="IBFModel.FK_Policy_Employe_LeadManagerId" />
+        <AssociationConnector Association="IBFModel.FK_Policy_Person_ServiceManageraId" />
+        <AssociationConnector Association="IBFModel.FK_PolicyPaymentCoverContractCommand_Employe_SaleManagerId" />
+        <AssociationConnector Association="IBFModel.FK_PolicyVersion_Employe" />
+        <AssociationConnector Association="IBFModel.FK_Person_PersonContact_Person_ContactType_ContactTypeId" />
+        <AssociationConnector Association="IBFModel.FK_Person_Person_Person_PersonType_PersonTypeId" />
+        <AssociationConnector Association="IBFModel.FK_Person_PersonContact_Person_Person_PersonId" />
+        <AssociationConnector Association="IBFModel.FK_Person_PersonPosition_Person_Person_PersonId" />
+        <AssociationConnector Association="IBFModel.FK_Person_PersonPosition_Person_Position_PositionId" />
+        <EntityTypeShape EntityType="IBFModel.Dictionary" Width="1.5" PointX="0.75" PointY="12.625" />
+        <EntityTypeShape EntityType="IBFModel.Translate" Width="1.5" PointX="3" PointY="18.125" />
+        <AssociationConnector Association="IBFModel.FK_TransferType_Dictionary_TranslateDictionaryId" />
+        <AssociationConnector Association="IBFModel.FK_Dictionary_Currency_Dictionary_Dictionary_TranslateDictionaryId" />
+        <AssociationConnector Association="IBFModel.FK_HumanResource_EmployeStatus_Dictionary_Dictionary_TranslateDictionaryId" />
+        <AssociationConnector Association="IBFModel.FK_Person_ContactType_Dictionary_Dictionary_TranslateDictionaryId" />
+        <AssociationConnector Association="IBFModel.FK_Person_LegalStatus_Dictionary_Dictionary_TranslateDictionaryId" />
+        <AssociationConnector Association="IBFModel.FK_Person_PersonType_Dictionary_Dictionary_TranslateDictionaryId" />
+        <AssociationConnector Association="IBFModel.FK_Person_Position_Dictionary_Dictionary_TranslateDictionaryId" />
+        <AssociationConnector Association="IBFModel.FK_PolicyStatus_Dictionary_TranslateDictionaryId" />
+        <AssociationConnector Association="IBFModel.FK_PolicyVersionStatus_Dictionary_TranslateDictionaryId" />
+        <AssociationConnector Association="IBFModel.FK_Product_Dictionary_TranslateDictionaryId" />
+        <AssociationConnector Association="IBFModel.FK_ProductType_Dictionary_TranslateDictionaryId" />
+        <AssociationConnector Association="IBFModel.FK_SubProduct_Dictionary_PrintTranslateDictionaryId" />
+        <AssociationConnector Association="IBFModel.FK_SubProduct_Dictionary_TranslateDictioanryId" />
+        <AssociationConnector Association="IBFModel.FK_Translate_Dictionary_TranslateDictionaryId" />
+        <EntityTypeShape EntityType="IBFModel.ContractPackage" Width="1.5" PointX="23.625" PointY="13.875" />
+        <EntityTypeShape EntityType="IBFModel.ContractPackageService" Width="1.5" PointX="25.875" PointY="12.625" />
+        <EntityTypeShape EntityType="IBFModel.Package" Width="1.5" PointX="3" PointY="24.625" />
+        <EntityTypeShape EntityType="IBFModel.PackageService" Width="1.5" PointX="5.25" PointY="17.75" />
+        <AssociationConnector Association="IBFModel.FK_ContractPackage_Contract_ContractId" />
+        <AssociationConnector Association="IBFModel.FK_ContractPackage_Currency_CurrencyId" />
+        <AssociationConnector Association="IBFModel.FK_ContractPackage_Dictionary_TranslateDictionaryId" />
+        <AssociationConnector Association="IBFModel.FK_ContractPackageService_ContractPackage_PackageId" />
+        <AssociationConnector Association="IBFModel.FK_Policy_ContractPackage" />
+        <AssociationConnector Association="IBFModel.FK_Policy_Policy_ContractpackageId" />
+        <AssociationConnector Association="IBFModel.FK_ContractPackageService_ContractPackageService_ParentId" />
+        <AssociationConnector Association="IBFModel.FK_ContractPackageService_SubProduct_ProductId" />
+        <AssociationConnector Association="IBFModel.FK_Policy_ContractPackageService_ContractPackageServiceId" />
+        <AssociationConnector Association="IBFModel.FK_Package_Dictionary_TranslateDictionaryId" />
+        <AssociationConnector Association="IBFModel.FK_PackageService_Package_PackageId" />
+        <AssociationConnector Association="IBFModel.FK_PackageService_PackageService_ParentId" />
+        <AssociationConnector Association="IBFModel.FK_PackageService_SubProduct_ProductId" />
+        <EntityTypeShape EntityType="IBFModel.Service" Width="1.5" PointX="3.25" PointY="30.125" />
+        <AssociationConnector Association="IBFModel.FK_ContractPackageService_Service_ServiceId" />
+        <AssociationConnector Association="IBFModel.FK_Service_Dictionary_PrintTranslateDictionaryId" />
+        <AssociationConnector Association="IBFModel.FK_Service_Dictionary_TranslateDictionaryId" />
+        <AssociationConnector Association="IBFModel.FK_PackageService_Service_ServiceId" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -426,6 +426,36 @@ namespace IBFWcfServiceApp
             }
         }
 
+        public List<EmployeeDto> GetEmployees()
+        {
+            MappingProfile.ConfigureMapper();
+
+
+            var persons = new List<EmployeeDto>();
+            //var policy = new Policy();
+
+            using (var dbContext = new IBFEntities())
+            {
+                persons = dbContext.Employes.Where(w => !w.IsDelete && !w.IsHidden).Select(Mapper.Map<Employe, EmployeeDto>).ToList();
+                return persons;
+            }
+        }
+
+        public List<PositionDto> GetPositions()
+        {
+            MappingProfile.ConfigureMapper();
+
+
+            var positions = new List<PositionDto>();
+            //var policy = new Policy();
+
+            using (var dbContext = new IBFEntities())
+            {
+                positions = dbContext.Positions.Where(w => !w.IsDelete && !w.IsHidden).Select(Mapper.Map<Position, PositionDto>).ToList();
+                return positions;
+            }
+        }
+
         private List<CurrencyRate> GetNearestAvailableCurrencyRate(DateTime date)
         {
 
@@ -444,5 +474,86 @@ namespace IBFWcfServiceApp
             }
         }
 
+        public RerutnDataDto GetPolicyInfo(string policynumber, string insuredidn, string insuredfname, string insuredlname)
+        {
+            MappingProfile.ConfigureMapper();
+            RerutnDataDto data = new RerutnDataDto();
+
+            data.name = "maindata";
+            data.maindata = new List<PolicyInfoDto>();
+
+            using (var dbContext = new IBFEntities())
+            {
+                var policyTemp = (from p in dbContext.Policies
+                                  join pv in dbContext.PolicyVersions on p.Id equals pv.PolicyId
+                                  join curr in dbContext.Currencies on p.CurrencyId equals curr.Id
+                                  join pvType in dbContext.PolicyVersionStatus on pv.PolicyVersionStatusId equals pvType.Id
+                                  join product in dbContext.SubProducts on p.ProductId equals product.Id into producta
+                                  from productl in producta.DefaultIfEmpty()
+
+                                  join org in dbContext.People on pv.OrganisationId equals org.Id into orga
+                                  from orgnl in orga.DefaultIfEmpty()
+                                  join client in dbContext.People on pv.ClientId equals client.Id into clienta
+                                  from clientl in clienta.DefaultIfEmpty()
+                                  join beneficiary in dbContext.People on pv.BeneficiaryId equals beneficiary.Id into beneficiarya
+                                  from beneficiaryl in beneficiarya.DefaultIfEmpty()
+
+                                  where !pv.IsHidden && !pv.IsDelete && //pv.PolicyStatusId == 3 &&
+                                  (!string.IsNullOrEmpty(policynumber) ? p.PolicyNumber == policynumber : 1 == 1)
+                                   && (!string.IsNullOrEmpty(insuredidn) ? clientl.PersonNo == insuredidn : 1 == 1)
+                                   && (!string.IsNullOrEmpty(insuredfname) ? clientl.FirstName == insuredfname : 1 == 1)
+                                   && (!string.IsNullOrEmpty(insuredlname) ? clientl.Lastname == insuredlname : 1 == 1)
+
+                                  select new
+                                  {
+                                      PolicyId = p.Id,
+                                      PolicyNumber = p.PolicyNumber,
+                                      // PolicyVersionId = pv.Id,
+                                      PolicyVersionIsActive = pv.IsActive,
+                                      StartDate = pv.StartDate,
+                                      EndDate = pv.EndDate,
+                                      PolicyCreateDate = p.CreateDate,
+                                      PolicyStatusId = pv.PolicyStatusId,
+                                      PolicyStatus = pv.PolicyStatu.Name,
+                                      PolicyVersionStatusId = pv.PolicyVersionStatusId,
+                                      CurrencyId = p.CurrencyId,
+                                      Currency = curr.Name,
+                                      note = pv.InnerComment,
+                                      canceldate = pv.PolicyVersionStatusId == 3 ? pv.StartDate : null,//??sanaxavia
+                                      //productl,
+                                      orgnl,
+                                      clientl,
+                                      beneficiaryl,
+                                      package = p.ContractPackageService.ContractPackage.Name,//??sanaxavia
+
+                                      services = p.ContractPackageService.ContractPackage
+                                  }).Distinct().ToList();
+                for (int i = 0; i < policyTemp.Count; i++)
+                {
+                    PolicyInfoDto policyInfo = new PolicyInfoDto();
+
+                    policyInfo.partner = Mapper.Map<PartnerDto>(policyTemp[i].beneficiaryl);
+                    policyInfo.partner.insurer = policyTemp[i].orgnl.FirstName;
+
+                    policyInfo.policy = new PolicyV2Dto()
+                    {
+                        note = policyTemp[i].note,
+                        canceldate = policyTemp[i].canceldate,
+                        num = policyTemp[i].PolicyNumber,
+                        startdate = policyTemp[i].StartDate,
+                        enddate = policyTemp[i].EndDate,
+                        package = policyTemp[i].package,
+                        status = policyTemp[i].PolicyStatus
+                    };
+                    
+                    data.maindata.Add(policyInfo);
+                }
+
+                data.maindata.GroupBy(g => new {  g.partner, g.policy, g.services }).Select(s => s.FirstOrDefault())
+                         .ToList(); ;
+
+                return data;
+            }
+        }
     }
 }

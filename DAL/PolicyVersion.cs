@@ -65,6 +65,7 @@ namespace DAL
         public Nullable<decimal> FinalyPremiumPerDay { get; set; }
         public Nullable<bool> HasSupervisionCheck { get; set; }
         public Nullable<System.DateTime> SupervisionCheckResultDate { get; set; }
+        public string InnerComment { get; set; }
     
         public virtual Policy Policy { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -80,5 +81,6 @@ namespace DAL
         public virtual ICollection<PolicyPaymentCoverAgentContract> PolicyPaymentCoverAgentContracts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PolicyPaymentCoverContractCommand> PolicyPaymentCoverContractCommands { get; set; }
+        public virtual Employe Employe { get; set; }
     }
 }

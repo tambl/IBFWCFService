@@ -12,19 +12,25 @@ namespace DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class CommandEmploye
+    public partial class PersonContact
     {
         public int Id { get; set; }
-        public int CommandId { get; set; }
-        public int EmployeId { get; set; }
+        public int ContactTypeId { get; set; }
+        public int ContactSpecipicationTypeId { get; set; }
+        public bool IsDefault { get; set; }
+        public Nullable<bool> IsSendNotification { get; set; }
+        public string Contact { get; set; }
+        public int PersonId { get; set; }
         public bool IsDelete { get; set; }
         public bool IsHidden { get; set; }
-        public Nullable<int> CreateUserId { get; set; }
         public System.DateTime CreateDate { get; set; }
-        public Nullable<int> LastModifiedUserId { get; set; }
         public Nullable<System.DateTime> LastModifiedDate { get; set; }
+        public Nullable<int> LastModifiedUserId { get; set; }
+        public Nullable<int> CreateUserId { get; set; }
+        public Nullable<bool> IsPersistFaultedByIdentityServer { get; set; }
+        public Nullable<int> BranchId { get; set; }
     
-        public virtual Command Command { get; set; }
-        public virtual Employe Employe { get; set; }
+        public virtual ContactType ContactType { get; set; }
+        public virtual Person Person { get; set; }
     }
 }

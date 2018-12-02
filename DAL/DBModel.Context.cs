@@ -50,5 +50,19 @@ namespace DAL
         public virtual DbSet<IncomeType> IncomeTypes { get; set; }
         public virtual DbSet<Transfer> Transfers { get; set; }
         public virtual DbSet<IncomingOrderTable> IncomingOrderTables { get; set; }
+        public virtual DbSet<Employe> Employes { get; set; }
+        public virtual DbSet<EmployeStatu> EmployeStatus { get; set; }
+        public virtual DbSet<ContactType> ContactTypes { get; set; }
+        public virtual DbSet<PersonContact> PersonContacts { get; set; }
+        public virtual DbSet<PersonPosition> PersonPositions { get; set; }
+        public virtual DbSet<PersonType> PersonTypes { get; set; }
+        public virtual DbSet<Position> Positions { get; set; }
+        public virtual DbSet<Dictionary> Dictionaries { get; set; }
+        public virtual DbSet<Translate> Translates { get; set; }
+        public virtual DbSet<ContractPackage> ContractPackages { get; set; }
+        public virtual DbSet<ContractPackageService> ContractPackageServices { get; set; }
+        public virtual DbSet<Package> Packages { get; set; }
+        public virtual DbSet<PackageService> PackageServices { get; set; }
+        public virtual DbSet<Service> Services { get; set; }
     }
 }

@@ -34,5 +34,6 @@ namespace DAL
         public virtual PolicyVersion PolicyVersion { get; set; }
         public virtual ContractCommand ContractCommand { get; set; }
         public virtual Command Command { get; set; }
+        public virtual Employe Employe { get; set; }
     }
 }

@@ -12,19 +12,19 @@ namespace DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class CommandEmploye
+    public partial class PersonPosition
     {
         public int Id { get; set; }
-        public int CommandId { get; set; }
-        public int EmployeId { get; set; }
+        public int PersonId { get; set; }
+        public int PositionId { get; set; }
         public bool IsDelete { get; set; }
         public bool IsHidden { get; set; }
-        public Nullable<int> CreateUserId { get; set; }
         public System.DateTime CreateDate { get; set; }
-        public Nullable<int> LastModifiedUserId { get; set; }
         public Nullable<System.DateTime> LastModifiedDate { get; set; }
+        public Nullable<int> LastModifiedUserId { get; set; }
+        public Nullable<int> CreateUserId { get; set; }
     
-        public virtual Command Command { get; set; }
-        public virtual Employe Employe { get; set; }
+        public virtual Person Person { get; set; }
+        public virtual Position Position { get; set; }
     }
 }

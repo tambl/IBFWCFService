@@ -12,26 +12,19 @@ namespace DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class PolicyVersionStatu
+    public partial class Translate
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PolicyVersionStatu()
-        {
-            this.PolicyVersions = new HashSet<PolicyVersion>();
-        }
-    
         public int Id { get; set; }
-        public string Name { get; set; }
+        public int LanguageId { get; set; }
+        public string TranslatedText { get; set; }
         public bool IsDelete { get; set; }
         public bool IsHidden { get; set; }
-        public Nullable<int> CreateUserId { get; set; }
         public System.DateTime CreateDate { get; set; }
-        public Nullable<int> LastModifiedUserId { get; set; }
         public Nullable<System.DateTime> LastModifiedDate { get; set; }
+        public Nullable<int> LastModifiedUserId { get; set; }
+        public Nullable<int> CreateUserId { get; set; }
         public Nullable<int> TranslateDictionaryId { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PolicyVersion> PolicyVersions { get; set; }
         public virtual Dictionary Dictionary { get; set; }
     }
 }

@@ -12,45 +12,45 @@ namespace DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class SubProduct
+    public partial class ContractPackage
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public SubProduct()
+        public ContractPackage()
         {
-            this.Policies = new HashSet<Policy>();
-            this.ContractAgentContracts = new HashSet<ContractAgentContract>();
-            this.ContractCommands = new HashSet<ContractCommand>();
             this.ContractPackageServices = new HashSet<ContractPackageService>();
-            this.PackageServices = new HashSet<PackageService>();
+            this.Policies = new HashSet<Policy>();
+            this.Policies1 = new HashSet<Policy>();
         }
     
         public int Id { get; set; }
-        public Nullable<int> ExistingProductTypeId { get; set; }
-        public int ProductId { get; set; }
+        public Nullable<int> ContractId { get; set; }
+        public Nullable<int> MedicalCoverageId { get; set; }
         public string Name { get; set; }
-        public string PrintName { get; set; }
+        public Nullable<int> CurrencyId { get; set; }
+        public Nullable<decimal> Price { get; set; }
+        public Nullable<decimal> Limit { get; set; }
+        public Nullable<bool> IsFreeChoice { get; set; }
+        public Nullable<bool> IsGlobal { get; set; }
+        public bool IsActive { get; set; }
+        public Nullable<int> IsFor { get; set; }
+        public Nullable<int> WaitingDayCount { get; set; }
         public bool IsDelete { get; set; }
         public bool IsHidden { get; set; }
-        public Nullable<int> CreateUserid { get; set; }
+        public Nullable<int> CreateUserId { get; set; }
         public System.DateTime CreateDate { get; set; }
-        public Nullable<bool> CheckingSupervision { get; set; }
         public Nullable<int> LastModifiedUserId { get; set; }
         public Nullable<System.DateTime> LastModifiedDate { get; set; }
         public Nullable<int> TranslateDictionaryId { get; set; }
-        public Nullable<int> PrintTranslateDictionaryId { get; set; }
+        public string Comment { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Policy> Policies { get; set; }
-        public virtual Product Product { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ContractAgentContract> ContractAgentContracts { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ContractCommand> ContractCommands { get; set; }
+        public virtual Contract Contract { get; set; }
+        public virtual Currency Currency { get; set; }
         public virtual Dictionary Dictionary { get; set; }
-        public virtual Dictionary Dictionary1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ContractPackageService> ContractPackageServices { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PackageService> PackageServices { get; set; }
+        public virtual ICollection<Policy> Policies { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Policy> Policies1 { get; set; }
     }
 }

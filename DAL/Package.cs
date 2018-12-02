@@ -12,36 +12,32 @@ namespace DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class Product
+    public partial class Package
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Product()
+        public Package()
         {
-            this.Product1 = new HashSet<Product>();
-            this.ReinsuranceContracts = new HashSet<ReinsuranceContract>();
-            this.SubProducts = new HashSet<SubProduct>();
+            this.PackageServices = new HashSet<PackageService>();
         }
     
         public int Id { get; set; }
-        public int ProductTypeId { get; set; }
         public string Name { get; set; }
+        public Nullable<decimal> Price { get; set; }
+        public Nullable<decimal> Limit { get; set; }
+        public Nullable<int> IsFor { get; set; }
+        public Nullable<int> WaitingDayCount { get; set; }
+        public bool IsTemplate { get; set; }
+        public bool IsActive { get; set; }
         public bool IsDelete { get; set; }
         public bool IsHidden { get; set; }
-        public Nullable<int> CreateUserid { get; set; }
+        public Nullable<int> CreateUserId { get; set; }
         public System.DateTime CreateDate { get; set; }
         public Nullable<int> LastModifiedUserId { get; set; }
         public Nullable<System.DateTime> LastModifiedDate { get; set; }
         public Nullable<int> TranslateDictionaryId { get; set; }
-        public Nullable<int> ParentProductLogId { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Product> Product1 { get; set; }
-        public virtual Product Product2 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ReinsuranceContract> ReinsuranceContracts { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SubProduct> SubProducts { get; set; }
-        public virtual ProductType ProductType { get; set; }
         public virtual Dictionary Dictionary { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PackageService> PackageServices { get; set; }
     }
 }

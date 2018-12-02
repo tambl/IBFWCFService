@@ -58,6 +58,7 @@ namespace DAL
         public Nullable<int> ParentPolicyLogId { get; set; }
         public Nullable<int> ContractPackageServiceId { get; set; }
         public Nullable<int> ApprovePersonCount { get; set; }
+        public Nullable<int> LeadManagerId { get; set; }
     
         public virtual Contract Contract { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -67,5 +68,11 @@ namespace DAL
         public virtual ICollection<PolicyVersion> PolicyVersions { get; set; }
         public virtual Currency Currency { get; set; }
         public virtual SubProduct SubProduct { get; set; }
+        public virtual Employe Employe { get; set; }
+        public virtual Employe Employe1 { get; set; }
+        public virtual Employe Employe2 { get; set; }
+        public virtual ContractPackage ContractPackage { get; set; }
+        public virtual ContractPackage ContractPackage1 { get; set; }
+        public virtual ContractPackageService ContractPackageService { get; set; }
     }
 }

@@ -23,6 +23,7 @@ namespace DAL
             this.CurrencyRates = new HashSet<CurrencyRate>();
             this.Transfers = new HashSet<Transfer>();
             this.IncomingOrderTables = new HashSet<IncomingOrderTable>();
+            this.ContractPackages = new HashSet<ContractPackage>();
         }
     
         public int Id { get; set; }
@@ -53,5 +54,8 @@ namespace DAL
         public virtual ICollection<Transfer> Transfers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<IncomingOrderTable> IncomingOrderTables { get; set; }
+        public virtual Dictionary Dictionary { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ContractPackage> ContractPackages { get; set; }
     }
 }

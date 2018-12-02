@@ -114,6 +114,53 @@ namespace IBFWCFService.Helpers
                 .ForMember(dest => dest.Purpose, opt => opt.MapFrom(src => src.Payer))
                 .ForMember(dest => dest.IncomeType, opt => opt.MapFrom(src => src.IncomeType.Name))
                 .ForMember(dest => dest.IncomeTypeId, opt => opt.MapFrom(src => src.IncomeTypeId));
+
+            CreateMap<Employe, EmployeeDto>().ForMember(
+               dest => dest.ID, opt => opt.MapFrom(src => src.Id))
+            .ForMember(dest => dest.idn, opt => opt.MapFrom(src => src.Person.PersonNo))
+            .ForMember(dest => dest.lname, opt => opt.MapFrom(src => src.Person.Lastname))
+            .ForMember(dest => dest.fname, opt => opt.MapFrom(src => src.Person.FirstName))
+            .ForMember(dest => dest.positionid, opt => opt.ResolveUsing(src =>
+            {
+                if (src.Person.PersonPositions.Count > 0)
+                {
+                    return src.Person.PersonPositions.FirstOrDefault().PositionId;
+                }
+                else return (int?)null;
+            }))
+            .ForMember(dest => dest.phone, opt => opt.MapFrom(src => src.Person.PersonContacts.FirstOrDefault(s => s.ContactTypeId == 2).Contact));
+
+
+            CreateMap<Position, PositionDto>().ForMember(
+              dest => dest.positionid, opt => opt.MapFrom(src => src.Id))
+              .ForMember(dest => dest.name, opt => opt.MapFrom(src => src.Name));
+
+            CreateMap<Person, PartnerDto>().ForMember(
+              dest => dest.idn, opt => opt.MapFrom(src => src.PersonNo ?? src.IdentityNumber))
+              .ForMember(dest => dest.fname, opt => opt.MapFrom(src => src.FirstName))
+              .ForMember(dest => dest.lname, opt => opt.MapFrom(src => src.Lastname))
+              .ForMember(dest => dest.dob, opt => opt.MapFrom(src => src.BirthDate))
+              .ForMember(dest => dest.phone, opt => opt.MapFrom(src => src.PersonContacts.FirstOrDefault(s => s.ContactTypeId == 2).Contact));
+
+
+            CreateMap<PolicyVersion, PolicyV2Dto>().ForMember(
+              dest => dest.num, opt => opt.MapFrom(src => src.Policy.PolicyNumber))
+              .ForMember(dest => dest.startdate, opt => opt.MapFrom(src => src.StartDate))
+              .ForMember(dest => dest.enddate, opt => opt.MapFrom(src => src.EndDate))
+              .ForMember(dest => dest.note, opt => opt.MapFrom(src => src.InnerComment))
+              .ForMember(dest => dest.status, opt => opt.MapFrom(src => src.PolicyStatu.Name))
+              .ForMember(dest => dest.package, opt => opt.MapFrom(src => src.Policy.ContractPackageService.ContractPackage.Name))//??sanaxavia
+              .ForMember(dest => dest.canceldate, opt => opt.ResolveUsing(src => {
+                  if (src.PolicyVersionStatusId==3)
+                  {
+                      return src.StartDate;
+
+                  }
+                  return null; 
+                  
+                  }));
+
+
         }
     }
 }

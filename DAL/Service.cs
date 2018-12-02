@@ -12,44 +12,31 @@ namespace DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class SubProduct
+    public partial class Service
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public SubProduct()
+        public Service()
         {
-            this.Policies = new HashSet<Policy>();
-            this.ContractAgentContracts = new HashSet<ContractAgentContract>();
-            this.ContractCommands = new HashSet<ContractCommand>();
             this.ContractPackageServices = new HashSet<ContractPackageService>();
             this.PackageServices = new HashSet<PackageService>();
         }
     
         public int Id { get; set; }
-        public Nullable<int> ExistingProductTypeId { get; set; }
-        public int ProductId { get; set; }
         public string Name { get; set; }
-        public string PrintName { get; set; }
         public bool IsDelete { get; set; }
         public bool IsHidden { get; set; }
         public Nullable<int> CreateUserid { get; set; }
         public System.DateTime CreateDate { get; set; }
-        public Nullable<bool> CheckingSupervision { get; set; }
         public Nullable<int> LastModifiedUserId { get; set; }
         public Nullable<System.DateTime> LastModifiedDate { get; set; }
         public Nullable<int> TranslateDictionaryId { get; set; }
+        public string PrintName { get; set; }
         public Nullable<int> PrintTranslateDictionaryId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Policy> Policies { get; set; }
-        public virtual Product Product { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ContractAgentContract> ContractAgentContracts { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ContractCommand> ContractCommands { get; set; }
+        public virtual ICollection<ContractPackageService> ContractPackageServices { get; set; }
         public virtual Dictionary Dictionary { get; set; }
         public virtual Dictionary Dictionary1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ContractPackageService> ContractPackageServices { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PackageService> PackageServices { get; set; }
     }

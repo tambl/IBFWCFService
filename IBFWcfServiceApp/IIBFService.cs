@@ -43,6 +43,20 @@ namespace IBFWcfServiceApp
         //http://localhost:8732/IBFService.svc/transfers/?id=1&id=2
         bool UpdateTransfersSyncDate(string ids);
 
+        [OperationContract]
+        [WebInvoke(Method = "GET", UriTemplate = "personell/", ResponseFormat = WebMessageFormat.Json)]
+        //http://localhost:8732/IBFService.svc/personell/
+        List<EmployeeDto> GetEmployees();
+
+        [OperationContract]
+        [WebInvoke(Method = "GET", UriTemplate = "positions/", ResponseFormat = WebMessageFormat.Json)]
+        //http://localhost:8732/IBFService.svc/positions/
+        List<PositionDto> GetPositions();
+
+        [OperationContract]
+        [WebInvoke(Method = "GET", UriTemplate = "policyInfo/?policynumber={policynumber}&insuredidn={insuredidn}&insuredfname={insuredfname}&insuredlname={insuredlname}", ResponseFormat = WebMessageFormat.Json)]
+        //http://localhost:8732/IBFService.svc/policyInfo/?policynumber=XXX&insuredidn=XXXXXXXXXXX&insuredfname=XXXXXX&insuredlname=XXXXXX
+        RerutnDataDto GetPolicyInfo(string policynumber, string insuredidn, string insuredfname, string insuredlname);
     }
 
 
