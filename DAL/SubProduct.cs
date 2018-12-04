@@ -22,6 +22,7 @@ namespace DAL
             this.ContractCommands = new HashSet<ContractCommand>();
             this.ContractPackageServices = new HashSet<ContractPackageService>();
             this.PackageServices = new HashSet<PackageService>();
+            this.PolicyContractPackageServices = new HashSet<PolicyContractPackageService>();
         }
     
         public int Id { get; set; }
@@ -52,5 +53,7 @@ namespace DAL
         public virtual ICollection<ContractPackageService> ContractPackageServices { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PackageService> PackageServices { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PolicyContractPackageService> PolicyContractPackageServices { get; set; }
     }
 }

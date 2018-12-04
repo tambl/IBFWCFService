@@ -19,6 +19,7 @@ namespace DAL
         {
             this.ContractPackageService1 = new HashSet<ContractPackageService>();
             this.Policies = new HashSet<Policy>();
+            this.PolicyContractPackageServices = new HashSet<PolicyContractPackageService>();
         }
     
         public int Id { get; set; }
@@ -55,5 +56,7 @@ namespace DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Policy> Policies { get; set; }
         public virtual Service Service { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PolicyContractPackageService> PolicyContractPackageServices { get; set; }
     }
 }

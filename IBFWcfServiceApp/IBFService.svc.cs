@@ -430,7 +430,6 @@ namespace IBFWcfServiceApp
         {
             MappingProfile.ConfigureMapper();
 
-
             var persons = new List<EmployeeDto>();
             //var policy = new Policy();
 
@@ -499,6 +498,7 @@ namespace IBFWcfServiceApp
                                   from beneficiaryl in beneficiarya.DefaultIfEmpty()
 
                                   where !pv.IsHidden && !pv.IsDelete && //pv.PolicyStatusId == 3 &&
+                                 
                                   (!string.IsNullOrEmpty(policynumber) ? p.PolicyNumber == policynumber : 1 == 1)
                                    && (!string.IsNullOrEmpty(insuredidn) ? clientl.PersonNo == insuredidn : 1 == 1)
                                    && (!string.IsNullOrEmpty(insuredfname) ? clientl.FirstName == insuredfname : 1 == 1)
@@ -527,7 +527,8 @@ namespace IBFWcfServiceApp
                                       package = p.ContractPackageService.ContractPackage.Name,//??sanaxavia
 
                                       services = p.ContractPackageService.ContractPackage
-                                  }).Distinct().ToList();
+                                  }).ToList();
+
                 for (int i = 0; i < policyTemp.Count; i++)
                 {
                     PolicyInfoDto policyInfo = new PolicyInfoDto();

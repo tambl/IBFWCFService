@@ -24,6 +24,7 @@ namespace DAL
             this.Transfers = new HashSet<Transfer>();
             this.IncomingOrderTables = new HashSet<IncomingOrderTable>();
             this.ContractPackages = new HashSet<ContractPackage>();
+            this.PolicyContractPackages = new HashSet<PolicyContractPackage>();
         }
     
         public int Id { get; set; }
@@ -57,5 +58,7 @@ namespace DAL
         public virtual Dictionary Dictionary { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ContractPackage> ContractPackages { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PolicyContractPackage> PolicyContractPackages { get; set; }
     }
 }

@@ -143,8 +143,8 @@ namespace IBFWCFService.Helpers
               .ForMember(dest => dest.phone, opt => opt.MapFrom(src => src.PersonContacts.FirstOrDefault(s => s.ContactTypeId == 2).Contact));
 
 
-            CreateMap<PolicyVersion, PolicyV2Dto>().ForMember(
-              dest => dest.num, opt => opt.MapFrom(src => src.Policy.PolicyNumber))
+            CreateMap<PolicyVersion, PolicyV2Dto>()
+              .ForMember(dest => dest.num, opt => opt.MapFrom(src => src.Policy.PolicyNumber))
               .ForMember(dest => dest.startdate, opt => opt.MapFrom(src => src.StartDate))
               .ForMember(dest => dest.enddate, opt => opt.MapFrom(src => src.EndDate))
               .ForMember(dest => dest.note, opt => opt.MapFrom(src => src.InnerComment))

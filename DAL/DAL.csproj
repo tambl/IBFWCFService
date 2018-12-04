@@ -136,6 +136,12 @@
     <Compile Include="Policy.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="PolicyContractPackage.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PolicyContractPackageService.cs">
+      <DependentUpon>DBModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="PolicyPaymentCoverAgentContract.cs">
       <DependentUpon>DBModel.tt</DependentUpon>
     </Compile>

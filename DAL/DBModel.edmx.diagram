@@ -147,6 +147,14 @@
         <AssociationConnector Association="IBFModel.FK_Service_Dictionary_PrintTranslateDictionaryId" />
         <AssociationConnector Association="IBFModel.FK_Service_Dictionary_TranslateDictionaryId" />
         <AssociationConnector Association="IBFModel.FK_PackageService_Service_ServiceId" />
+        <EntityTypeShape EntityType="IBFModel.PolicyContractPackage" Width="1.5" PointX="27.875" PointY="8.125" />
+        <EntityTypeShape EntityType="IBFModel.PolicyContractPackageService" Width="1.5" PointX="30.125" PointY="11.875" />
+        <AssociationConnector Association="IBFModel.FK_PolicyContractPackage_ContractPackage_ContractPackageId" />
+        <AssociationConnector Association="IBFModel.FK_PolicyContractPackageService_ContractPackageService_ContractPackageServiceId" />
+        <AssociationConnector Association="IBFModel.FK_PolicyContractPackage_Currency_CurrencyId" />
+        <AssociationConnector Association="IBFModel.FK_PolicyContractPackage_PolicyVersion_PolicyVersionId" />
+        <AssociationConnector Association="IBFModel.FK_PolicyContractPackageService_PolicyContractPackage_PolicyContractPackageId" />
+        <AssociationConnector Association="IBFModel.FK_PolicyContractPackageService_SubProduct_ProductId" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
