@@ -14,13 +14,15 @@ namespace IBFWCFService.Models
         [DataMember]
         public int id { get; set; }
         [DataMember]
+        public int parentid { get; set; }
+        [DataMember]
         public string name { get; set; }
         [DataMember]
-        public decimal limit { get; set; }
+        public decimal? limit { get; set; }
         [DataMember]
-        public decimal share { get; set; }
+        public decimal? share { get; set; }
         [DataMember]
-        public decimal left { get; set; }
+        public decimal? left { get; set; }
 
 
         //"id": 67546456,

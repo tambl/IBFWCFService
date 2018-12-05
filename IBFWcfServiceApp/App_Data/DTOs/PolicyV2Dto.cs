@@ -24,6 +24,9 @@ namespace IBFWCFService.Models
         public DateTime? canceldate { get; set; }
         [DataMember]
         public string note { get; set; }
+
+        [DataMember]
+        public int policyVersionId { get; set; }
     }
 
 }

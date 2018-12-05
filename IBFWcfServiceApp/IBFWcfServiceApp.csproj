@@ -116,6 +116,8 @@
     <Compile Include="App_Data\DTOs\AgentBrokerDto.cs" />
     <Compile Include="App_Data\DTOs\ContractDto.cs" />
     <Compile Include="App_Data\DTOs\PartnerDto.cs" />
+    <Compile Include="App_Data\DTOs\EmployeeReturnDataDto.cs" />
+    <Compile Include="App_Data\DTOs\PositionReturnDto.cs" />
     <Compile Include="App_Data\DTOs\ReturnDataDto.cs" />
     <Compile Include="App_Data\DTOs\PolicyV2Dto.cs" />
     <Compile Include="App_Data\DTOs\ServiceDto.cs" />

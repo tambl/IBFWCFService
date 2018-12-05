@@ -46,12 +46,12 @@ namespace IBFWcfServiceApp
         [OperationContract]
         [WebInvoke(Method = "GET", UriTemplate = "personell/", ResponseFormat = WebMessageFormat.Json)]
         //http://localhost:8732/IBFService.svc/personell/
-        List<EmployeeDto> GetEmployees();
+        EmployeeReturnDataDto GetEmployees();
 
         [OperationContract]
         [WebInvoke(Method = "GET", UriTemplate = "positions/", ResponseFormat = WebMessageFormat.Json)]
         //http://localhost:8732/IBFService.svc/positions/
-        List<PositionDto> GetPositions();
+        PositionReturnDto GetPositions();
 
         [OperationContract]
         [WebInvoke(Method = "GET", UriTemplate = "policyInfo/?policynumber={policynumber}&insuredidn={insuredidn}&insuredfname={insuredfname}&insuredlname={insuredlname}", ResponseFormat = WebMessageFormat.Json)]

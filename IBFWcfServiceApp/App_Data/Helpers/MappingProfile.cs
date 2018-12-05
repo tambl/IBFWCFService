@@ -128,7 +128,25 @@ namespace IBFWCFService.Helpers
                 }
                 else return (int?)null;
             }))
-            .ForMember(dest => dest.phone, opt => opt.MapFrom(src => src.Person.PersonContacts.FirstOrDefault(s => s.ContactTypeId == 2).Contact));
+            .ForMember(dest => dest.phone, opt => opt.ResolveUsing(src =>
+            {
+                if (src.Person.PersonContacts.Count > 0)
+                {
+                    if (src.Person.PersonContacts.Any(a => a.ContactTypeId == 2))
+                    {
+                        if (src.Person.PersonContacts.Any(a => a.IsDefault))
+                        {
+                            return src.Person.PersonContacts.FirstOrDefault(a => a.IsDefault && a.ContactTypeId == 2).Contact;
+                        }
+                        else
+                        {
+                            return src.Person.PersonContacts.FirstOrDefault(s => s.ContactTypeId == 2).Contact;
+                        }
+                    }
+                    else return "";
+                }
+                else return "";
+            }));
 
 
             CreateMap<Position, PositionDto>().ForMember(
@@ -140,25 +158,91 @@ namespace IBFWCFService.Helpers
               .ForMember(dest => dest.fname, opt => opt.MapFrom(src => src.FirstName))
               .ForMember(dest => dest.lname, opt => opt.MapFrom(src => src.Lastname))
               .ForMember(dest => dest.dob, opt => opt.MapFrom(src => src.BirthDate))
-              .ForMember(dest => dest.phone, opt => opt.MapFrom(src => src.PersonContacts.FirstOrDefault(s => s.ContactTypeId == 2).Contact));
-
-
-            CreateMap<PolicyVersion, PolicyV2Dto>()
-              .ForMember(dest => dest.num, opt => opt.MapFrom(src => src.Policy.PolicyNumber))
-              .ForMember(dest => dest.startdate, opt => opt.MapFrom(src => src.StartDate))
-              .ForMember(dest => dest.enddate, opt => opt.MapFrom(src => src.EndDate))
-              .ForMember(dest => dest.note, opt => opt.MapFrom(src => src.InnerComment))
-              .ForMember(dest => dest.status, opt => opt.MapFrom(src => src.PolicyStatu.Name))
-              .ForMember(dest => dest.package, opt => opt.MapFrom(src => src.Policy.ContractPackageService.ContractPackage.Name))//??sanaxavia
-              .ForMember(dest => dest.canceldate, opt => opt.ResolveUsing(src => {
-                  if (src.PolicyVersionStatusId==3)
+              .ForMember(dest => dest.phone, opt => opt.ResolveUsing(src =>
+              {
+                  if (src.PersonContacts.Count > 0)
                   {
-                      return src.StartDate;
-
+                      if (src.PersonContacts.Any(a => a.ContactTypeId == 2))
+                      {
+                          if (src.PersonContacts.Any(a => a.IsDefault))
+                          {
+                              return src.PersonContacts.FirstOrDefault(a => a.IsDefault && a.ContactTypeId == 2).Contact;
+                          }
+                          else
+                          {
+                              return src.PersonContacts.FirstOrDefault(s => s.ContactTypeId == 2).Contact;
+                          }
+                      }
+                      else return "";
                   }
-                  return null; 
-                  
-                  }));
+                  else return "";
+              }));
+
+
+            //CreateMap<PolicyVersion, PolicyV2Dto>()
+            //  .ForMember(dest => dest.num, opt => opt.MapFrom(src => src.Policy.PolicyNumber))
+            //  .ForMember(dest => dest.startdate, opt => opt.MapFrom(src => src.StartDate))
+            //  .ForMember(dest => dest.enddate, opt => opt.MapFrom(src => src.EndDate))
+            //  .ForMember(dest => dest.note, opt => opt.MapFrom(src => src.InnerComment))
+            //  .ForMember(dest => dest.status, opt => opt.MapFrom(src => src.PolicyStatu.Name))
+            //  .ForMember(dest => dest.package, opt => opt.ResolveUsing(src =>
+            //  {
+            //      return src.Policy.ContractPackageService.ContractPackage.Name;
+            //  }))
+            //  .ForMember(dest => dest.canceldate, opt => opt.ResolveUsing(src =>
+            //  {
+            //      if (src.PolicyVersionStatusId == 3)
+            //      {
+            //          return src.StartDate;
+
+            //      }
+            //      return null;
+
+            //  }));
+
+            CreateMap<PolicyContractPackageService, ServiceDto>()
+             .ForMember(dest => dest.id, opt => opt.MapFrom(src => src.Id))
+             .ForMember(dest => dest.name, opt => opt.ResolveUsing(res =>
+             {
+                 if (res.ProductId != null)
+                 {
+                     if (res.SubProduct.Dictionary != null && res.SubProduct.Dictionary.Translates.Count > 0)
+                     {
+                         var productname = res.SubProduct.Dictionary.Translates
+                             .FirstOrDefault(a => a.LanguageId == 1);
+                         if (productname != null)
+                         {
+                             return productname.TranslatedText;
+                         }
+
+                         return res.SubProduct.Name;
+                     }
+
+                     return res.SubProduct.Name;
+                 }
+
+                 if (res.ContractPackageService.ServiceId != null)
+                 {
+                     if (res.ContractPackageService.Service.Dictionary != null && res.ContractPackageService.Service.Dictionary.Translates.Count > 0)
+                     {
+
+                         var productname = res.ContractPackageService.Service.Dictionary.Translates.FirstOrDefault(a => a.LanguageId == 1);
+                         if (productname != null)
+                         {
+                             return productname.TranslatedText;
+                         }
+                         return res.ContractPackageService.Service.Name;
+                     }
+                     return res.ContractPackageService.Service.Name;
+
+                 }
+
+                 return string.Empty;
+             }))
+             .ForMember(dest => dest.limit, opt => opt.MapFrom(src => src.Limit))
+             .ForMember(dest => dest.left, opt => opt.MapFrom(res => res.Limit - res.SpentMoney - res.BlockedAmount))
+             .ForMember(dest => dest.share, opt => opt.MapFrom(src => src.PercentLimit))
+              .ForMember(dest => dest.parentid, opt => opt.MapFrom(src => src.ContractPackageServiceParentId));
 
 
         }

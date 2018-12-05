@@ -426,24 +426,30 @@ namespace IBFWcfServiceApp
             }
         }
 
-        public List<EmployeeDto> GetEmployees()
+        public EmployeeReturnDataDto GetEmployees()
         {
             MappingProfile.ConfigureMapper();
 
+            var returnData = new EmployeeReturnDataDto();
+            returnData.name = "personell";
             var persons = new List<EmployeeDto>();
             //var policy = new Policy();
 
             using (var dbContext = new IBFEntities())
             {
                 persons = dbContext.Employes.Where(w => !w.IsDelete && !w.IsHidden).Select(Mapper.Map<Employe, EmployeeDto>).ToList();
-                return persons;
+
+                returnData.personell = persons;
+                return returnData;
             }
         }
 
-        public List<PositionDto> GetPositions()
+        public PositionReturnDto GetPositions()
         {
             MappingProfile.ConfigureMapper();
 
+            var returnData = new PositionReturnDto();
+            returnData.name = "position";
 
             var positions = new List<PositionDto>();
             //var policy = new Policy();
@@ -451,7 +457,8 @@ namespace IBFWcfServiceApp
             using (var dbContext = new IBFEntities())
             {
                 positions = dbContext.Positions.Where(w => !w.IsDelete && !w.IsHidden).Select(Mapper.Map<Position, PositionDto>).ToList();
-                return positions;
+                returnData.positions = positions;
+                return returnData;
             }
         }
 
@@ -474,6 +481,7 @@ namespace IBFWcfServiceApp
         }
 
         public RerutnDataDto GetPolicyInfo(string policynumber, string insuredidn, string insuredfname, string insuredlname)
+
         {
             MappingProfile.ConfigureMapper();
             RerutnDataDto data = new RerutnDataDto();
@@ -486,6 +494,7 @@ namespace IBFWcfServiceApp
                 var policyTemp = (from p in dbContext.Policies
                                   join pv in dbContext.PolicyVersions on p.Id equals pv.PolicyId
                                   join curr in dbContext.Currencies on p.CurrencyId equals curr.Id
+
                                   join pvType in dbContext.PolicyVersionStatus on pv.PolicyVersionStatusId equals pvType.Id
                                   join product in dbContext.SubProducts on p.ProductId equals product.Id into producta
                                   from productl in producta.DefaultIfEmpty()
@@ -497,44 +506,65 @@ namespace IBFWcfServiceApp
                                   join beneficiary in dbContext.People on pv.BeneficiaryId equals beneficiary.Id into beneficiarya
                                   from beneficiaryl in beneficiarya.DefaultIfEmpty()
 
-                                  where !pv.IsHidden && !pv.IsDelete && //pv.PolicyStatusId == 3 &&
-                                 
+                                  where !pv.IsHidden && !pv.IsDelete && pv.IsActive &&
+                                   !p.IsHidden && !p.IsDelete &&
+                                  p.ProductId == 3 &&// სიცოცხლის დაზღვევა
                                   (!string.IsNullOrEmpty(policynumber) ? p.PolicyNumber == policynumber : 1 == 1)
-                                   && (!string.IsNullOrEmpty(insuredidn) ? clientl.PersonNo == insuredidn : 1 == 1)
-                                   && (!string.IsNullOrEmpty(insuredfname) ? clientl.FirstName == insuredfname : 1 == 1)
-                                   && (!string.IsNullOrEmpty(insuredlname) ? clientl.Lastname == insuredlname : 1 == 1)
+                                   && (!string.IsNullOrEmpty(insuredidn) ? beneficiaryl.PersonNo == insuredidn : 1 == 1)
+                                   && (!string.IsNullOrEmpty(insuredfname) ? beneficiaryl.FirstName == insuredfname : 1 == 1)
+                                   && (!string.IsNullOrEmpty(insuredlname) ? beneficiaryl.Lastname == insuredlname : 1 == 1)
 
                                   select new
                                   {
                                       PolicyId = p.Id,
                                       PolicyNumber = p.PolicyNumber,
-                                      // PolicyVersionId = pv.Id,
-                                      PolicyVersionIsActive = pv.IsActive,
+                                      PolicyVersionId = pv.Id,
+                                      //PolicyVersionIsActive = pv.IsActive,
                                       StartDate = pv.StartDate,
                                       EndDate = pv.EndDate,
-                                      PolicyCreateDate = p.CreateDate,
-                                      PolicyStatusId = pv.PolicyStatusId,
-                                      PolicyStatus = pv.PolicyStatu.Name,
-                                      PolicyVersionStatusId = pv.PolicyVersionStatusId,
-                                      CurrencyId = p.CurrencyId,
-                                      Currency = curr.Name,
+                                      // PolicyStatusId = pv.PolicyStatusId,
+                                      PolicyStatus = pv.StartDate <= DateTime.Now && pv.EndDate >= DateTime.Now ? pv.PolicyStatu.Name : "ვადაგასული",
+                                      //PolicyVersionStatusId = pv.PolicyVersionStatusId,
+                                      //CurrencyId = p.CurrencyId,
+                                      //Currency = curr.Name,
                                       note = pv.InnerComment,
-                                      canceldate = pv.PolicyVersionStatusId == 3 ? pv.StartDate : null,//??sanaxavia
+                                      canceldate = pv.PolicyVersionStatusId == 3 ? p.EndDate : null,//??sanaxavia
                                       //productl,
-                                      orgnl,
-                                      clientl,
+                                      organizartionName = orgnl.FirstName,
+                                      //clientl,
                                       beneficiaryl,
-                                      package = p.ContractPackageService.ContractPackage.Name,//??sanaxavia
+                                      package = pv.PolicyContractPackages.FirstOrDefault().Name
 
-                                      services = p.ContractPackageService.ContractPackage
+                                      //services = p.ContractPackageService.ContractPackage
                                   }).ToList();
+
+                //policyTemp = policyTemp.GroupBy(g => new
+                //{
+                //    g.PolicyId,
+                //    g.beneficiaryl,
+                //    g.canceldate,
+                //    g.EndDate,
+                //    g.note,
+                //    g.organizartionName,
+                //    g.package,
+                //    g.PolicyNumber,
+                //    g.PolicyStatus
+                //     ,
+                //    g.PolicyVersionId
+                //     ,
+                //    g.StartDate
+
+                //}).Select(s => s.FirstOrDefault())
+                //     .ToList();
 
                 for (int i = 0; i < policyTemp.Count; i++)
                 {
                     PolicyInfoDto policyInfo = new PolicyInfoDto();
 
                     policyInfo.partner = Mapper.Map<PartnerDto>(policyTemp[i].beneficiaryl);
-                    policyInfo.partner.insurer = policyTemp[i].orgnl.FirstName;
+                    policyInfo.partner.insurer = policyTemp[i].organizartionName;
+
+                    policyInfo.services = GetPolicyLimits(policyTemp[i].PolicyVersionId);
 
                     policyInfo.policy = new PolicyV2Dto()
                     {
@@ -544,17 +574,37 @@ namespace IBFWcfServiceApp
                         startdate = policyTemp[i].StartDate,
                         enddate = policyTemp[i].EndDate,
                         package = policyTemp[i].package,
-                        status = policyTemp[i].PolicyStatus
+                        status = policyTemp[i].PolicyStatus,
+                        policyVersionId = policyTemp[i].PolicyVersionId
                     };
-                    
+
                     data.maindata.Add(policyInfo);
                 }
 
-                data.maindata.GroupBy(g => new {  g.partner, g.policy, g.services }).Select(s => s.FirstOrDefault())
-                         .ToList(); ;
+
 
                 return data;
             }
         }
+
+
+        public List<ServiceDto> GetPolicyLimits(int versionId)
+        {
+            List<PolicyContractPackageService> data;
+            MappingProfile.ConfigureMapper();
+
+
+            using (var dbContext = new IBFEntities())
+            {
+                data = dbContext.PolicyContractPackageServices.Where(w => w.ProductId == null && w.PolicyContractPackage.ContractPackage.ContractPackageServices.Any(a => a.ProductId == null && !a.IsCancelled) && w.PolicyContractPackage.PolicyVersionId == versionId).ToList();
+
+                var mapData = Mapper.Map<List<ServiceDto>>(data);
+                return mapData;
+
+            }
+
+
+        }
+
     }
 }
