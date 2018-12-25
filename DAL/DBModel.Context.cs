@@ -66,5 +66,8 @@ namespace DAL
         public virtual DbSet<Service> Services { get; set; }
         public virtual DbSet<PolicyContractPackage> PolicyContractPackages { get; set; }
         public virtual DbSet<PolicyContractPackageService> PolicyContractPackageServices { get; set; }
+        public virtual DbSet<DivisionPosition> DivisionPositions { get; set; }
+        public virtual DbSet<HumanResourcePosition> HumanResourcePositions { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
 }

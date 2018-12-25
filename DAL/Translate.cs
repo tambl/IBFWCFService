@@ -26,5 +26,7 @@ namespace DAL
         public Nullable<int> TranslateDictionaryId { get; set; }
     
         public virtual Dictionary Dictionary { get; set; }
+        public virtual User User { get; set; }
+        public virtual User User1 { get; set; }
     }
 }

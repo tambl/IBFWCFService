@@ -47,5 +47,7 @@ namespace DAL
         public virtual PackageService PackageService2 { get; set; }
         public virtual SubProduct SubProduct { get; set; }
         public virtual Service Service { get; set; }
+        public virtual User User { get; set; }
+        public virtual User User1 { get; set; }
     }
 }

@@ -35,5 +35,7 @@ namespace DAL
         public virtual ContractCommand ContractCommand { get; set; }
         public virtual Command Command { get; set; }
         public virtual Employe Employe { get; set; }
+        public virtual User User { get; set; }
+        public virtual User User1 { get; set; }
     }
 }

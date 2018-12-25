@@ -26,5 +26,7 @@ namespace DAL
     
         public virtual Person Person { get; set; }
         public virtual Position Position { get; set; }
+        public virtual User User { get; set; }
+        public virtual User User1 { get; set; }
     }
 }

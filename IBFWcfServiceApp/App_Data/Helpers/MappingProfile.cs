@@ -122,11 +122,12 @@ namespace IBFWCFService.Helpers
             .ForMember(dest => dest.fname, opt => opt.MapFrom(src => src.Person.FirstName))
             .ForMember(dest => dest.positionid, opt => opt.ResolveUsing(src =>
             {
-                if (src.Person.PersonPositions.Count > 0)
-                {
-                    return src.Person.PersonPositions.FirstOrDefault().PositionId;
-                }
-                else return (int?)null;
+                //if (src.Person.PersonPositions.Count > 0)
+                //{
+                //    return src.Person.PersonPositions.FirstOrDefault().PositionId;
+                //}
+                return src.HumanResourcePositionId;
+
             }))
             .ForMember(dest => dest.phone, opt => opt.ResolveUsing(src =>
             {
@@ -146,10 +147,19 @@ namespace IBFWCFService.Helpers
                     else return "";
                 }
                 else return "";
-            }));
+            }))
+              .ForMember(dest => dest.loginid, opt => opt.ResolveUsing(src =>
+              {
+
+                  if (src.Person.User != null)
+                  {
+                      return src.Person.User.UserName;
+                  }
+                  else return null;
+              }));
 
 
-            CreateMap<Position, PositionDto>().ForMember(
+            CreateMap<HumanResourcePosition, PositionDto>().ForMember(
               dest => dest.positionid, opt => opt.MapFrom(src => src.Id))
               .ForMember(dest => dest.name, opt => opt.MapFrom(src => src.Name));
 

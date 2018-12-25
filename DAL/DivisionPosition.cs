@@ -12,18 +12,19 @@ namespace DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class CurrencyRate
+    public partial class DivisionPosition
     {
         public int Id { get; set; }
-        public int CurrencyId { get; set; }
-        public decimal Rate { get; set; }
-        public System.DateTime RateDate { get; set; }
-        public System.DateTime CreateDate { get; set; }
-        public Nullable<System.DateTime> LastModifiedDate { get; set; }
-        public Nullable<int> LastModifiedUserId { get; set; }
+        public int DivisionId { get; set; }
+        public int PositionId { get; set; }
+        public bool IsDelete { get; set; }
+        public bool IsHidden { get; set; }
         public Nullable<int> CreateUserId { get; set; }
+        public System.DateTime CreateDate { get; set; }
+        public Nullable<int> LastModifiedUserId { get; set; }
+        public Nullable<System.DateTime> LastModifiedDate { get; set; }
     
-        public virtual Currency Currency { get; set; }
+        public virtual HumanResourcePosition HumanResourcePosition { get; set; }
         public virtual User User { get; set; }
         public virtual User User1 { get; set; }
     }

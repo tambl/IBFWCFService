@@ -69,5 +69,7 @@ namespace DAL
         public virtual ICollection<Transfer> Transfer11 { get; set; }
         public virtual Transfer Transfer3 { get; set; }
         public virtual IncomingOrderTable IncomingOrderTable { get; set; }
+        public virtual User User { get; set; }
+        public virtual User User1 { get; set; }
     }
 }

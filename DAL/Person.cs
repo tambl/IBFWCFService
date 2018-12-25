@@ -33,6 +33,7 @@ namespace DAL
             this.Employes = new HashSet<Employe>();
             this.PersonContacts = new HashSet<PersonContact>();
             this.PersonPositions = new HashSet<PersonPosition>();
+            this.Users = new HashSet<User>();
         }
     
         public int Id { get; set; }
@@ -117,5 +118,10 @@ namespace DAL
         public virtual ICollection<PersonContact> PersonContacts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PersonPosition> PersonPositions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User> Users { get; set; }
+        public virtual User User { get; set; }
+        public virtual User User1 { get; set; }
+        public virtual User User2 { get; set; }
     }
 }

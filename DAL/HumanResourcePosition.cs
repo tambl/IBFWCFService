@@ -12,27 +12,32 @@ namespace DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class ProductType
+    public partial class HumanResourcePosition
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ProductType()
+        public HumanResourcePosition()
         {
-            this.Products = new HashSet<Product>();
+            this.DivisionPositions = new HashSet<DivisionPosition>();
+            this.Employes = new HashSet<Employe>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
+        public System.DateTime From { get; set; }
+        public Nullable<System.DateTime> End { get; set; }
         public bool IsDelete { get; set; }
         public bool IsHidden { get; set; }
-        public Nullable<int> CreateUserid { get; set; }
         public System.DateTime CreateDate { get; set; }
-        public Nullable<int> LastModifiedUserId { get; set; }
         public Nullable<System.DateTime> LastModifiedDate { get; set; }
+        public Nullable<int> LastModifiedUserId { get; set; }
+        public Nullable<int> CreateUserId { get; set; }
         public Nullable<int> TranslateDictionaryId { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Product> Products { get; set; }
         public virtual Dictionary Dictionary { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DivisionPosition> DivisionPositions { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Employe> Employes { get; set; }
         public virtual User User { get; set; }
         public virtual User User1 { get; set; }
     }

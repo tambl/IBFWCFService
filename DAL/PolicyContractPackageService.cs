@@ -35,5 +35,6 @@ namespace DAL
         public virtual ContractPackageService ContractPackageService { get; set; }
         public virtual PolicyContractPackage PolicyContractPackage { get; set; }
         public virtual SubProduct SubProduct { get; set; }
+        public virtual User User { get; set; }
     }
 }

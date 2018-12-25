@@ -32,5 +32,7 @@ namespace DAL
     
         public virtual ContactType ContactType { get; set; }
         public virtual Person Person { get; set; }
+        public virtual User User { get; set; }
+        public virtual User User1 { get; set; }
     }
 }

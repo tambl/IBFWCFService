@@ -35,6 +35,7 @@ namespace DAL
             this.Packages = new HashSet<Package>();
             this.Services = new HashSet<Service>();
             this.Services1 = new HashSet<Service>();
+            this.HumanResourcePositions = new HashSet<HumanResourcePosition>();
         }
     
         public int Id { get; set; }
@@ -86,5 +87,9 @@ namespace DAL
         public virtual ICollection<Service> Services { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Service> Services1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HumanResourcePosition> HumanResourcePositions { get; set; }
+        public virtual User User { get; set; }
+        public virtual User User1 { get; set; }
     }
 }

@@ -31,5 +31,7 @@ namespace DAL
     
         public virtual ContractAgentContract ContractAgentContract { get; set; }
         public virtual PolicyVersion PolicyVersion { get; set; }
+        public virtual User User { get; set; }
+        public virtual User User1 { get; set; }
     }
 }

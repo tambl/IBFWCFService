@@ -30,5 +30,7 @@ namespace DAL
     
         public virtual Person Person { get; set; }
         public virtual PolicyReinsurance PolicyReinsurance { get; set; }
+        public virtual User User { get; set; }
+        public virtual User User1 { get; set; }
     }
 }

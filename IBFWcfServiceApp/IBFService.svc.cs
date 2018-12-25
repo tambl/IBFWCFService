@@ -456,7 +456,7 @@ namespace IBFWcfServiceApp
 
             using (var dbContext = new IBFEntities())
             {
-                positions = dbContext.Positions.Where(w => !w.IsDelete && !w.IsHidden).Select(Mapper.Map<Position, PositionDto>).ToList();
+                positions = dbContext.HumanResourcePositions.Where(w => !w.IsDelete && !w.IsHidden).Select(Mapper.Map<HumanResourcePosition, PositionDto>).ToList();
                 returnData.positions = positions;
                 return returnData;
             }

@@ -74,5 +74,9 @@ namespace DAL
         public virtual ContractPackage ContractPackage { get; set; }
         public virtual ContractPackage ContractPackage1 { get; set; }
         public virtual ContractPackageService ContractPackageService { get; set; }
+        public virtual User User { get; set; }
+        public virtual User User1 { get; set; }
+        public virtual User User2 { get; set; }
+        public virtual User User3 { get; set; }
     }
 }
