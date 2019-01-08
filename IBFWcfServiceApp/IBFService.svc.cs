@@ -511,8 +511,8 @@ namespace IBFWcfServiceApp
                                   p.ProductId == 3 &&// სიცოცხლის დაზღვევა
                                   (!string.IsNullOrEmpty(policynumber) ? p.PolicyNumber == policynumber : 1 == 1)
                                    && (!string.IsNullOrEmpty(insuredidn) ? beneficiaryl.PersonNo == insuredidn : 1 == 1)
-                                   && (!string.IsNullOrEmpty(insuredfname) ? beneficiaryl.FirstName == insuredfname : 1 == 1)
-                                   && (!string.IsNullOrEmpty(insuredlname) ? beneficiaryl.Lastname == insuredlname : 1 == 1)
+                                   && (!string.IsNullOrEmpty(insuredfname) ? beneficiaryl.FirstName.Contains(insuredfname) : 1 == 1)
+                                   && (!string.IsNullOrEmpty(insuredlname) ? beneficiaryl.Lastname.Contains(insuredlname) : 1 == 1)
 
                                   select new
                                   {
