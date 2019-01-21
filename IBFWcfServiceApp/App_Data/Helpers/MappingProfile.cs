@@ -135,7 +135,7 @@ namespace IBFWCFService.Helpers
                 {
                     if (src.Person.PersonContacts.Any(a => a.ContactTypeId == 2))
                     {
-                        if (src.Person.PersonContacts.Any(a => a.IsDefault))
+                        if (src.Person.PersonContacts.Any(a => a.IsDefault && a.ContactTypeId == 2))
                         {
                             return src.Person.PersonContacts.FirstOrDefault(a => a.IsDefault && a.ContactTypeId == 2).Contact;
                         }
@@ -174,13 +174,13 @@ namespace IBFWCFService.Helpers
                   {
                       if (src.PersonContacts.Any(a => a.ContactTypeId == 2))
                       {
-                          if (src.PersonContacts.Any(a => a.IsDefault))
+                          if (src.PersonContacts.Any(a => a.IsDefault && a.ContactTypeId == 2))
                           {
-                              return src.PersonContacts.FirstOrDefault(a => a.IsDefault && a.ContactTypeId == 2).Contact;
+                              return src.PersonContacts.FirstOrDefault(a => a.IsDefault && a.ContactTypeId == 2)?.Contact;
                           }
                           else
                           {
-                              return src.PersonContacts.FirstOrDefault(s => s.ContactTypeId == 2).Contact;
+                              return src.PersonContacts.FirstOrDefault(s => s.ContactTypeId == 2)?.Contact;
                           }
                       }
                       else return "";
